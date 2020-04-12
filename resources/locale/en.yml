@@ -1,0 +1,12 @@
+fof-discussion-language:
+  forum:
+    index_language:
+      any: Any Language
+
+  admin:
+    settings:
+      title: FriendsOfFlarum Discussion Language
+
+  api:
+    discussion:
+      validation_error: You must select your discussion's language.
