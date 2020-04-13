@@ -5,12 +5,12 @@ import Select from 'flarum/components/Select';
 
 export default () => {
     extend(DiscussionComposer.prototype, 'headerItems', function (items) {
-        const languages = app.store.all('discussion-languages');
+        const languages = app.store.all('discussion-languages').sort((a, b) => a.code().toLowerCase() > b.code().toLowerCase());
 
         items.add(
             'language',
             Select.component({
-                value: this.language && this.language.code(),
+                value: (this.language && this.language.code()) || languages[0].code(),
                 options: languages.reduce((o, lang) => {
                     const code = lang.code();
 
