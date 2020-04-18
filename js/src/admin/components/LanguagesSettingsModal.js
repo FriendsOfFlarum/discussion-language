@@ -48,7 +48,6 @@ export default class LanguagesSettingsModal extends Modal {
                                     value={value || value === '' ? value : language.code()}
                                     placeholder={language.code()}
                                     oninput={m.withAttr('value', (val) => (this.codes[id] = val))}
-                                    onchange={this.update.bind(this, language)}
                                     disabled={updating || deleting}
                                 />
                                 {Button.component({
@@ -60,6 +59,18 @@ export default class LanguagesSettingsModal extends Modal {
                             </div>
                         );
                     })}
+                </div>
+
+                <div className="Form-group">
+                    <Button
+                        type="submit"
+                        className="Button Button--primary"
+                        loading={this.loading}
+                        disabled={!this.changed()}
+                        onclick={this.save.bind(this)}
+                    >
+                        {app.translator.trans('core.admin.settings.submit_button')}
+                    </Button>
                 </div>
             </div>,
         ];
@@ -92,20 +103,24 @@ export default class LanguagesSettingsModal extends Modal {
             .catch(() => (this.adding = false));
     }
 
-    update(language) {
-        this.updating[language.id()] = true;
+    save() {
+        this.loading = true;
 
-        language
-            .save({ code: this.codes[language.id()] })
-            .then(
-                () => {},
-                () => {}
-            )
-            .then(() => {
-                this.updating[language.id()] = false;
+        Promise.all(
+            this.dirty().map((language) => {
+                this.updating[language.id()] = true;
 
-                m.redraw();
-            });
+                return language
+                    .save({ code: this.codes[language.id()] })
+                    .then(
+                        () => {},
+                        () => {}
+                    )
+                    .then(() => {
+                        this.updating[language.id()] = false;
+                    });
+            })
+        ).then(this.hide.bind(this), this.loaded.bind(this));
     }
 
     remove(language) {
@@ -121,5 +136,13 @@ export default class LanguagesSettingsModal extends Modal {
                 delete this.deleting[language.id()];
                 m.redraw();
             });
+    }
+
+    dirty() {
+        return app.store.all('discussion-languages').filter((l) => this.codes[l.id()] && this.codes[l.id()] !== l.code());
+    }
+
+    changed() {
+        return this.dirty().length;
     }
 }
