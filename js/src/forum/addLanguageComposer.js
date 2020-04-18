@@ -3,9 +3,11 @@ import DiscussionComposer from 'flarum/components/DiscussionComposer';
 import Select from 'flarum/components/Select';
 // import iso from 'iso-639-1';
 
+const sort = (a, b) => a.code().toLowerCase() > b.code().toLowerCase();
+
 export default () => {
     extend(DiscussionComposer.prototype, 'headerItems', function (items) {
-        const languages = app.store.all('discussion-languages').sort((a, b) => a.code().toLowerCase() > b.code().toLowerCase());
+        const languages = app.store.all('discussion-languages').sort(sort);
 
         items.add(
             'language',
@@ -27,6 +29,6 @@ export default () => {
     extend(DiscussionComposer.prototype, 'data', function (data) {
         data.relationships = data.relationships || {};
 
-        if (this.language) data.relationships.language = this.language;
+        data.relationships.language = this.language || app.store.all('discussion-languages').sort(sort)[0];
     });
 };
