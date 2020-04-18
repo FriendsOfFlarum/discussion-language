@@ -1,8 +1,15 @@
 <?php
 
+/*
+ * This file is part of fof/discussion-language.
+ *
+ * Copyright (c) 2020 FriendsOfFlarum.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
 
 namespace FoF\DiscussionLanguage\Listeners;
-
 
 use Flarum\Api\Controller;
 use Flarum\Api\Event\Serializing;
@@ -29,7 +36,8 @@ class AddRelationships
         $events->listen(Serializing::class, [$this, 'addPermission']);
     }
 
-    public function getRelationship(GetModelRelationship $event) {
+    public function getRelationship(GetModelRelationship $event)
+    {
         if ($event->isRelationship(Discussion::class, 'language')) {
             return $event->model->hasOne(DiscussionLanguage::class, 'id', 'language_id');
         }

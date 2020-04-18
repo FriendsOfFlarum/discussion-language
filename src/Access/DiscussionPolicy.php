@@ -1,8 +1,15 @@
 <?php
 
+/*
+ * This file is part of fof/discussion-language.
+ *
+ * Copyright (c) 2020 FriendsOfFlarum.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
 
 namespace FoF\DiscussionLanguage\Access;
-
 
 use Carbon\Carbon;
 use Flarum\Discussion\Discussion;
@@ -27,13 +34,14 @@ class DiscussionPolicy extends AbstractPolicy
         $this->settings = $settings;
     }
 
-    public function changeLanguage(User $actor, Discussion $discussion) {
+    public function changeLanguage(User $actor, Discussion $discussion)
+    {
         if ($discussion->user_id == $actor->id && $actor->can('reply', $discussion)) {
             $allowEditLanguage = $this->settings->get('fof-discussion-language.allow_language_change');
 
             if ($allowEditLanguage === '-1'
                 || ($allowEditLanguage === 'reply' && $discussion->participant_count <= 1)
-                || (is_numeric($allowEditLanguage) && $discussion->created_at->diffInMinutes(new Carbon) < $allowEditLanguage)
+                || (is_numeric($allowEditLanguage) && $discussion->created_at->diffInMinutes(new Carbon()) < $allowEditLanguage)
             ) {
                 return true;
             }

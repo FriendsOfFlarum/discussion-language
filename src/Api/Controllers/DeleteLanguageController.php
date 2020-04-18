@@ -1,8 +1,15 @@
 <?php
 
+/*
+ * This file is part of fof/discussion-language.
+ *
+ * Copyright (c) 2020 FriendsOfFlarum.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
 
 namespace FoF\DiscussionLanguage\Api\Controllers;
-
 
 use Flarum\Api\Controller\AbstractDeleteController;
 use FoF\DiscussionLanguage\Commands\DeleteLanguageCommand;
@@ -26,7 +33,7 @@ class DeleteLanguageController extends AbstractDeleteController
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function delete(ServerRequestInterface $request)
     {

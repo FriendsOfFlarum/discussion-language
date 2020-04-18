@@ -1,8 +1,15 @@
 <?php
 
+/*
+ * This file is part of fof/discussion-language.
+ *
+ * Copyright (c) 2020 FriendsOfFlarum.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
 
 namespace FoF\DiscussionLanguage\Listeners;
-
 
 use Flarum\Discussion\Event\Saving;
 use Flarum\User\AssertPermissionTrait;
@@ -30,7 +37,7 @@ class AddDiscussionLanguage
         if (!$event->discussion->exists || $languageId) {
             $this->assertCan($event->actor, 'changeLanguage', $event->discussion);
 
-            $this->validator->assertValid([ 'language' => $languageId ]);
+            $this->validator->assertValid(['language' => $languageId]);
 
             $event->discussion->language_id = $languageId;
         }
