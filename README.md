@@ -12,6 +12,8 @@ Use [Bazaar](https://discuss.flarum.org/d/5151-flagrow-bazaar-the-extension-mark
 composer require fof/discussion-language
 ```
 
+Enable this extension **before** `flarum/tags`.
+
 ### Updating
 
 ```sh
