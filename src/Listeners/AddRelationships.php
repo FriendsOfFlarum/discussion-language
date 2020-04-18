@@ -4,8 +4,8 @@
 namespace FoF\DiscussionLanguage\Listeners;
 
 
-use Flarum\Api\Controller\ListDiscussionsController;
-use Flarum\Api\Controller\ShowForumController;
+use Flarum\Api\Controller;
+use Flarum\Api\Event\Serializing;
 use Flarum\Api\Event\WillGetData;
 use Flarum\Api\Event\WillSerializeData;
 use Flarum\Api\Serializer\DiscussionSerializer;
@@ -25,6 +25,8 @@ class AddRelationships
         $events->listen(GetApiRelationship::class, [$this, 'getApiRelationship']);
         $events->listen(WillSerializeData::class, [$this, 'loadApiRelationship']);
         $events->listen(WillGetData::class, [$this, 'includeRelationship']);
+
+        $events->listen(Serializing::class, [$this, 'addPermission']);
     }
 
     public function getRelationship(GetModelRelationship $event) {
@@ -50,19 +52,28 @@ class AddRelationships
         // relationship to the /api endpoint. Since the Forum model
         // doesn't actually have a tags relationship, we will manually load and
         // assign the tags data to it using an event listener.
-        if ($event->isController(ShowForumController::class)) {
+        if ($event->isController(Controller\ShowForumController::class)) {
             $event->data['discussionLanguages'] = DiscussionLanguage::get();
         }
     }
 
     public function includeRelationship(WillGetData $event)
     {
-        if ($event->isController(ShowForumController::class)) {
+        if ($event->isController(Controller\ShowForumController::class)) {
             $event->addInclude(['discussionLanguages']);
         }
 
-        if ($event->isController(ListDiscussionsController::class)) {
+        if ($event->isController(Controller\ListDiscussionsController::class)
+            || $event->isController(Controller\ShowDiscussionController::class)
+            || $event->isController(Controller\CreateDiscussionController::class)) {
             $event->addInclude(['language']);
+        }
+    }
+
+    public function addPermission(Serializing $event)
+    {
+        if ($event->isSerializer(DiscussionSerializer::class)) {
+            $event->attributes['canChangeLanguage'] = $event->actor->can('changeLanguage', $event->model);
         }
     }
 }

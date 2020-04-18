@@ -1,12 +1,25 @@
 fof-discussion-language:
   forum:
+    discussion_controls:
+      change_language_button: Language
+
     index_language:
       any: Any Language
+
+    change_language:
+      edit_title: Editing Language for {title}
+      title: Editing Language
+
+      submit_button: => core.ref.save_changes
 
   admin:
     settings:
       title: FriendsOfFlarum Discussion Language
 
+    permissions:
+      allow_change_language_label: Allow language editing
+
   api:
     discussion:
       validation_error: You must select your discussion's language.
+

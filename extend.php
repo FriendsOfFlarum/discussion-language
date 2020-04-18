@@ -32,10 +32,12 @@ return [
         ->add(Middleware\AddLanguageFilter::class),
     function (Dispatcher $events) {
         $events->subscribe(Listeners\AddRelationships::class);
-        $events->listen(Saving::class, Listeners\ValidateDiscussion::class);
+        $events->listen(Saving::class, Listeners\AddDiscussionLanguage::class);
 
         $events->listen(ConfigureDiscussionGambits::class, function (ConfigureDiscussionGambits $event) {
             $event->gambits->add(Gambit\LanguageGambit::class);
         });
+
+        $events->subscribe(Access\DiscussionPolicy::class);
     }
 ];
