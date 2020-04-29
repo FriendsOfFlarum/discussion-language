@@ -25,7 +25,7 @@ class DiscussionLanguageSerializer extends AbstractSerializer
     protected function getDefaultAttributes($model)
     {
         return [
-            'code' => $model->code,
+            'code'    => $model->code,
             'country' => $model->country,
         ];
     }

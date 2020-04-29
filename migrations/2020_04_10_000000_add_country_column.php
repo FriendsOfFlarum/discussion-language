@@ -12,5 +12,5 @@
 use Flarum\Database\Migration;
 
 return Migration::addColumns('discussion_languages', [
-   'country' => ['string', 'length' => 2, 'nullable']
+    'country' => ['string', 'length' => 2, 'nullable'],
 ]);
