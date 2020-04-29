@@ -17,6 +17,7 @@ use Flarum\Discussion\Discussion;
 /**
  * @property $id string
  * @property $code string
+ * @property $country string
  */
 class DiscussionLanguage extends AbstractModel
 {

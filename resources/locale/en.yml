@@ -16,6 +16,8 @@ fof-discussion-language:
     settings:
       title: FriendsOfFlarum Discussion Language
 
+      native_label: Use native language names
+
     permissions:
       allow_change_language_label: Allow language editing
 

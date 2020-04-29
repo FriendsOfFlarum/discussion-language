@@ -26,6 +26,7 @@ class DiscussionLanguageSerializer extends AbstractSerializer
     {
         return [
             'code' => $model->code,
+            'country' => $model->country,
         ];
     }
 

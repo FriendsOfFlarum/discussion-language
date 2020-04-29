@@ -46,6 +46,7 @@ class CreateLanguageCommandHandler
 
         $discussionLanguage = new DiscussionLanguage();
         $discussionLanguage->code = Arr::get($data, 'code');
+        $discussionLanguage->country = Arr::get($data, 'country');
 
         $this->validator->assertValid($discussionLanguage->getAttributes());
 

@@ -1,7 +1,6 @@
 import { extend } from 'flarum/extend';
 import DiscussionComposer from 'flarum/components/DiscussionComposer';
-import Select from 'flarum/components/Select';
-// import iso from 'iso-639-1';
+import LanguageDropdown from './components/LanguageDropdown';
 
 const sort = (a, b) => a.code().toLowerCase() > b.code().toLowerCase();
 
@@ -11,16 +10,9 @@ export default () => {
 
         items.add(
             'language',
-            Select.component({
-                value: (this.language && this.language.code()) || languages[0].code(),
-                options: languages.reduce((o, lang) => {
-                    const code = lang.code();
-
-                    o[code] = code;
-
-                    return o;
-                }, {}),
-                onchange: (value) => (this.language = app.store.getBy('discussion-languages', 'code', value)),
+            LanguageDropdown.component({
+                selected: (this.language && this.language.code()) || languages[0].code(),
+                onclick: (key) => (this.language = app.store.getBy('discussion-languages', 'code', key)),
             }),
             20
         );

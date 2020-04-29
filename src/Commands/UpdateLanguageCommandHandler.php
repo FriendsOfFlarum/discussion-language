@@ -50,6 +50,10 @@ class UpdateLanguageCommandHandler
             $discussionLanguage->code = Arr::get($data, 'code');
         }
 
+        if (Arr::has($data, 'country')) {
+            $discussionLanguage->country = Arr::get($data, 'country');
+        }
+
         $this->validator->assertValid($discussionLanguage->getDirty());
 
         $discussionLanguage->save();

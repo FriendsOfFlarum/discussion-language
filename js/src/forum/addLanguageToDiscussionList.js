@@ -7,6 +7,11 @@ import DiscussionListItem from 'flarum/components/DiscussionListItem';
 import Dropdown from 'flarum/components/Dropdown';
 import Button from 'flarum/components/Button';
 
+import { getName as getLanguageName } from '../common/utils/locales';
+import flag from '../common/utils/flag';
+import isNative from './helpers/isNative';
+import LanguageDropdown from './components/LanguageDropdown';
+
 const addLanguage = function (items) {
     const language = this.props.discussion.language();
 
@@ -15,8 +20,8 @@ const addLanguage = function (items) {
     items.add(
         'discussion-language',
         <span>
-            <i className="fas fa-globe" />
-            <code>{language.code()}</code>
+            {flag(language.country()) || <i className="fas fa-globe" />}
+            <code>{getLanguageName(language.code(), isNative())}</code>
         </span>,
         5
     );
@@ -37,39 +42,20 @@ export default () => {
     extend(IndexPage.prototype, 'stickyParams', (params) => (params.language = m.route.param('language')));
 
     extend(IndexPage.prototype, 'viewItems', function (items) {
-        const languages = app.store.all('discussion-languages');
-        const options = languages.reduce(
-            (o, lang) => {
-                o[lang.code()] = lang.code();
-
-                return o;
-            },
-            { any: app.translator.trans('fof-discussion-language.forum.index_language.any') }
-        );
-
         items.add(
             'language',
-            Dropdown.component({
-                buttonClassName: 'Button',
-                label: options[this.params().language] || options.any,
-                children: Object.keys(options).map((key) => {
-                    const selected = this.params().language || 'any';
-                    const active = key === selected;
+            LanguageDropdown.component({
+                extra: { any: app.translator.trans('fof-discussion-language.forum.index_language.any') },
+                default: 'any',
+                onclick: (key) => {
+                    const params = this.params();
 
-                    return Button.component({
-                        children: options[key],
-                        icon: active ? 'fas fa-check' : true,
-                        onclick: () => {
-                            const params = this.params();
+                    if (key === 'any') delete params.language;
+                    else params.language = key;
 
-                            if (key === 'any') delete params.language;
-                            else params.language = key;
-
-                            m.route(app.route(this.props.routeName, params));
-                        },
-                        active: active,
-                    });
-                }),
+                    m.route(app.route(this.props.routeName, params));
+                },
+                selected: this.params().language,
             })
         );
     });

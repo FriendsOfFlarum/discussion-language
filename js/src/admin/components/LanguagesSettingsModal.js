@@ -1,6 +1,13 @@
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
+import Select from 'flarum/components/Select';
+import Switch from 'flarum/components/Switch';
 import icon from 'flarum/helpers/icon';
+import saveSettings from 'flarum/utils/saveSettings';
+
+import getLocales from '../../common/utils/locales';
+import { default as countryData, getCountries } from '../../common/utils/countries';
+import flag from '../../common/utils/flag';
 
 export default class LanguagesSettingsModal extends Modal {
     init() {
@@ -10,7 +17,13 @@ export default class LanguagesSettingsModal extends Modal {
         this.deleting = {};
 
         this.codes = {};
+        this.countries = {};
+
         this.newLocale = m.prop('');
+        this.newCountry = m.prop('');
+
+        this.nativeKey = 'fof-discussion-language.native';
+        this.native = app.data.settings[this.nativeKey];
     }
 
     className() {
@@ -22,15 +35,37 @@ export default class LanguagesSettingsModal extends Modal {
     }
 
     content() {
+        const locales = getLocales(this.native);
+        const countries = getCountries(this.native);
+
         return [
             <div className="Modal-body">
+                <div className="Form-group">
+                    {Switch.component({
+                        state: this.native,
+                        onchange: (val) => (this.native = val),
+                        children: app.translator.trans('fof-discussion-language.admin.settings.native_label'),
+                    })}
+                </div>
+
                 <div className="Form-group flex">
-                    <input className="FormControl" bidi={this.newLocale} onkeydown={this.onkeydown.bind(this)} />
+                    {Select.component({
+                        onchange: this.newLocale,
+                        value: this.newLocale(),
+                        options: locales,
+                    })}
+
+                    {Select.component({
+                        onchange: this.newCountry,
+                        value: this.newCountry(),
+                        options: countries,
+                    })}
+
                     {Button.component({
                         className: 'Button Button--primary',
                         children: icon(this.adding ? 'fas fa-spinner fa-spin' : 'fas fa-plus'),
                         onclick: this.add.bind(this),
-                        disabled: !this.newLocale() || this.adding,
+                        disabled: !this.newLocale() || !this.newCountry() || this.adding,
                     })}
                 </div>
 
@@ -39,17 +74,27 @@ export default class LanguagesSettingsModal extends Modal {
                         const id = language.id();
                         const updating = this.updating[id];
                         const deleting = this.deleting[id];
-                        const value = this.codes[id];
+
+                        const country = this.countries[id] || language.country();
 
                         return (
                             <div className="flex">
-                                <input
-                                    className="FormControl"
-                                    value={value || value === '' ? value : language.code()}
-                                    placeholder={language.code()}
-                                    oninput={m.withAttr('value', (val) => (this.codes[id] = val))}
-                                    disabled={updating || deleting}
-                                />
+                                {Select.component({
+                                    onchange: (val) => (this.codes[id] = val),
+                                    value: this.codes[id] || language.code(),
+                                    options: locales,
+                                    disabled: updating || deleting,
+                                })}
+
+                                {Select.component({
+                                    onchange: (val) => (this.countries[id] = val),
+                                    value: country,
+                                    options: countries,
+                                    disabled: updating || deleting,
+                                })}
+
+                                {flag(country)}
+
                                 {Button.component({
                                     className: `Button Button--danger`,
                                     children: icon(deleting ? 'fas fa-spinner fa-spin' : 'fas fa-times'),
@@ -89,10 +134,11 @@ export default class LanguagesSettingsModal extends Modal {
         this.adding = true;
 
         const code = this.newLocale();
+        const country = this.newCountry();
         const language = app.store.createRecord('discussion-languages');
 
         language
-            .save({ code })
+            .save({ code, country })
             .then(() => {
                 this.newLocale('');
 
@@ -106,21 +152,24 @@ export default class LanguagesSettingsModal extends Modal {
     save() {
         this.loading = true;
 
-        Promise.all(
-            this.dirty().map((language) => {
-                this.updating[language.id()] = true;
+        Promise.all([
+            ...this.dirty().map((language) => {
+                const id = language.id();
+
+                this.updating[id] = true;
 
                 return language
-                    .save({ code: this.codes[language.id()] })
+                    .save({ code: this.codes[id], country: this.countries[id] })
                     .then(
                         () => {},
                         () => {}
                     )
                     .then(() => {
-                        this.updating[language.id()] = false;
+                        this.updating[id] = false;
                     });
-            })
-        ).then(this.hide.bind(this), this.loaded.bind(this));
+            }),
+            saveSettings({ [this.nativeKey]: this.native }),
+        ]).then(this.hide.bind(this), this.loaded.bind(this));
     }
 
     remove(language) {
@@ -139,10 +188,14 @@ export default class LanguagesSettingsModal extends Modal {
     }
 
     dirty() {
-        return app.store.all('discussion-languages').filter((l) => this.codes[l.id()] && this.codes[l.id()] !== l.code());
+        return app.store.all('discussion-languages').filter((l) => {
+            const id = l.id();
+
+            return (this.codes[id] && this.codes[id] !== l.code()) || (this.countries[id] && this.countries[id] !== l.country());
+        });
     }
 
     changed() {
-        return this.dirty().length;
+        return this.dirty().length || Number(this.native) !== Number(app.data.settings[this.nativeKey] || 0);
     }
 }

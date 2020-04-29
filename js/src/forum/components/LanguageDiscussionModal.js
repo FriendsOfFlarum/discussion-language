@@ -1,7 +1,10 @@
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
-
 import DiscussionPage from 'flarum/components/DiscussionPage';
+
+import flag from '../../common/utils/flag';
+import { getName as getLocaleName } from '../../common/utils/locales';
+import isNative from '../helpers/isNative';
 
 export default class LanguageDiscussionModal extends Modal {
     init() {
@@ -31,7 +34,9 @@ export default class LanguageDiscussionModal extends Modal {
                             onclick={this.select.bind(this, language)}
                             className={`Button Button--block ${this.selected === language ? 'active' : ''}`}
                         >
-                            <code>{(language.code() || '').toUpperCase()}</code>
+                            {flag(language.country())}
+                            &nbsp;
+                            <span>{getLocaleName(language.code(), isNative()).toUpperCase()}</span>
                         </Button>
                     ))}
                 </div>

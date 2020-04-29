@@ -3,13 +3,27 @@
     display: flex;
     justify-content: space-between;
 
-    input {
+    .Select, .emoji {
       flex-grow: 1;
+      margin-right: 5px;
+    }
+
+    .Select {
+      &:last-of-type {
+        margin-left: 5px;
+      }
+
+      .Select-input {
+        width: 100%
+      }
+    }
+
+    .emoji {
+      height: 36px;
     }
 
     button {
       flex-shrink: 1;
-      margin-left: 5px;
     }
 
     &:not(:first-of-type) {
