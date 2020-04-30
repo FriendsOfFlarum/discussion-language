@@ -6,7 +6,7 @@ import icon from 'flarum/helpers/icon';
 import saveSettings from 'flarum/utils/saveSettings';
 
 import getLocales from '../utils/locales';
-import getCountries from '../utils/countries';
+import { default as getCountries, getCountryEmoji } from '../utils/countries';
 import flag from '../../common/utils/flag';
 
 export default class LanguagesSettingsModal extends Modal {
@@ -61,6 +61,8 @@ export default class LanguagesSettingsModal extends Modal {
                         options: countries,
                     })}
 
+                    {flag(getCountryEmoji(this.newCountry()))}
+
                     {Button.component({
                         className: 'Button Button--primary',
                         children: icon(this.adding ? 'fas fa-spinner fa-spin' : 'fas fa-plus'),
@@ -93,7 +95,7 @@ export default class LanguagesSettingsModal extends Modal {
                                     disabled: updating || deleting,
                                 })}
 
-                                {flag(country)}
+                                {flag(getCountryEmoji(country))}
 
                                 {Button.component({
                                     className: `Button Button--danger`,

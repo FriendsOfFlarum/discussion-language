@@ -16,3 +16,9 @@ export default (native) => {
             return o;
         }, {});
 };
+
+export const getCountryEmoji = (code) => {
+    const country = countries[code];
+
+    return country && country.emoji;
+};

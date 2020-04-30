@@ -2,7 +2,6 @@ import Component from 'flarum/Component';
 import Dropdown from 'flarum/components/Dropdown';
 import Button from 'flarum/components/Button';
 
-import flag from '../../common/utils/flag';
 import Language from './Language';
 
 export default class LanguageDropdown extends Component {
