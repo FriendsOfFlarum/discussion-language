@@ -5,8 +5,8 @@ import Switch from 'flarum/components/Switch';
 import icon from 'flarum/helpers/icon';
 import saveSettings from 'flarum/utils/saveSettings';
 
-import getLocales from '../../common/utils/locales';
-import { default as countryData, getCountries } from '../../common/utils/countries';
+import getLocales from '../utils/locales';
+import getCountries from '../utils/countries';
 import flag from '../../common/utils/flag';
 
 export default class LanguagesSettingsModal extends Modal {

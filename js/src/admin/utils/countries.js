@@ -2,7 +2,7 @@ import countries from '../../common/generated/countries.json';
 
 const data = Object.values(countries);
 
-export const getCountries = (native) => {
+export default (native) => {
     const key = native ? 'native' : 'name';
 
     return data
@@ -16,5 +16,3 @@ export const getCountries = (native) => {
             return o;
         }, {});
 };
-
-export default countries;

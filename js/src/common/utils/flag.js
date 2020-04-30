@@ -1,13 +1,11 @@
 import basename from 'twemoji-basename';
 
-import { default as countries } from './countries';
-
-export default (country) =>
-    countries[country] && (
+export default (language) =>
+    language.emoji() && (
         <img
-            alt={country}
+            alt={language.country()}
             className="emoji"
             draggable="false"
-            src={`//cdn.jsdelivr.net/gh/twitter/twemoji@12/assets/72x72/${basename(countries[country].emoji)}.png`}
+            src={`//cdn.jsdelivr.net/gh/twitter/twemoji@12/assets/72x72/${basename(language.emoji())}.png`}
         />
     );

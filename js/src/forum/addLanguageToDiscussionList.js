@@ -4,12 +4,7 @@ import DiscussionHero from 'flarum/components/DiscussionHero';
 import DiscussionList from 'flarum/components/DiscussionList';
 import DiscussionListItem from 'flarum/components/DiscussionListItem';
 
-import Dropdown from 'flarum/components/Dropdown';
-import Button from 'flarum/components/Button';
-
-import { getName as getLanguageName } from '../common/utils/locales';
 import flag from '../common/utils/flag';
-import isNative from './helpers/isNative';
 import LanguageDropdown from './components/LanguageDropdown';
 
 const addLanguage = function (items) {
@@ -20,8 +15,8 @@ const addLanguage = function (items) {
     items.add(
         'discussion-language',
         <span>
-            {flag(language.country()) || <i className="fas fa-globe" />}
-            <code>{getLanguageName(language.code(), isNative())}</code>
+            {flag(language) || <i className="fas fa-globe" />}
+            <code>{language.language()}</code>
         </span>,
         5
     );

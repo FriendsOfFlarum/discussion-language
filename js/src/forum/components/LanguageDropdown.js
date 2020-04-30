@@ -3,18 +3,14 @@ import Dropdown from 'flarum/components/Dropdown';
 import Button from 'flarum/components/Button';
 
 import flag from '../../common/utils/flag';
-import { getName as getLanguageName } from '../../common/utils/locales';
-import isNative from '../helpers/isNative';
 
 export default class LanguageDropdown extends Component {
     init() {
-        const native = isNative();
-
         this.languages = app.store.all('discussion-languages');
         this.options = this.languages.reduce((o, lang) => {
             o[lang.code()] = (
                 <span>
-                    {flag(lang.country())} {getLanguageName(lang.code(), native)}
+                    {flag(lang)} {lang.language()}
                 </span>
             );
 
