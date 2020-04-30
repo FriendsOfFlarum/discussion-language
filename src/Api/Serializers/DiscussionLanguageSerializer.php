@@ -47,7 +47,8 @@ class DiscussionLanguageSerializer extends AbstractSerializer
 
         try {
             $country = CountryLoader::country($model->country);
-        } catch (\Throwable $ignored) {}
+        } catch (\Throwable $ignored) {
+        }
 
         return [
             'code'    => $model->code,
@@ -59,7 +60,7 @@ class DiscussionLanguageSerializer extends AbstractSerializer
                     : $this->iso->languageByCode1($model->code)
             ) ?: null,
 
-            'emoji' => isset($country) ? $country->getEmoji() : null
+            'emoji' => isset($country) ? $country->getEmoji() : null,
         ];
     }
 
