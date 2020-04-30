@@ -16,7 +16,7 @@ const addLanguage = function (items) {
         'discussion-language',
         <span>
             {flag(language) || <i className="fas fa-globe" />}
-            <code>{language.language()}</code>
+            <code>{language.name()}</code>
         </span>,
         5
     );

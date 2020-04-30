@@ -1,16 +1,19 @@
 fof-discussion-language:
   forum:
-    discussion_controls:
-      change_language_button: Language
-
-    index_language:
-      any: Any Language
-
     change_language:
       edit_title: Editing Language for {title}
       title: Editing Language
 
       submit_button: => core.ref.save_changes
+
+    composer_discussion:
+      choose_language_link: Language
+
+    discussion_controls:
+      change_language_button: Language
+
+    index_language:
+      any: Any Language
 
   admin:
     settings:

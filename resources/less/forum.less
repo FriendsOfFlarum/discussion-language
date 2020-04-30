@@ -7,20 +7,19 @@
   margin-right: 5px;
 }
 
-.Composer .item-language {
-  margin-right: 10px;
+.LanguageLabel {
+  font-size: 85%;
+  font-weight: 600;
+  display: inline-block;
+  padding: 0.1em 0.5em;
+  border-radius: @border-radius;
+  background: @control-bg;
+  color: @control-color;
+  text-transform: none;
 
-  .Select {
-    vertical-align: baseline;
-  }
-
-  .Select-input {
-    vertical-align: auto;
-    padding: 0 20px 0 5px;
-    height: 24px;
-  }
-
-  .Select-caret {
-    margin-left: -20px;
+  &.none {
+    background: transparent;
+    border: 1px dotted @muted-color;
+    color: @muted-color;
   }
 }

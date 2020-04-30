@@ -4,7 +4,7 @@ export default class Language extends Model {
     code = Model.attribute('code');
     country = Model.attribute('country');
 
-    language = Model.attribute('language');
+    name = Model.attribute('name');
     emoji = Model.attribute('emoji');
 
     apiEndpoint() {

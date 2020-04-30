@@ -2,7 +2,7 @@ import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
 import DiscussionPage from 'flarum/components/DiscussionPage';
 
-import flag from '../../common/utils/flag';
+import Language from './Language';
 
 export default class LanguageDiscussionModal extends Modal {
     init() {
@@ -10,7 +10,8 @@ export default class LanguageDiscussionModal extends Modal {
 
         this.languages = app.store.all('discussion-languages');
 
-        this.selected = this.props.discussion && this.props.discussion.language();
+        this.current = this.props.selected || (this.props.discussion && this.props.discussion.language());
+        this.selected = this.current;
     }
 
     className() {
@@ -32,9 +33,7 @@ export default class LanguageDiscussionModal extends Modal {
                             onclick={this.select.bind(this, language)}
                             className={`Button Button--block ${this.selected === language ? 'active' : ''}`}
                         >
-                            {flag(language)}
-                            &nbsp;
-                            <span>{language.language().toUpperCase()}</span>
+                            <Language language={language} uppercase={true} />
                         </Button>
                     ))}
                 </div>
@@ -43,7 +42,7 @@ export default class LanguageDiscussionModal extends Modal {
                     {Button.component({
                         type: 'submit',
                         className: 'Button Button--primary',
-                        disabled: !this.selected || this.selected === this.props.discussion.language(),
+                        disabled: !this.selected || this.selected === this.current,
                         loading: this.loading,
                         icon: 'fas fa-check',
                         children: app.translator.trans('fof-discussion-language.forum.change_language.submit_button'),
@@ -63,6 +62,12 @@ export default class LanguageDiscussionModal extends Modal {
         e.preventDefault();
 
         this.loading = true;
+
+        if (this.props.onsubmit) {
+            this.props.onsubmit(this.selected);
+            this.hide();
+            return;
+        }
 
         const discussion = this.props.discussion;
         const language = this.selected;

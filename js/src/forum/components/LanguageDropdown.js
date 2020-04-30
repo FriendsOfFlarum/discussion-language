@@ -3,16 +3,13 @@ import Dropdown from 'flarum/components/Dropdown';
 import Button from 'flarum/components/Button';
 
 import flag from '../../common/utils/flag';
+import Language from './Language';
 
 export default class LanguageDropdown extends Component {
     init() {
         this.languages = app.store.all('discussion-languages');
         this.options = this.languages.reduce((o, lang) => {
-            o[lang.code()] = (
-                <span>
-                    {flag(lang)} {lang.language()}
-                </span>
-            );
+            o[lang.code()] = <Language language={lang} />;
 
             return o;
         }, this.props.extra || {});
