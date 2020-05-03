@@ -12,13 +12,16 @@ export default () => {
         promise.then((component) => (component.language = app.store.getBy('discussion-languages', 'code', this.params().language)));
     });
 
-    DiscussionComposer.prototype.chooseLanguage = function () {
+    DiscussionComposer.prototype.chooseLanguage = function (hide, callback) {
         app.modal.show(
             new LanguageDiscussionModal({
                 selected: this.language,
+                hideSubmitButton: hide,
                 onsubmit: (language) => {
                     this.language = language;
                     this.$('textarea').focus();
+
+                    if (callback) callback();
                 },
             })
         );
@@ -27,7 +30,7 @@ export default () => {
     extend(DiscussionComposer.prototype, 'headerItems', function (items) {
         items.add(
             'language',
-            <a className="DiscussionComposer-changeTags" onclick={this.chooseLanguage.bind(this)}>
+            <a className="DiscussionComposer-changeTags" onclick={this.chooseLanguage.bind(this, true, null)}>
                 <span className={`LanguageLabel ${this.language ? '' : 'none'}`}>
                     {this.language
                         ? Language.component({ language: this.language, uppercase: true })
@@ -39,7 +42,7 @@ export default () => {
     });
 
     override(DiscussionComposer.prototype, 'onsubmit', function (original) {
-        if (!this.language) return this.chooseLanguage();
+        if (!this.language) return this.chooseLanguage(true, original);
 
         original();
     });

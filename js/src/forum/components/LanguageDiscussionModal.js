@@ -38,16 +38,18 @@ export default class LanguageDiscussionModal extends Modal {
                     ))}
                 </div>
 
-                <div className="App-primaryControl">
-                    {Button.component({
-                        type: 'submit',
-                        className: 'Button Button--primary',
-                        disabled: !this.selected || this.selected === this.current,
-                        loading: this.loading,
-                        icon: 'fas fa-check',
-                        children: app.translator.trans('fof-discussion-language.forum.change_language.submit_button'),
-                    })}
-                </div>
+                {!this.props.hideSubmitButton && (
+                    <div className="App-primaryControl">
+                        {Button.component({
+                            type: 'submit',
+                            className: 'Button Button--primary',
+                            disabled: !this.selected || this.selected === this.current,
+                            loading: this.loading,
+                            icon: 'fas fa-check',
+                            children: app.translator.trans('fof-discussion-language.forum.change_language.submit_button'),
+                        })}
+                    </div>
+                )}
             </div>,
         ];
     }
@@ -55,21 +57,26 @@ export default class LanguageDiscussionModal extends Modal {
     select(language) {
         this.selected = language;
 
+        if (this.props.hideSubmitButton) return this.onsubmit();
+
         m.redraw();
     }
 
     onsubmit(e) {
-        e.preventDefault();
+        if (e) e.preventDefault();
+
+        const { discussion, onsubmit } = this.props;
 
         this.loading = true;
 
-        if (this.props.onsubmit) {
-            this.props.onsubmit(this.selected);
+        if (!discussion) {
             this.hide();
+
+            if (onsubmit) onsubmit(this.selected);
+
             return;
         }
 
-        const discussion = this.props.discussion;
         const language = this.selected;
 
         discussion
