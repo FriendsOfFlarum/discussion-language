@@ -27,4 +27,4 @@ composer update fof/discussion-language
 - [Packagist](https://packagist.org/packages/fof/discussion-language)
 - [GitHub](https://github.com/FriendsOfFlarum/discussion-language)
 
-An extension by [FriendsOfFlarum](https://github.com/FriendsOfFlarum).
+An extension by [FriendsOfFlarum](https://github.com/FriendsOfFlarum), commissioned by [mailcow](https://mailcow.email/).
