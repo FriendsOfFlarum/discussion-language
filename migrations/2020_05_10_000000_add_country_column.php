@@ -30,5 +30,5 @@ return [
         $schema->table('discussion_languages', function (Blueprint $table) {
             $table->dropColumn('country');
         });
-    }
+    },
 ];
