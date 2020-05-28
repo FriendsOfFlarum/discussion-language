@@ -33,7 +33,7 @@ class AddDiscussionLanguage
     public function handle(Saving $event)
     {
         // Check to see if we should skip adding the language if this is a private discussion created by fof/byobu
-        if (isset($event->data['relationships']['recipientUsers']) || isset($event->data['relationships']['recipientGroups'])) {
+        if (Arr::get($event->data, 'relationships.recipientUsers') || Arr::get($event->data, 'relationships.recipientGroups')) {
             return;
         }
 
