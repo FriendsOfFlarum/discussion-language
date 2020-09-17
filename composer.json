@@ -10,7 +10,7 @@
     "flarum/core": "^0.1.0-beta.10",
     "fof/extend": ">=0.2.0",
     "matriphe/iso-639": "^1.2",
-    "rinvex/countries": "^6.1.2"
+    "rinvex/countries": "^6.1.2 || ^7.0.1"
   },
   "authors": [
     {
