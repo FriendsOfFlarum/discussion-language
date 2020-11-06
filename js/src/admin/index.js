@@ -6,6 +6,10 @@ import SettingDropdown from 'flarum/components/SettingDropdown';
 import LanguagesSettingsModal from './components/LanguagesSettingsModal';
 import Language from '../common/models/Language';
 
+export * from './components';
+export * from './utils';
+export * from '../common/models';
+
 app.initializers.add('fof/discussion-language', () => {
     app.store.models['discussion-languages'] = Language;
 

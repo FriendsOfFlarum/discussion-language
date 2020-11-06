@@ -8,6 +8,10 @@ import addEditLanguageModal from './addEditLanguageModal';
 import addLanguageComposer from './addLanguageComposer';
 import addLanguageToDiscussionList from './addLanguageToDiscussionList';
 
+export * from './components';
+export * from '../common/utils';
+export * from '../common/models';
+
 app.initializers.add('fof/discussion-language', () => {
     app.store.models['discussion-languages'] = Language;
 
