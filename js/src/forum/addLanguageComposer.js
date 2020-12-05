@@ -14,7 +14,7 @@ export default () => {
 
     DiscussionComposer.prototype.chooseLanguage = function (hide, callback) {
         app.modal.show(
-            new LanguageDiscussionModal({
+            LanguageDiscussionModal, {
                 selected: this.language,
                 hideSubmitButton: hide,
                 onsubmit: (language) => {
@@ -23,7 +23,7 @@ export default () => {
 
                     if (callback) callback();
                 },
-            })
+            }
         );
     };
 

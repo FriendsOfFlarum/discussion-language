@@ -5,13 +5,14 @@ import Button from 'flarum/components/Button';
 import Language from './Language';
 
 export default class LanguageDropdown extends Component {
-    init() {
+    oninit(vnode) {
+        super.oninit(vnode);
         this.languages = app.store.all('discussion-languages');
         this.options = this.languages.reduce((o, lang) => {
             o[lang.code()] = <Language language={lang} />;
 
             return o;
-        }, this.props.extra || {});
+        }, this.attrs.extra || {});
     }
 
     view() {
@@ -19,17 +20,16 @@ export default class LanguageDropdown extends Component {
 
         return Dropdown.component({
             buttonClassName: 'Button',
-            label: this.options[selected] || this.options[this.props.default],
+            label: this.options[selected] || this.options[this.attrs.default],
             children: Object.keys(this.options).map((key) => {
                 const isSelected = selected || 'any';
                 const active = key === isSelected;
 
                 return Button.component({
                     active,
-                    children: this.options[key],
                     icon: active ? 'fas fa-check' : true,
                     onclick: () => this.props.onclick(key),
-                });
+                }, this.options[key]);
             }),
         });
     }

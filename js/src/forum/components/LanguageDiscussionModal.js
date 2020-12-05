@@ -5,12 +5,12 @@ import DiscussionPage from 'flarum/components/DiscussionPage';
 import Language from './Language';
 
 export default class LanguageDiscussionModal extends Modal {
-    init() {
-        super.init();
+    oninit(vnode) {
+        super.oninit(vnode);
 
         this.languages = app.store.all('discussion-languages');
 
-        this.current = this.props.selected || (this.props.discussion && this.props.discussion.language());
+        this.current = this.attrs.selected || (this.attrs.discussion && this.attrs.discussion.language());
         this.selected = this.current;
     }
 
@@ -19,8 +19,8 @@ export default class LanguageDiscussionModal extends Modal {
     }
 
     title() {
-        return this.props.discussion
-            ? app.translator.trans('fof-discussion-language.forum.change_language.edit_title', { title: <em>{this.props.discussion.title()}</em> })
+        return this.attrs.discussion
+            ? app.translator.trans('fof-discussion-language.forum.change_language.edit_title', { title: <em>{this.attrs.discussion.title()}</em> })
             : app.translator.trans('fof-discussion-language.forum.change_language.title');
     }
 
@@ -38,7 +38,7 @@ export default class LanguageDiscussionModal extends Modal {
                     ))}
                 </div>
 
-                {!this.props.hideSubmitButton && (
+                {!this.attrs.hideSubmitButton && (
                     <div className="App-primaryControl">
                         {Button.component({
                             type: 'submit',
@@ -46,8 +46,7 @@ export default class LanguageDiscussionModal extends Modal {
                             disabled: !this.selected || this.selected === this.current,
                             loading: this.loading,
                             icon: 'fas fa-check',
-                            children: app.translator.trans('fof-discussion-language.forum.change_language.submit_button'),
-                        })}
+                        }, app.translator.trans('fof-discussion-language.forum.change_language.submit_button'))}
                     </div>
                 )}
             </div>,
@@ -57,7 +56,7 @@ export default class LanguageDiscussionModal extends Modal {
     select(language) {
         this.selected = language;
 
-        if (this.props.hideSubmitButton) return this.onsubmit();
+        if (this.attrs.hideSubmitButton) return this.onsubmit();
 
         m.redraw();
     }
@@ -65,7 +64,7 @@ export default class LanguageDiscussionModal extends Modal {
     onsubmit(e) {
         if (e) e.preventDefault();
 
-        const { discussion, onsubmit } = this.props;
+        const { discussion, onsubmit } = this.attrs;
 
         this.loading = true;
 

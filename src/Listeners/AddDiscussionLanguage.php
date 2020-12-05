@@ -12,14 +12,11 @@
 namespace FoF\DiscussionLanguage\Listeners;
 
 use Flarum\Discussion\Event\Saving;
-use Flarum\User\AssertPermissionTrait;
 use FoF\DiscussionLanguage\Validators\DiscussionValidator;
 use Illuminate\Support\Arr;
 
 class AddDiscussionLanguage
 {
-    use AssertPermissionTrait;
-
     /**
      * @var DiscussionValidator
      */
@@ -40,7 +37,7 @@ class AddDiscussionLanguage
         $languageId = Arr::get($event->data, 'relationships.language.data.id');
 
         if (!$event->discussion->exists || $languageId) {
-            $this->assertCan($event->actor, 'changeLanguage', $event->discussion);
+            $event->actor->assertCan('changeLanguage', $event->discussion);
 
             $this->validator->assertValid(['language' => $languageId]);
 

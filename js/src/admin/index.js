@@ -15,7 +15,7 @@ app.initializers.add('fof/discussion-language', () => {
 
     Forum.prototype.discussionLanguages = Forum.hasMany('discussionLanguages');
 
-    app.extensionSettings['fof-discussion-language'] = () => app.modal.show(new LanguagesSettingsModal());
+    app.extensionSettings['fof-discussion-language'] = () => app.modal.show(LanguagesSettingsModal);
 
     extend(PermissionGrid.prototype, 'startItems', (items) => {
         items.add(

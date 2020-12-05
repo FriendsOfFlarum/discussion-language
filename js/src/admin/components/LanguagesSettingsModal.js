@@ -4,14 +4,14 @@ import Select from 'flarum/components/Select';
 import Switch from 'flarum/components/Switch';
 import icon from 'flarum/helpers/icon';
 import saveSettings from 'flarum/utils/saveSettings';
-
+import Stream from 'flarum/utils/Stream';
 import getLocales from '../utils/locales';
 import { default as getCountries, getCountryEmoji } from '../utils/countries';
 import flag from '../../common/utils/flag';
 
 export default class LanguagesSettingsModal extends Modal {
-    init() {
-        super.init();
+    oninit(vnode) {
+        super.oninit(vnode);
 
         this.updating = {};
         this.deleting = {};
@@ -19,8 +19,8 @@ export default class LanguagesSettingsModal extends Modal {
         this.codes = {};
         this.countries = {};
 
-        this.newLocale = m.prop('');
-        this.newCountry = m.prop('');
+        this.newLocale = Stream('');
+        this.newCountry = Stream('');
 
         this.nativeKey = 'fof-discussion-language.native';
         this.native = app.data.settings[this.nativeKey];
@@ -44,8 +44,7 @@ export default class LanguagesSettingsModal extends Modal {
                     {Switch.component({
                         state: this.native,
                         onchange: (val) => (this.native = val),
-                        children: app.translator.trans('fof-discussion-language.admin.settings.native_label'),
-                    })}
+                    }, app.translator.trans('fof-discussion-language.admin.settings.native_label'))}
                 </div>
 
                 <div className="Form-group flex">
@@ -65,10 +64,9 @@ export default class LanguagesSettingsModal extends Modal {
 
                     {Button.component({
                         className: 'Button Button--primary',
-                        children: icon(this.adding ? 'fas fa-spinner fa-spin' : 'fas fa-plus'),
                         onclick: this.add.bind(this),
                         disabled: !this.newLocale() || !this.newCountry() || this.adding,
-                    })}
+                    }, icon(this.adding ? 'fas fa-spinner fa-spin' : 'fas fa-plus'))}
                 </div>
 
                 <div className="Form-group">
@@ -99,10 +97,9 @@ export default class LanguagesSettingsModal extends Modal {
 
                                 {Button.component({
                                     className: `Button Button--danger`,
-                                    children: icon(deleting ? 'fas fa-spinner fa-spin' : 'fas fa-times'),
                                     disabled: deleting,
                                     onclick: this.remove.bind(this, language),
-                                })}
+                                }, icon(deleting ? 'fas fa-spinner fa-spin' : 'fas fa-times'))}
                             </div>
                         );
                     })}
