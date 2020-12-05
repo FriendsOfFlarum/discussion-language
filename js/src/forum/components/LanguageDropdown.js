@@ -16,21 +16,20 @@ export default class LanguageDropdown extends Component {
     }
 
     view() {
-        const selected = this.props.selected;
+        const selected = this.attrs.selected;
 
         return Dropdown.component({
             buttonClassName: 'Button',
             label: this.options[selected] || this.options[this.attrs.default],
-            children: Object.keys(this.options).map((key) => {
-                const isSelected = selected || 'any';
-                const active = key === isSelected;
+        }, Object.keys(this.options).map((key) => {
+            const isSelected = selected || 'any';
+            const active = key === isSelected;
 
-                return Button.component({
-                    active,
-                    icon: active ? 'fas fa-check' : true,
-                    onclick: () => this.props.onclick(key),
-                }, this.options[key]);
-            }),
-        });
+            return Button.component({
+                active,
+                icon: active ? 'fas fa-check' : true,
+                onclick: () => this.props.onclick(key),
+            }, this.options[key]);
+        }));
     }
 }

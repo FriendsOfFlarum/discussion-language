@@ -37,7 +37,6 @@ export default () => {
     extend(IndexPage.prototype, 'stickyParams', (params) => (params.language = m.route.param('language')));
 
     extend(IndexPage.prototype, 'viewItems', function (items) {
-        console.log(this.attrs);
         items.add(
             'language',
             LanguageDropdown.component({
