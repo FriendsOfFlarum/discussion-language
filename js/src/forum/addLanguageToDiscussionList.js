@@ -29,8 +29,8 @@ export default () => {
     extend(DiscussionListState.prototype, 'requestParams', function (params) {
         params.include.push('language');
 
-        if (this.attrs && this.attrs.params.language) {
-            params.filter.q = (params.filter.q || '') + ' language:' + this.attrs.params.language;
+        if (app.search.params().language) {
+            params.filter.q = (params.filter.q || '') + ' language:' + app.search.params().language;
         }
     });
 
