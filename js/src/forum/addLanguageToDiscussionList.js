@@ -3,6 +3,8 @@ import IndexPage from 'flarum/components/IndexPage';
 import DiscussionHero from 'flarum/components/DiscussionHero';
 import DiscussionListState from 'flarum/states/DiscussionListState';
 import DiscussionListItem from 'flarum/components/DiscussionListItem';
+import GlobalSearchState from 'flarum/states/GlobalSearchState';
+import setRouteWithForcedRefresh from 'flarum/utils/setRouteWithForcedRefresh';
 
 import flag from '../common/utils/flag';
 import LanguageDropdown from './components/LanguageDropdown';
@@ -34,7 +36,7 @@ export default () => {
         }
     });
 
-    extend(IndexPage.prototype, 'stickyParams', (params) => (params.language = m.route.param('language')));
+    extend(GlobalSearchState.prototype, 'stickyParams', (params) => (params.language = m.route.param('language')));
 
     extend(IndexPage.prototype, 'viewItems', function (items) {
         items.add(
@@ -48,7 +50,7 @@ export default () => {
                     if (key === 'any') delete params.language;
                     else params.language = key;
 
-                    m.route.set(app.route(this.attrs.routeName, params));
+                    setRouteWithForcedRefresh(app.route(app.current.get('routeName'), params));
                 },
                 selected: app.search.params().language,
             })
