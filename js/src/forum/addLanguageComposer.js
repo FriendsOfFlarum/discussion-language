@@ -9,7 +9,7 @@ const sort = (a, b) => a.code().toLowerCase() > b.code().toLowerCase();
 
 export default () => {
     extend(IndexPage.prototype, 'newDiscussionAction', function (promise) {
-        promise.then((component) => (component.language = app.store.getBy('discussion-languages', 'code', this.params().language)));
+        promise.then((component) => (component.language = app.store.getBy('discussion-languages', 'code', app.search.params().language)));
     });
 
     DiscussionComposer.prototype.chooseLanguage = function (hide, callback) {

@@ -29,7 +29,7 @@ export default () => {
     extend(DiscussionListState.prototype, 'requestParams', function (params) {
         params.include.push('language');
 
-        if (this.attrs.params.language) {
+        if (this.attrs && this.attrs.params.language) {
             params.filter.q = (params.filter.q || '') + ' language:' + this.attrs.params.language;
         }
     });
@@ -43,14 +43,14 @@ export default () => {
                 extra: { any: app.translator.trans('fof-discussion-language.forum.index_language.any') },
                 default: 'any',
                 onclick: (key) => {
-                    const params = this.params();
+                    const params = app.search.params();
 
                     if (key === 'any') delete params.language;
                     else params.language = key;
 
                     m.route.set(app.route(this.attrs.routeName, params));
                 },
-                selected: this.params().language,
+                selected: app.search.params().language,
             })
         );
     });
