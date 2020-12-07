@@ -15,12 +15,12 @@ export default class LanguageDropdown extends Component {
         }, this.attrs.extra || {});
     }
 
-    view() {
-        const selected = this.attrs.selected;
+    view(vnode) {
+        const selected = vnode.attrs.selected;
 
         return Dropdown.component({
             buttonClassName: 'Button',
-            label: this.options[selected] || this.options[this.attrs.default],
+            label: this.options[selected] || this.options[vnode.attrs.default],
         }, Object.keys(this.options).map((key) => {
             const isSelected = selected || 'any';
             const active = key === isSelected;
@@ -28,7 +28,7 @@ export default class LanguageDropdown extends Component {
             return Button.component({
                 active,
                 icon: active ? 'fas fa-check' : true,
-                onclick: () => this.props.onclick(key),
+                onclick: () => vnode.attrs.onclick(key),
             }, this.options[key]);
         }));
     }

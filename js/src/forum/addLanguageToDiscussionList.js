@@ -29,7 +29,7 @@ export default () => {
     extend(DiscussionListState.prototype, 'requestParams', function (params) {
         params.include.push('language');
 
-        if (this.attrs && this.attrs.params.language) {
+        if (this.attrs.params.language) {
             params.filter.q = (params.filter.q || '') + ' language:' + this.attrs.params.language;
         }
     });
@@ -48,7 +48,7 @@ export default () => {
                     if (key === 'any') delete params.language;
                     else params.language = key;
 
-                    m.route.get(app.route(this.attrs.routeName, params));
+                    m.route.set(app.route(this.attrs.routeName, params));
                 },
                 selected: this.params().language,
             })
