@@ -6,8 +6,12 @@
   ],
   "type": "flarum-extension",
   "license": "MIT",
+  "support": {
+    "issues": "https://github.com/FriendsOfFlarum/discussion-language/issues",
+    "source": "https://github.com/FriendsOfFlarum/discussion-language"
+  },
   "require": {
-    "flarum/core": "^0.1.0-beta.14",
+    "flarum/core": ">=0.1.0-beta.14 <0.1.0-beta.15",
     "fof/extend": ">=0.3.1",
     "matriphe/iso-639": "^1.2",
     "rinvex/countries": "^6.1.2 || ^7.0.1"
