@@ -19,18 +19,16 @@ export default () => {
     });
 
     DiscussionComposer.prototype.chooseLanguage = function (hide, callback) {
-        app.modal.show(
-            LanguageDiscussionModal, {
-                selected: this.composer.fields.language,
-                hideSubmitButton: hide,
-                onsubmit: (language) => {
-                    this.composer.fields.language = language;
-                    this.$('textarea').focus();
+        app.modal.show(LanguageDiscussionModal, {
+            selected: this.composer.fields.language,
+            hideSubmitButton: hide,
+            onsubmit: (language) => {
+                this.composer.fields.language = language;
+                this.$('textarea').focus();
 
-                    if (callback) callback();
-                },
-            }
-        );
+                if (callback) callback();
+            },
+        });
     };
 
     extend(DiscussionComposer.prototype, 'headerItems', function (items) {

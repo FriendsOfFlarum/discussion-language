@@ -18,18 +18,24 @@ export default class LanguageDropdown extends Component {
     view() {
         const selected = this.attrs.selected;
 
-        return Dropdown.component({
-            buttonClassName: 'Button',
-            label: this.options[selected] || this.options[this.attrs.default],
-        }, Object.keys(this.options).map((key) => {
-            const isSelected = selected || 'any';
-            const active = key === isSelected;
+        return Dropdown.component(
+            {
+                buttonClassName: 'Button',
+                label: this.options[selected] || this.options[this.attrs.default],
+            },
+            Object.keys(this.options).map((key) => {
+                const isSelected = selected || 'any';
+                const active = key === isSelected;
 
-            return Button.component({
-                active,
-                icon: active ? 'fas fa-check' : true,
-                onclick: () => this.attrs.onclick(key),
-            }, this.options[key]);
-        }));
+                return Button.component(
+                    {
+                        active,
+                        icon: active ? 'fas fa-check' : true,
+                        onclick: () => this.attrs.onclick(key),
+                    },
+                    this.options[key]
+                );
+            })
+        );
     }
 }

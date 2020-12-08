@@ -40,13 +40,16 @@ export default class LanguageDiscussionModal extends Modal {
 
                 {!this.attrs.hideSubmitButton && (
                     <div className="App-primaryControl">
-                        {Button.component({
-                            type: 'submit',
-                            className: 'Button Button--primary',
-                            disabled: !this.selected || this.selected === this.current,
-                            loading: this.loading,
-                            icon: 'fas fa-check',
-                        }, app.translator.trans('fof-discussion-language.forum.change_language.submit_button'))}
+                        {Button.component(
+                            {
+                                type: 'submit',
+                                className: 'Button Button--primary',
+                                disabled: !this.selected || this.selected === this.current,
+                                loading: this.loading,
+                                icon: 'fas fa-check',
+                            },
+                            app.translator.trans('fof-discussion-language.forum.change_language.submit_button')
+                        )}
                     </div>
                 )}
             </div>,

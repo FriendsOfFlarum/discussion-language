@@ -41,10 +41,13 @@ export default class LanguagesSettingsModal extends Modal {
         return [
             <div className="Modal-body">
                 <div className="Form-group">
-                    {Switch.component({
-                        state: this.native,
-                        onchange: (val) => (this.native = val),
-                    }, app.translator.trans('fof-discussion-language.admin.settings.native_label'))}
+                    {Switch.component(
+                        {
+                            state: this.native,
+                            onchange: (val) => (this.native = val),
+                        },
+                        app.translator.trans('fof-discussion-language.admin.settings.native_label')
+                    )}
                 </div>
 
                 <div className="Form-group flex">
@@ -62,11 +65,14 @@ export default class LanguagesSettingsModal extends Modal {
 
                     {flag(getCountryEmoji(this.newCountry()))}
 
-                    {Button.component({
-                        className: 'Button Button--primary',
-                        onclick: this.add.bind(this),
-                        disabled: !this.newLocale() || !this.newCountry() || this.adding,
-                    }, icon(this.adding ? 'fas fa-spinner fa-spin' : 'fas fa-plus'))}
+                    {Button.component(
+                        {
+                            className: 'Button Button--primary',
+                            onclick: this.add.bind(this),
+                            disabled: !this.newLocale() || !this.newCountry() || this.adding,
+                        },
+                        icon(this.adding ? 'fas fa-spinner fa-spin' : 'fas fa-plus')
+                    )}
                 </div>
 
                 <div className="Form-group">
@@ -95,11 +101,14 @@ export default class LanguagesSettingsModal extends Modal {
 
                                 {flag(getCountryEmoji(country))}
 
-                                {Button.component({
-                                    className: `Button Button--danger`,
-                                    disabled: deleting,
-                                    onclick: this.remove.bind(this, language),
-                                }, icon(deleting ? 'fas fa-spinner fa-spin' : 'fas fa-times'))}
+                                {Button.component(
+                                    {
+                                        className: `Button Button--danger`,
+                                        disabled: deleting,
+                                        onclick: this.remove.bind(this, language),
+                                    },
+                                    icon(deleting ? 'fas fa-spinner fa-spin' : 'fas fa-times')
+                                )}
                             </div>
                         );
                     })}

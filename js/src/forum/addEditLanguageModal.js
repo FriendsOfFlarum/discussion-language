@@ -9,10 +9,13 @@ export default () => {
         if (discussion.canChangeLanguage()) {
             items.add(
                 'language',
-                Button.component({
-                    icon: 'fas fa-globe',
-                    onclick: () => app.modal.show(LanguageDiscussionModal, { discussion }),
-                }, app.translator.trans('fof-discussion-language.forum.discussion_controls.change_language_button'))
+                Button.component(
+                    {
+                        icon: 'fas fa-globe',
+                        onclick: () => app.modal.show(LanguageDiscussionModal, { discussion }),
+                    },
+                    app.translator.trans('fof-discussion-language.forum.discussion_controls.change_language_button')
+                )
             );
         }
     });
