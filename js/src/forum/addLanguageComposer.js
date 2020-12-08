@@ -9,21 +9,27 @@ const sort = (a, b) => a.code().toLowerCase() > b.code().toLowerCase();
 
 export default () => {
     extend(IndexPage.prototype, 'newDiscussionAction', function (promise) {
-        promise.then((component) => (component.language = app.store.getBy('discussion-languages', 'code', this.params().language)));
+        const dislang = app.search.params().language;
+
+        if (dislang) {
+            promise.then((composer) => (composer.fields.language = app.store.getBy('discussion-languages', 'code', dislang)));
+        } else {
+            app.composer.fields.language = '';
+        }
     });
 
     DiscussionComposer.prototype.chooseLanguage = function (hide, callback) {
         app.modal.show(
-            new LanguageDiscussionModal({
-                selected: this.language,
+            LanguageDiscussionModal, {
+                selected: this.composer.fields.language,
                 hideSubmitButton: hide,
                 onsubmit: (language) => {
-                    this.language = language;
+                    this.composer.fields.language = language;
                     this.$('textarea').focus();
 
                     if (callback) callback();
                 },
-            })
+            }
         );
     };
 
@@ -31,9 +37,9 @@ export default () => {
         items.add(
             'language',
             <a className="DiscussionComposer-changeTags" onclick={this.chooseLanguage.bind(this, true, null)}>
-                <span className={`LanguageLabel ${this.language ? '' : 'none'}`}>
-                    {this.language
-                        ? Language.component({ language: this.language, uppercase: true })
+                <span className={`LanguageLabel ${this.composer.fields.language ? '' : 'none'}`}>
+                    {this.composer.fields.language
+                        ? Language.component({ language: this.composer.fields.language, uppercase: true })
                         : app.translator.trans('fof-discussion-language.forum.composer_discussion.choose_language_link')}
                 </span>
             </a>,
@@ -42,7 +48,7 @@ export default () => {
     });
 
     override(DiscussionComposer.prototype, 'onsubmit', function (original) {
-        if (!this.language) return this.chooseLanguage(true, original);
+        if (!this.composer.fields.language) return this.chooseLanguage(true, original);
 
         original();
     });
@@ -50,6 +56,6 @@ export default () => {
     extend(DiscussionComposer.prototype, 'data', function (data) {
         data.relationships = data.relationships || {};
 
-        data.relationships.language = this.language || app.store.all('discussion-languages').sort(sort)[0];
+        data.relationships.language = this.composer.fields.language || app.store.all('discussion-languages').sort(sort)[0];
     });
 };

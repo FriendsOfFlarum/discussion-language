@@ -11,7 +11,6 @@
 
 namespace FoF\DiscussionLanguage\Commands;
 
-use Flarum\User\AssertPermissionTrait;
 use FoF\DiscussionLanguage\DiscussionLanguage;
 use FoF\DiscussionLanguage\Validators\DiscussionLanguageValidator;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -19,8 +18,6 @@ use Illuminate\Support\Arr;
 
 class CreateLanguageCommandHandler
 {
-    use AssertPermissionTrait;
-
     /**
      * @var Dispatcher
      */
@@ -39,10 +36,8 @@ class CreateLanguageCommandHandler
 
     public function handle(CreateLanguageCommand $command)
     {
-        $actor = $command->actor;
+        $command->actor->assertAdmin();
         $data = $command->data;
-
-        $this->assertAdmin($actor);
 
         $discussionLanguage = new DiscussionLanguage();
         $discussionLanguage->code = Arr::get($data, 'code');

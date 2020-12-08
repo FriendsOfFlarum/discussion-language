@@ -11,18 +11,13 @@
 
 namespace FoF\DiscussionLanguage\Commands;
 
-use Flarum\User\AssertPermissionTrait;
 use FoF\DiscussionLanguage\DiscussionLanguage;
 
 class DeleteLanguageCommandHandler
 {
-    use AssertPermissionTrait;
-
     public function handle(DeleteLanguageCommand $command)
     {
-        $actor = $command->actor;
-
-        $this->assertAdmin($actor);
+        $command->actor->assertAdmin();
 
         $language = DiscussionLanguage::findOrFail($command->id);
 

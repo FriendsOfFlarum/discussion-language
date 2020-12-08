@@ -1,14 +1,16 @@
 import { extend } from 'flarum/extend';
 import IndexPage from 'flarum/components/IndexPage';
 import DiscussionHero from 'flarum/components/DiscussionHero';
-import DiscussionList from 'flarum/components/DiscussionList';
+import DiscussionListState from 'flarum/states/DiscussionListState';
 import DiscussionListItem from 'flarum/components/DiscussionListItem';
+import GlobalSearchState from 'flarum/states/GlobalSearchState';
+import setRouteWithForcedRefresh from 'flarum/utils/setRouteWithForcedRefresh';
 
 import flag from '../common/utils/flag';
 import LanguageDropdown from './components/LanguageDropdown';
 
 const addLanguage = function (items) {
-    const language = this.props.discussion.language();
+    const language = this.attrs.discussion.language();
 
     if (!language) return;
 
@@ -26,15 +28,15 @@ export default () => {
     extend(DiscussionListItem.prototype, 'infoItems', addLanguage);
     extend(DiscussionHero.prototype, 'items', addLanguage);
 
-    extend(DiscussionList.prototype, 'requestParams', function (params) {
+    extend(DiscussionListState.prototype, 'requestParams', function (params) {
         params.include.push('language');
 
-        if (this.props.params.language) {
-            params.filter.q = (params.filter.q || '') + ' language:' + this.props.params.language;
+        if (app.search.params().language) {
+            params.filter.q = (params.filter.q || '') + ' language:' + app.search.params().language;
         }
     });
 
-    extend(IndexPage.prototype, 'stickyParams', (params) => (params.language = m.route.param('language')));
+    extend(GlobalSearchState.prototype, 'stickyParams', (params) => (params.language = m.route.param('language')));
 
     extend(IndexPage.prototype, 'viewItems', function (items) {
         items.add(
@@ -43,14 +45,14 @@ export default () => {
                 extra: { any: app.translator.trans('fof-discussion-language.forum.index_language.any') },
                 default: 'any',
                 onclick: (key) => {
-                    const params = this.params();
+                    const params = app.search.params();
 
                     if (key === 'any') delete params.language;
                     else params.language = key;
 
-                    m.route(app.route(this.props.routeName, params));
+                    setRouteWithForcedRefresh(app.route(app.current.get('routeName'), params));
                 },
-                selected: this.params().language,
+                selected: app.search.params().language,
             })
         );
     });

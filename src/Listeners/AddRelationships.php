@@ -17,9 +17,7 @@ use Flarum\Api\Event\WillGetData;
 use Flarum\Api\Event\WillSerializeData;
 use Flarum\Api\Serializer\DiscussionSerializer;
 use Flarum\Api\Serializer\ForumSerializer;
-use Flarum\Discussion\Discussion;
 use Flarum\Event\GetApiRelationship;
-use Flarum\Event\GetModelRelationship;
 use FoF\DiscussionLanguage\Api\Serializers\DiscussionLanguageSerializer;
 use FoF\DiscussionLanguage\DiscussionLanguage;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -28,19 +26,11 @@ class AddRelationships
 {
     public function subscribe(Dispatcher $events)
     {
-        $events->listen(GetModelRelationship::class, [$this, 'getRelationship']);
         $events->listen(GetApiRelationship::class, [$this, 'getApiRelationship']);
         $events->listen(WillSerializeData::class, [$this, 'loadApiRelationship']);
         $events->listen(WillGetData::class, [$this, 'includeRelationship']);
 
         $events->listen(Serializing::class, [$this, 'addPermission']);
-    }
-
-    public function getRelationship(GetModelRelationship $event)
-    {
-        if ($event->isRelationship(Discussion::class, 'language')) {
-            return $event->model->hasOne(DiscussionLanguage::class, 'id', 'language_id');
-        }
     }
 
     public function getApiRelationship(GetApiRelationship $event)

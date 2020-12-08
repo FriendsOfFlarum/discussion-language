@@ -10,10 +10,9 @@ export default () => {
             items.add(
                 'language',
                 Button.component({
-                    children: app.translator.trans('fof-discussion-language.forum.discussion_controls.change_language_button'),
                     icon: 'fas fa-globe',
-                    onclick: () => app.modal.show(new LanguageDiscussionModal({ discussion })),
-                })
+                    onclick: () => app.modal.show(LanguageDiscussionModal, { discussion }),
+                }, app.translator.trans('fof-discussion-language.forum.discussion_controls.change_language_button'))
             );
         }
     });
