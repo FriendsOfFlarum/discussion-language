@@ -63,6 +63,7 @@ return [
         ->hasOne('language', DiscussionLanguageSerializer::class)
         ->mutate(function (DiscussionSerializer $serializer, Discussion $discussion, array $attributes) {
             $attributes['canChangeLanguage'] = $serializer->getActor()->can('changeLanguage', $discussion);
+
             return $attributes;
         }),
 
