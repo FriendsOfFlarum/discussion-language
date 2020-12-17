@@ -3,7 +3,7 @@ import Forum from 'flarum/models/Forum';
 import PermissionGrid from 'flarum/components/PermissionGrid';
 import SettingDropdown from 'flarum/components/SettingDropdown';
 
-import LanguagesSettingsModal from './components/LanguagesSettingsModal';
+import LanguagesSettingsPage from './components/LanguagesSettingsPage';
 import Language from '../common/models/Language';
 
 export * from './components';
@@ -15,8 +15,9 @@ app.initializers.add('fof/discussion-language', () => {
 
     Forum.prototype.discussionLanguages = Forum.hasMany('discussionLanguages');
 
-    app.extensionSettings['fof-discussion-language'] = () => app.modal.show(LanguagesSettingsModal);
+    app.extensionData.for('fof-discussion-language').registerPage(LanguagesSettingsPage);
 
+    // This extend must remain for now, as the new admin UI in beta 15 does not currently support the custom dropdown
     extend(PermissionGrid.prototype, 'startItems', (items) => {
         items.add(
             'allowLanguageChange',

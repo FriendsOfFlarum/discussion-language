@@ -1,5 +1,5 @@
-import LanguagesSettingsModal from './LanguagesSettingsModal';
+import LanguagesSettingsPage from './LanguagesSettingsPage';
 
 export const components = {
-    LanguagesSettingsModal,
+    LanguagesSettingsPage,
 };

@@ -8,10 +8,18 @@
   "license": "MIT",
   "support": {
     "issues": "https://github.com/FriendsOfFlarum/discussion-language/issues",
-    "source": "https://github.com/FriendsOfFlarum/discussion-language"
+    "source": "https://github.com/FriendsOfFlarum/discussion-language",
+    "forum": "https://discuss.flarum.org/d/23702"
   },
+  "homepage": "https://friendsofflarum.org",
+    "funding": [
+        {
+            "type": "website",
+            "url": "https://opencollective.com/fof/donate"
+        }
+    ],
   "require": {
-    "flarum/core": ">=0.1.0-beta.14 <0.1.0-beta.15",
+    "flarum/core": "^0.1.0-beta.15",
     "fof/extend": ">=0.3.1",
     "matriphe/iso-639": "^1.2",
     "rinvex/countries": "^6.1.2 || ^7.0.1"
@@ -31,6 +39,7 @@
   "extra": {
     "flarum-extension": {
       "title": "FoF Discussion Language",
+      "category": "feature",
       "icon": {
         "name": "fas fa-language",
         "backgroundColor": "#e74c3c",
@@ -38,7 +47,7 @@
       }
     },
     "flagrow": {
-      "discuss": "https://discuss.flarum.org/d/23702-friendsofflarum-discussion-language"
+      "discuss": "https://discuss.flarum.org/d/23702"
     }
   }
 }

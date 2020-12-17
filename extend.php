@@ -11,10 +11,17 @@
 
 namespace FoF\DiscussionLanguage;
 
+use Flarum\Api\Controller\CreateDiscussionController;
+use Flarum\Api\Controller\ListDiscussionsController;
+use Flarum\Api\Controller\ShowDiscussionController;
+use Flarum\Api\Controller\ShowForumController;
+use Flarum\Api\Serializer\DiscussionSerializer;
+use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Discussion\Discussion;
 use Flarum\Discussion\Event\Saving;
 use Flarum\Event\ConfigureDiscussionGambits;
 use Flarum\Extend;
+use FoF\DiscussionLanguage\Api\Serializers\DiscussionLanguageSerializer;
 use Illuminate\Contracts\Events\Dispatcher;
 
 return [
@@ -39,14 +46,42 @@ return [
     (new Extend\Model(Discussion::class))
         ->hasOne('language', DiscussionLanguage::class, 'id', 'language_id'),
 
-    function (Dispatcher $events) {
-        $events->subscribe(Listeners\AddRelationships::class);
-        $events->listen(Saving::class, Listeners\AddDiscussionLanguage::class);
-
-        $events->listen(ConfigureDiscussionGambits::class, function (ConfigureDiscussionGambits $event) {
+    (new Extend\Event())
+        ->listen(Saving::class, Listeners\AddDiscussionLanguage::class)
+        ->listen(ConfigureDiscussionGambits::class, function (ConfigureDiscussionGambits $event) {
             $event->gambits->add(Gambit\LanguageGambit::class);
-        });
+        }),
 
+    function (Dispatcher $events) {
         $events->subscribe(Access\DiscussionPolicy::class);
     },
+
+    (new Extend\ApiSerializer(ForumSerializer::class))
+        ->hasMany('discussionLanguages', DiscussionLanguageSerializer::class),
+
+    (new Extend\ApiSerializer(DiscussionSerializer::class))
+        ->hasOne('language', DiscussionLanguageSerializer::class)
+        ->mutate(function (DiscussionSerializer $serializer, Discussion $discussion, array $attributes) {
+            $attributes['canChangeLanguage'] = $serializer->getActor()->can('changeLanguage', $discussion);
+            return $attributes;
+        }),
+
+    (new Extend\ApiController(ShowForumController::class))
+        ->prepareDataForSerialization(function (ShowForumController $controller, &$data) {
+            // Expose the complete tag list to clients by adding it as a
+            // relationship to the /api endpoint. Since the Forum model
+            // doesn't actually have a tags relationship, we will manually load and
+            // assign the tags data to it using an event listener.
+            $data['discussionLanguages'] = DiscussionLanguage::get();
+        })
+        ->addInclude(['discussionLanguages']),
+
+    (new Extend\ApiController(ListDiscussionsController::class))
+        ->addInclude(['language']),
+
+    (new Extend\ApiController(ShowDiscussionController::class))
+        ->addInclude(['language']),
+
+    (new Extend\ApiController(CreateDiscussionController::class))
+        ->addInclude(['language']),
 ];
