@@ -44,6 +44,7 @@ class DiscussionLanguageSerializer extends AbstractSerializer
     protected function getDefaultAttributes($model)
     {
         $native = (bool) $this->settings->get('fof-discussion-language.native');
+        $showFlag = (bool) $this->settings->get('fof-discussion-language.showFlags');
 
         try {
             $country = CountryLoader::country($model->country);
@@ -60,7 +61,7 @@ class DiscussionLanguageSerializer extends AbstractSerializer
                     : $this->iso->languageByCode1($model->code)
             ) ?: null,
 
-            'emoji' => isset($country) ? $country->getEmoji() : null,
+            'emoji' => $showFlag ? (isset($country) ? $country->getEmoji() : null) : null,
         ];
     }
 

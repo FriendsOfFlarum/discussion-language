@@ -39,7 +39,7 @@
   "extra": {
     "flarum-extension": {
       "title": "FoF Discussion Language",
-      "category": "feature",
+      "category": "discussion",
       "icon": {
         "name": "fas fa-language",
         "backgroundColor": "#e74c3c",

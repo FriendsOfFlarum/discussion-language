@@ -24,6 +24,9 @@ export default class LanguagesSettingsPage extends ExtensionPage {
 
         this.nativeKey = 'fof-discussion-language.native';
         this.native = app.data.settings[this.nativeKey];
+
+        this.showFlagsKey = 'fof-discussion-language.showFlags';
+        this.showFlags = app.data.settings[this.showFlagsKey];
     }
 
     content() {
@@ -40,6 +43,16 @@ export default class LanguagesSettingsPage extends ExtensionPage {
                                 onchange: (val) => (this.native = val),
                             },
                             app.translator.trans('fof-discussion-language.admin.settings.native_label')
+                        )}
+                    </div>
+
+                    <div className="Form-group">
+                        {Switch.component(
+                            {
+                                state: this.showFlags,
+                                onchange: (val) => (this.showFlags = val),
+                            },
+                            app.translator.trans('fof-discussion-language.admin.settings.show_flag_label')
                         )}
                     </div>
 
@@ -172,7 +185,7 @@ export default class LanguagesSettingsPage extends ExtensionPage {
                         this.updating[id] = false;
                     });
             }),
-            saveSettings({ [this.nativeKey]: this.native }).then(this.onsaved.bind(this)),
+            saveSettings({ [this.nativeKey]: this.native, [this.showFlagsKey]: this.showFlags }).then(this.onsaved.bind(this)),
         ]);
     }
 
@@ -200,6 +213,6 @@ export default class LanguagesSettingsPage extends ExtensionPage {
     }
 
     isChanged() {
-        return this.dirty().length || Number(this.native) !== Number(app.data.settings[this.nativeKey] || 0);
+        return this.dirty().length || Number(this.native) !== Number(app.data.settings[this.nativeKey] || 0) || Number(this.showFlags) !== Number(app.data.settings[this.showFlagsKey] || 0);
     }
 }
