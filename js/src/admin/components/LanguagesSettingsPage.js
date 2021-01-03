@@ -27,6 +27,9 @@ export default class LanguagesSettingsPage extends ExtensionPage {
 
         this.showFlagsKey = 'fof-discussion-language.showFlags';
         this.showFlags = app.data.settings[this.showFlagsKey];
+
+        this.composerLocaleDefaultKey = 'fof-discussion-language.composerLocaleDefault';
+        this.composerLocaleDefault = app.data.settings[this.composerLocaleDefaultKey] || 0;
     }
 
     content() {
@@ -58,6 +61,18 @@ export default class LanguagesSettingsPage extends ExtensionPage {
                             app.translator.trans('fof-discussion-language.admin.settings.show_flag_label')
                         )}
                     </div>
+
+                    <div className="Form-group">
+                        {Switch.component(
+                            {
+                                state: this.composerLocaleDefault,
+                                onchange: (val) => (this.composerLocaleDefault = val),
+                            },
+                            app.translator.trans('fof-discussion-language.admin.settings.composer_default_label')
+                        )}
+                    </div>
+
+                    <hr />
 
                     <div className="Form-group flex">
                         {Select.component({
@@ -188,7 +203,11 @@ export default class LanguagesSettingsPage extends ExtensionPage {
                         this.updating[id] = false;
                     });
             }),
-            saveSettings({ [this.nativeKey]: this.native, [this.showFlagsKey]: this.showFlags }).then(this.onsaved.bind(this)),
+            saveSettings({
+                [this.nativeKey]: this.native,
+                [this.showFlagsKey]: this.showFlags,
+                [this.composerLocaleDefaultKey]: this.composerLocaleDefault,
+            }).then(this.onsaved.bind(this)),
         ]);
     }
 
@@ -219,7 +238,8 @@ export default class LanguagesSettingsPage extends ExtensionPage {
         const dirty = this.dirty().length;
         const native = Number(this.native) !== Number(app.data.settings[this.nativeKey] || 0);
         const flag = Number(this.showFlags) !== Number(app.data.settings[this.showFlagsKey] || 0);
+        const composerLocale = Number(this.composerLocaleDefault) !== Number(app.data.settings[this.composerLocaleDefaultKey] || 0);
 
-        return dirty || native || flag;
+        return dirty || native || flag || composerLocale;
     }
 }

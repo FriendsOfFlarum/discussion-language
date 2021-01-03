@@ -85,4 +85,9 @@ return [
 
     (new Extend\ApiController(CreateDiscussionController::class))
         ->addInclude(['language']),
+
+    (new Extend\Settings())
+        ->serializeToForum('fof-discussion-language.composerLocaleDefault', 'fof-discussion-language.composerLocaleDefault', function ($value) {
+            return (bool) $value;
+        }),
 ];

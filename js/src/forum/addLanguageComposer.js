@@ -14,7 +14,8 @@ export default () => {
         if (dislang) {
             promise.then((composer) => (composer.fields.language = app.store.getBy('discussion-languages', 'code', dislang)));
         } else {
-            app.composer.fields.language = '';
+            const localeComposer = app.forum.attribute('fof-discussion-language.composerLocaleDefault');
+            app.composer.fields.language = localeComposer ? app.store.getBy('discussion-languages', 'code', app.translator.locale) : '';
         }
     });
 
