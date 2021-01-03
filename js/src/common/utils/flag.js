@@ -12,7 +12,7 @@ export default (language) => {
                 className="emoji"
                 draggable="false"
                 loading="lazy"
-                src={`//cdn.jsdelivr.net/gh/twitter/twemoji@12/assets/72x72/${basename(emoji)}.png`}
+                src={`//cdn.jsdelivr.net/gh/twitter/twemoji@13/assets/72x72/${basename(emoji)}.png`}
             />
         )
     );

@@ -40,7 +40,10 @@ export default class LanguagesSettingsPage extends ExtensionPage {
                         {Switch.component(
                             {
                                 state: this.native,
-                                onchange: (val) => (this.native = val),
+                                onchange: (val) => {
+                                    this.native = val;
+                                    m.redraw.sync();
+                                },
                             },
                             app.translator.trans('fof-discussion-language.admin.settings.native_label')
                         )}
@@ -213,6 +216,10 @@ export default class LanguagesSettingsPage extends ExtensionPage {
     }
 
     isChanged() {
-        return this.dirty().length || Number(this.native) !== Number(app.data.settings[this.nativeKey] || 0) || Number(this.showFlags) !== Number(app.data.settings[this.showFlagsKey] || 0);
+        const dirty = this.dirty().length;
+        const native = Number(this.native) !== Number(app.data.settings[this.nativeKey] || 0);
+        const flag = Number(this.showFlags) !== Number(app.data.settings[this.showFlagsKey] || 0);
+
+        return dirty || native || flag;
     }
 }
