@@ -31,9 +31,7 @@ export default () => {
     extend(DiscussionListState.prototype, 'requestParams', function (params) {
         params.include.push('language');
 
-        if (app.search.params().language) {
-            params.filter.q = (params.filter.q || '') + ' language:' + app.search.params().language;
-        }
+        params.filter.q = (params.filter.q || '') + ' language:' + (app.search.params().language ? app.search.params().language : app.translator.formatter.locale);
     });
 
     extend(GlobalSearchState.prototype, 'stickyParams', (params) => (params.language = m.route.param('language')));
@@ -42,12 +40,11 @@ export default () => {
         items.add(
             'language',
             LanguageDropdown.component({
-                extra: { any: app.translator.trans('fof-discussion-language.forum.index_language.any') },
-                default: 'any',
+                default: app.translator.formatter.locale,
                 onclick: (key) => {
                     const params = app.search.params();
 
-                    if (key === 'any') delete params.language;
+                    if (key === app.translator.formatter.locale) delete params.language;
                     else params.language = key;
 
                     setRouteWithForcedRefresh(app.route(app.current.get('routeName'), params));

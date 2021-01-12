@@ -24,7 +24,7 @@ export default class LanguageDropdown extends Component {
                 label: this.options[selected] || this.options[this.attrs.default],
             },
             Object.keys(this.options).map((key) => {
-                const isSelected = selected || 'any';
+                const isSelected = selected || app.translator.formatter.locale;
                 const active = key === isSelected;
 
                 return Button.component(
