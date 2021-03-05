@@ -53,15 +53,16 @@ class AddLanguageFilter implements MiddlewareInterface
 
             if ($actor->exists) {
                 $language = $actor->getPreference('locale');
-            } else if ($requestLocale = Arr::get($request->getCookieParams(), 'locale')) {
+            } elseif ($requestLocale = Arr::get($request->getCookieParams(), 'locale')) {
                 $language = $requestLocale;
-            } else if ($acceptLangs = Arr::get($request->getServerParams(), 'HTTP_ACCEPT_LANGUAGE')) {
+            } elseif ($acceptLangs = Arr::get($request->getServerParams(), 'HTTP_ACCEPT_LANGUAGE')) {
                 $language = $this->determineLanguageFromBrowserRequest($acceptLangs);
             }
 
             if ($language) {
                 $uri = $request->getUri();
                 $uri = $uri->withQuery("language=$language");
+
                 return new RedirectResponse($uri, 303);
             }
         }
@@ -81,7 +82,7 @@ class AddLanguageFilter implements MiddlewareInterface
             if ($path === '/') {
                 return true;
             }
-        } else if ($path === '/all') {
+        } elseif ($path === '/all') {
             return true;
         }
 
@@ -98,7 +99,7 @@ class AddLanguageFilter implements MiddlewareInterface
         /** @var LocaleManager */
         $locales = app(LocaleManager::class);
 
-        $langs = array();
+        $langs = [];
         // break up string into pieces (languages and q factors)
         preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i', $acceptLangs, $lang_parse);
 
@@ -108,7 +109,9 @@ class AddLanguageFilter implements MiddlewareInterface
 
             // set default to 1 for any without q factor
             foreach ($langs as $lang => $val) {
-                if ($val === '') $langs[$lang] = 1;
+                if ($val === '') {
+                    $langs[$lang] = 1;
+                }
             }
 
             // sort list based on value
