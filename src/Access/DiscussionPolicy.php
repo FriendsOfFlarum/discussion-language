@@ -14,7 +14,7 @@ namespace FoF\DiscussionLanguage\Access;
 use Carbon\Carbon;
 use Flarum\Discussion\Discussion;
 use Flarum\Settings\SettingsRepositoryInterface;
-use Flarum\User\AbstractPolicy;
+use Flarum\User\Access\AbstractPolicy;
 use Flarum\User\User;
 
 class DiscussionPolicy extends AbstractPolicy
@@ -43,7 +43,7 @@ class DiscussionPolicy extends AbstractPolicy
                 || ($allowEditLanguage === 'reply' && $discussion->participant_count <= 1)
                 || (is_numeric($allowEditLanguage) && $discussion->created_at->diffInMinutes(new Carbon()) < $allowEditLanguage)
             ) {
-                return true;
+                return $this->allow();
             }
         }
     }

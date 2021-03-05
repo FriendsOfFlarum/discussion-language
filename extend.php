@@ -52,9 +52,8 @@ return [
             $event->gambits->add(Gambit\LanguageGambit::class);
         }),
 
-    function (Dispatcher $events) {
-        $events->subscribe(Access\DiscussionPolicy::class);
-    },
+    (new Extend\Policy())
+        ->modelPolicy(Discussion::class, Access\DiscussionPolicy::class),
 
     (new Extend\ApiSerializer(ForumSerializer::class))
         ->hasMany('discussionLanguages', DiscussionLanguageSerializer::class),
