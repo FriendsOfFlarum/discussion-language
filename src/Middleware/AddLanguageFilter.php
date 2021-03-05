@@ -53,9 +53,11 @@ class AddLanguageFilter implements MiddlewareInterface
 
             if ($actor->exists) {
                 $language = $actor->getPreference('locale');
-            } elseif ($requestLocale = Arr::get($request->getCookieParams(), 'locale')) {
+            }
+            
+            if ($language === null && $requestLocale = Arr::get($request->getCookieParams(), 'locale')) {
                 $language = $requestLocale;
-            } elseif ($acceptLangs = Arr::get($request->getServerParams(), 'HTTP_ACCEPT_LANGUAGE')) {
+            } elseif ($language === null && $acceptLangs = Arr::get($request->getServerParams(), 'HTTP_ACCEPT_LANGUAGE')) {
                 $language = $this->determineLanguageFromBrowserRequest($acceptLangs);
             }
 
