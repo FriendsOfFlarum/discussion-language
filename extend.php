@@ -22,7 +22,6 @@ use Flarum\Discussion\Event\Saving;
 use Flarum\Event\ConfigureDiscussionGambits;
 use Flarum\Extend;
 use FoF\DiscussionLanguage\Api\Serializers\DiscussionLanguageSerializer;
-use Illuminate\Contracts\Events\Dispatcher;
 
 return [
     (new Extend\Frontend('forum'))
