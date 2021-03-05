@@ -15,7 +15,7 @@ use Flarum\Api\Serializer\AbstractSerializer;
 use Flarum\Api\Serializer\DiscussionSerializer;
 use Flarum\Discussion\Discussion;
 use Flarum\Settings\SettingsRepositoryInterface;
-use Matriphe\ISO639\ISO639;
+use IanM\ISO639\ISO639;
 use Rinvex\Country\CountryLoader;
 
 class DiscussionLanguageSerializer extends AbstractSerializer

@@ -30,6 +30,9 @@ export default class LanguagesSettingsPage extends ExtensionPage {
 
         this.composerLocaleDefaultKey = 'fof-discussion-language.composerLocaleDefault';
         this.composerLocaleDefault = app.data.settings[this.composerLocaleDefaultKey] || 0;
+
+        this.localeSortKey = 'fof-discussion-language.filter_language_on_http_request';
+        this.localeSort = app.data.settings[this.localeSortKey];
     }
 
     content() {
@@ -69,6 +72,16 @@ export default class LanguagesSettingsPage extends ExtensionPage {
                                 onchange: (val) => (this.composerLocaleDefault = val),
                             },
                             app.translator.trans('fof-discussion-language.admin.settings.composer_default_label')
+                        )}
+                    </div>
+
+                    <div className="Form-group">
+                        {Switch.component(
+                            {
+                                state: this.localeSort,
+                                onchange: (value) => (this.localeSort = value),
+                            },
+                            app.translator.trans('fof-discussion-language.admin.settings.locale_sort_label')
                         )}
                     </div>
 
@@ -207,6 +220,7 @@ export default class LanguagesSettingsPage extends ExtensionPage {
                 [this.nativeKey]: this.native,
                 [this.showFlagsKey]: this.showFlags,
                 [this.composerLocaleDefaultKey]: this.composerLocaleDefault,
+                [this.localeSortKey]: this.localeSort,
             }).then(this.onsaved.bind(this)),
         ]);
     }
@@ -239,7 +253,8 @@ export default class LanguagesSettingsPage extends ExtensionPage {
         const native = Number(this.native) !== Number(app.data.settings[this.nativeKey] || 0);
         const flag = Number(this.showFlags) !== Number(app.data.settings[this.showFlagsKey] || 0);
         const composerLocale = Number(this.composerLocaleDefault) !== Number(app.data.settings[this.composerLocaleDefaultKey] || 0);
+        const locale = Number(this.localeSort) !== Number(app.data.settings[this.localeSortKey] || 0);
 
-        return dirty || native || flag || composerLocale;
+        return dirty || native || flag || composerLocale || locale;
     }
 }
