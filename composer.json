@@ -12,16 +12,16 @@
     "forum": "https://discuss.flarum.org/d/23702"
   },
   "homepage": "https://friendsofflarum.org",
-    "funding": [
-        {
-            "type": "website",
-            "url": "https://opencollective.com/fof/donate"
-        }
-    ],
+  "funding": [
+    {
+      "type": "website",
+      "url": "https://opencollective.com/fof/donate"
+    }
+  ],
   "require": {
     "flarum/core": "^0.1.0-beta.15",
     "fof/extend": ">=0.3.1",
-    "matriphe/iso-639": "^1.2",
+    "ianm/iso-639": "^1.0",
     "rinvex/countries": "^6.1.2 || ^7.0.1"
   },
   "authors": [

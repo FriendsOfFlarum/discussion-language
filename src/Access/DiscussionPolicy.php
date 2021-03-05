@@ -37,7 +37,7 @@ class DiscussionPolicy extends AbstractPolicy
     public function changeLanguage(User $actor, Discussion $discussion)
     {
         if ($discussion->user_id == $actor->id && $actor->can('reply', $discussion)) {
-            $allowEditLanguage = $this->settings->get('fof-discussion-language.allow_language_change');
+            $allowEditLanguage = $this->settings->get('fof-discussion-language.allow_language_change', 10);
 
             if ($allowEditLanguage === '-1'
                 || ($allowEditLanguage === 'reply' && $discussion->participant_count <= 1)
