@@ -1,6 +1,5 @@
 {
   "name": "@fof/discussion-language",
-  "version": "0.0.0",
   "private": true,
   "dependencies": {
     "countries-list": "^2.5.6",
@@ -8,8 +7,8 @@
     "iso-639-1": "^2.1.5",
     "twemoji": "^13.0.1",
     "twemoji-basename": "^1.0.0",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12"
+    "webpack": "^4.46.0",
+    "webpack-cli": "^4.5.0"
   },
   "scripts": {
     "dev": "webpack --mode development --watch",
@@ -17,6 +16,7 @@
     "lint": "prettier --single-quote --trailing-comma es5 --print-width 150 --tab-width 4 --write src"
   },
   "devDependencies": {
+    "flarum": "0.1.0-beta.16",
     "prettier": "^2.2.1"
   }
 }

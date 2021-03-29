@@ -1,6 +1,6 @@
-import Modal from 'flarum/components/Modal';
-import Button from 'flarum/components/Button';
-import DiscussionPage from 'flarum/components/DiscussionPage';
+import Modal from 'flarum/common/components/Modal';
+import Button from 'flarum/common/components/Button';
+import DiscussionPage from 'flarum/forum/components/DiscussionPage';
 
 import Language from './Language';
 

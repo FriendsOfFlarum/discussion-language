@@ -43,7 +43,7 @@ class AddLanguageFilter implements MiddlewareInterface
         }
 
         /** @var SettingsRepositoryInterface */
-        $settings = app(SettingsRepositoryInterface::class);
+        $settings = resolve(SettingsRepositoryInterface::class);
 
         if ((bool) $settings->get('fof-discussion-language.filter_language_on_http_request', false)) {
             /** @var \Flarum\User\User */
@@ -78,7 +78,7 @@ class AddLanguageFilter implements MiddlewareInterface
 
         // Check for the 'index' route (showing all discussions)
         /** @var SettingsRepositoryInterface */
-        $settings = app(SettingsRepositoryInterface::class);
+        $settings = resolve(SettingsRepositoryInterface::class);
         $defaultRoute = $settings->get('default_route');
         if ($defaultRoute === '/all') {
             if ($path === '/') {
@@ -99,7 +99,7 @@ class AddLanguageFilter implements MiddlewareInterface
     private function determineLanguageFromBrowserRequest(string $acceptLangs): string
     {
         /** @var LocaleManager */
-        $locales = app(LocaleManager::class);
+        $locales = resolve(LocaleManager::class);
 
         $langs = [];
         // break up string into pieces (languages and q factors)

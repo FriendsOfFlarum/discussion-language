@@ -12,7 +12,7 @@
 namespace FoF\DiscussionLanguage\Gambit;
 
 use Flarum\Search\AbstractRegexGambit;
-use Flarum\Search\AbstractSearch;
+use Flarum\Search\SearchState;
 use FoF\DiscussionLanguage\DiscussionLanguage;
 
 class LanguageGambit extends AbstractRegexGambit
@@ -25,7 +25,7 @@ class LanguageGambit extends AbstractRegexGambit
     /**
      * {@inheritdoc}
      */
-    protected function conditions(AbstractSearch $search, array $matches, $negate)
+    protected function conditions(SearchState $search, array $matches, $negate)
     {
         $codes = explode(',', trim($matches[1], '"'));
 

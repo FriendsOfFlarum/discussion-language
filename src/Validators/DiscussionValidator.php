@@ -27,7 +27,7 @@ class DiscussionValidator extends AbstractValidator
      */
     protected function getMessages()
     {
-        $error = app('translator')->trans('fof-discussion-language.api.discussion.validation_error');
+        $error = resolve('translator')->trans('fof-discussion-language.api.discussion.validation_error');
 
         return [
             'required' => $error,

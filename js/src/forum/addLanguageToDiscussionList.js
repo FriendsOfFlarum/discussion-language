@@ -1,10 +1,10 @@
-import { extend } from 'flarum/extend';
-import IndexPage from 'flarum/components/IndexPage';
-import DiscussionHero from 'flarum/components/DiscussionHero';
-import DiscussionListState from 'flarum/states/DiscussionListState';
-import DiscussionListItem from 'flarum/components/DiscussionListItem';
-import GlobalSearchState from 'flarum/states/GlobalSearchState';
-import setRouteWithForcedRefresh from 'flarum/utils/setRouteWithForcedRefresh';
+import { extend } from 'flarum/common/extend';
+import IndexPage from 'flarum/forum/components/IndexPage';
+import DiscussionHero from 'flarum/forum/components/DiscussionHero';
+import DiscussionListState from 'flarum/forum/states/DiscussionListState';
+import DiscussionListItem from 'flarum/forum/components/DiscussionListItem';
+import GlobalSearchState from 'flarum/forum/states/GlobalSearchState';
+import setRouteWithForcedRefresh from 'flarum/common/utils/setRouteWithForcedRefresh';
 
 import flag from '../common/utils/flag';
 import LanguageDropdown from './components/LanguageDropdown';
