@@ -1,6 +1,6 @@
-import Model from 'flarum/Model';
-import Forum from 'flarum/models/Forum';
-import Discussion from 'flarum/models/Discussion';
+import Model from 'flarum/common/Model';
+import Forum from 'flarum/common/models/Forum';
+import Discussion from 'flarum/common/models/Discussion';
 
 import Language from '../common/models/Language';
 

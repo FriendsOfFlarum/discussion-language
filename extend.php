@@ -3,9 +3,9 @@
 /*
  * This file is part of fof/discussion-language.
  *
- * Copyright (c) 2020 - 2021 FriendsOfFlarum.
+ * Copyright (c) FriendsOfFlarum.
  *
- * For the full copyright and license information, please view the LICENSE.md
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
@@ -19,7 +19,7 @@ use Flarum\Api\Serializer\DiscussionSerializer;
 use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Discussion\Discussion;
 use Flarum\Discussion\Event\Saving;
-use Flarum\Event\ConfigureDiscussionGambits;
+use Flarum\Discussion\Search\DiscussionSearcher;
 use Flarum\Extend;
 use FoF\DiscussionLanguage\Api\Serializers\DiscussionLanguageSerializer;
 
@@ -46,10 +46,10 @@ return [
         ->hasOne('language', DiscussionLanguage::class, 'id', 'language_id'),
 
     (new Extend\Event())
-        ->listen(Saving::class, Listeners\AddDiscussionLanguage::class)
-        ->listen(ConfigureDiscussionGambits::class, function (ConfigureDiscussionGambits $event) {
-            $event->gambits->add(Gambit\LanguageGambit::class);
-        }),
+        ->listen(Saving::class, Listeners\AddDiscussionLanguage::class),
+
+    (new Extend\SimpleFlarumSearch(DiscussionSearcher::class))
+        ->addGambit(Gambit\LanguageGambit::class),
 
     (new Extend\Policy())
         ->modelPolicy(Discussion::class, Access\DiscussionPolicy::class),
@@ -59,7 +59,7 @@ return [
 
     (new Extend\ApiSerializer(DiscussionSerializer::class))
         ->hasOne('language', DiscussionLanguageSerializer::class)
-        ->mutate(function (DiscussionSerializer $serializer, Discussion $discussion, array $attributes) {
+        ->attributes(function (DiscussionSerializer $serializer, Discussion $discussion, array $attributes) {
             $attributes['canChangeLanguage'] = $serializer->getActor()->can('changeLanguage', $discussion);
 
             return $attributes;
@@ -85,7 +85,5 @@ return [
         ->addInclude(['language']),
 
     (new Extend\Settings())
-        ->serializeToForum('fof-discussion-language.composerLocaleDefault', 'fof-discussion-language.composerLocaleDefault', function ($value) {
-            return (bool) $value;
-        }),
+        ->serializeToForum('fof-discussion-language.composerLocaleDefault', 'fof-discussion-language.composerLocaleDefault', 'boolVal'),
 ];

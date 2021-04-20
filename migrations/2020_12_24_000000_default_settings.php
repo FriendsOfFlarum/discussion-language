@@ -3,9 +3,9 @@
 /*
  * This file is part of fof/discussion-language.
  *
- * Copyright (c) 2020 - 2021 FriendsOfFlarum.
+ * Copyright (c) FriendsOfFlarum.
  *
- * For the full copyright and license information, please view the LICENSE.md
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
@@ -17,7 +17,7 @@ return [
         /**
          * @var SettingsRepositoryInterface
          */
-        $settings = app('flarum.settings');
+        $settings = resolve('flarum.settings');
 
         $settings->set('fof-discussion-language.showFlags', true);
     },
@@ -25,7 +25,7 @@ return [
         /**
          * @var SettingsRepositoryInterface
          */
-        $settings = app('flarum.settings');
+        $settings = resolve('flarum.settings');
 
         $settings->delete('fof-discussion-language.showFlags');
     },

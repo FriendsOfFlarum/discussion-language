@@ -1,5 +1,5 @@
 import basename from 'twemoji-basename';
-import icon from 'flarum/helpers/icon';
+import icon from 'flarum/common/helpers/icon';
 
 export default (language) => {
     if (!language) return;

@@ -19,7 +19,7 @@
     }
   ],
   "require": {
-    "flarum/core": "^0.1.0-beta.15",
+    "flarum/core": "^0.1.0-beta.16",
     "fof/extend": ">=0.3.1",
     "ianm/iso-639": "^1.0",
     "rinvex/countries": "^6.1.2 || ^7.0.1"
@@ -39,7 +39,7 @@
   "extra": {
     "flarum-extension": {
       "title": "FoF Discussion Language",
-      "category": "discussion",
+      "category": "feature",
       "icon": {
         "name": "fas fa-language",
         "backgroundColor": "#e74c3c",

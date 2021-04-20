@@ -1,6 +1,6 @@
-import { extend, override } from 'flarum/extend';
-import IndexPage from 'flarum/components/IndexPage';
-import DiscussionComposer from 'flarum/components/DiscussionComposer';
+import { extend, override } from 'flarum/common/extend';
+import IndexPage from 'flarum/forum/components/IndexPage';
+import DiscussionComposer from 'flarum/forum/components/DiscussionComposer';
 
 import LanguageDiscussionModal from './components/LanguageDiscussionModal';
 import Language from './components/Language';

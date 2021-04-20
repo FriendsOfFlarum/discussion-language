@@ -1,7 +1,7 @@
-import { extend } from 'flarum/extend';
-import Forum from 'flarum/models/Forum';
-import PermissionGrid from 'flarum/components/PermissionGrid';
-import SettingDropdown from 'flarum/components/SettingDropdown';
+import { extend } from 'flarum/common/extend';
+import Forum from 'flarum/common/models/Forum';
+import PermissionGrid from 'flarum/admin/components/PermissionGrid';
+import SettingDropdown from 'flarum/admin/components/SettingDropdown';
 
 import LanguagesSettingsPage from './components/LanguagesSettingsPage';
 import Language from '../common/models/Language';

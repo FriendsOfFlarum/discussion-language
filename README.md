@@ -6,7 +6,7 @@ A [Flarum](http://flarum.org) extension. Specify the language a discussion is wr
 
 ### Installation
 
-Use [Bazaar](https://discuss.flarum.org/d/5151-flagrow-bazaar-the-extension-marketplace) or install manually with composer:
+Install manually with composer:
 
 ```sh
 composer require fof/discussion-language

@@ -1,10 +1,10 @@
-import ExtensionPage from 'flarum/components/ExtensionPage';
-import Button from 'flarum/components/Button';
-import Select from 'flarum/components/Select';
-import Switch from 'flarum/components/Switch';
-import icon from 'flarum/helpers/icon';
-import saveSettings from 'flarum/utils/saveSettings';
-import Stream from 'flarum/utils/Stream';
+import ExtensionPage from 'flarum/admin/components/ExtensionPage';
+import Button from 'flarum/common/components/Button';
+import Select from 'flarum/common/components/Select';
+import Switch from 'flarum/common/components/Switch';
+import icon from 'flarum/common/helpers/icon';
+import saveSettings from 'flarum/admin/utils/saveSettings';
+import Stream from 'flarum/common/utils/Stream';
 import getLocales from '../utils/locales';
 import { default as getCountries, getCountryEmoji } from '../utils/countries';
 import flag from '../../common/utils/flag';

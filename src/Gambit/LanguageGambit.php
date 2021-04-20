@@ -3,29 +3,29 @@
 /*
  * This file is part of fof/discussion-language.
  *
- * Copyright (c) 2020 - 2021 FriendsOfFlarum.
+ * Copyright (c) FriendsOfFlarum.
  *
- * For the full copyright and license information, please view the LICENSE.md
+ * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
 namespace FoF\DiscussionLanguage\Gambit;
 
 use Flarum\Search\AbstractRegexGambit;
-use Flarum\Search\AbstractSearch;
+use Flarum\Search\SearchState;
 use FoF\DiscussionLanguage\DiscussionLanguage;
 
 class LanguageGambit extends AbstractRegexGambit
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected $pattern = 'language:(.+)';
+    public function getGambitPattern()
+    {
+        return 'language:(.+)';
+    }
 
     /**
      * {@inheritdoc}
      */
-    protected function conditions(AbstractSearch $search, array $matches, $negate)
+    protected function conditions(SearchState $search, array $matches, $negate)
     {
         $codes = explode(',', trim($matches[1], '"'));
 
