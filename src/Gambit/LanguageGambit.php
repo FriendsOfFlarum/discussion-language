@@ -17,10 +17,10 @@ use FoF\DiscussionLanguage\DiscussionLanguage;
 
 class LanguageGambit extends AbstractRegexGambit
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected $pattern = 'language:(.+)';
+    public function getGambitPattern()
+    {
+        return 'language:(.+)';
+    }
 
     /**
      * {@inheritdoc}
