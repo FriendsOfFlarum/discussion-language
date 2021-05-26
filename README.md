@@ -6,13 +6,11 @@ A [Flarum](http://flarum.org) extension. Specify the language a discussion is wr
 
 ### Installation
 
-Install manually with composer:
+Install with composer:
 
 ```sh
-composer require fof/discussion-language
+composer require fof/discussion-language:"*"
 ```
-
-Enable this extension **before** `flarum/tags`.
 
 ### Updating
 

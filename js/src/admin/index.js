@@ -29,7 +29,7 @@ app.initializers.add('fof/discussion-language', () => {
 
                     return SettingDropdown.component({
                         defaultLabel: minutes
-                            ? app.translator.transChoice('core.admin.permissions_controls.allow_some_minutes_button', minutes, { count: minutes })
+                            ? app.translator.trans('core.admin.permissions_controls.allow_some_minutes_button', minutes, { count: minutes })
                             : app.translator.trans('core.admin.permissions_controls.allow_indefinitely_button'),
                         key: 'fof-discussion-language.allow_language_change',
                         options: [

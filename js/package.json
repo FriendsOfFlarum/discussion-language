@@ -5,7 +5,7 @@
     "countries-list": "^2.5.6",
     "flarum-webpack-config": "^0.1.0-beta.10",
     "iso-639-1": "^2.1.5",
-    "twemoji": "^13.0.1",
+    "twemoji": "^13.0.2",
     "twemoji-basename": "^1.0.0",
     "webpack": "^4.46.0",
     "webpack-cli": "^4.5.0"
@@ -17,6 +17,6 @@
   },
   "devDependencies": {
     "flarum": "0.1.0-beta.16",
-    "prettier": "^2.2.1"
+    "prettier": "^2.3.0"
   }
 }
