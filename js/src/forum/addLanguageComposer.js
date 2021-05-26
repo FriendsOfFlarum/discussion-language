@@ -1,4 +1,5 @@
 import { extend, override } from 'flarum/common/extend';
+import app from 'flarum/common/app';
 import IndexPage from 'flarum/forum/components/IndexPage';
 import DiscussionComposer from 'flarum/forum/components/DiscussionComposer';
 
@@ -15,7 +16,7 @@ export default () => {
             promise.then((composer) => (composer.fields.language = app.store.getBy('discussion-languages', 'code', dislang)));
         } else {
             const localeComposer = app.forum.attribute('fof-discussion-language.composerLocaleDefault');
-            app.composer.fields.language = localeComposer ? app.store.getBy('discussion-languages', 'code', app.translator.locale) : '';
+            app.composer.fields.language = localeComposer ? app.store.getBy('discussion-languages', 'code', app.translator.formatter.locale) : '';
         }
     });
 
