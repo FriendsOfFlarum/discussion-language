@@ -85,5 +85,6 @@ return [
         ->addInclude(['language']),
 
     (new Extend\Settings())
-        ->serializeToForum('fof-discussion-language.composerLocaleDefault', 'fof-discussion-language.composerLocaleDefault', 'boolVal'),
+        ->serializeToForum('fof-discussion-language.composerLocaleDefault', 'fof-discussion-language.composerLocaleDefault', 'boolVal')
+        ->serializeToForum('fof-discussion-language.showAnyLangOpt', 'fof-discussion-language.showAnyLangOpt', 'boolVal'),
 ];

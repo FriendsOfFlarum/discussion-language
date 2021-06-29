@@ -33,6 +33,9 @@ export default class LanguagesSettingsPage extends ExtensionPage {
 
         this.localeSortKey = 'fof-discussion-language.filter_language_on_http_request';
         this.localeSort = app.data.settings[this.localeSortKey];
+
+        this.showAnyLangOptKey = 'fof-discussion-language.showAnyLangOpt';
+        this.showAnyLangOpt = app.data.settings[this.showAnyLangOptKey];
     }
 
     content() {
@@ -82,6 +85,16 @@ export default class LanguagesSettingsPage extends ExtensionPage {
                                 onchange: (value) => (this.localeSort = value),
                             },
                             app.translator.trans('fof-discussion-language.admin.settings.locale_sort_label')
+                        )}
+                    </div>
+
+                    <div className="Form-group">
+                        {Switch.component(
+                            {
+                                state: this.showAnyLangOpt,
+                                onchange: (value) => (this.showAnyLangOpt = value),
+                            },
+                            app.translator.trans('fof-discussion-language.admin.settings.show_any_lang_opt_label')
                         )}
                     </div>
 
@@ -221,6 +234,7 @@ export default class LanguagesSettingsPage extends ExtensionPage {
                 [this.showFlagsKey]: this.showFlags,
                 [this.composerLocaleDefaultKey]: this.composerLocaleDefault,
                 [this.localeSortKey]: this.localeSort,
+                [this.showAnyLangOptKey]: this.showAnyLangOpt,
             }).then(this.onsaved.bind(this)),
         ]);
     }
@@ -254,7 +268,8 @@ export default class LanguagesSettingsPage extends ExtensionPage {
         const flag = Number(this.showFlags) !== Number(app.data.settings[this.showFlagsKey] || 0);
         const composerLocale = Number(this.composerLocaleDefault) !== Number(app.data.settings[this.composerLocaleDefaultKey] || 0);
         const locale = Number(this.localeSort) !== Number(app.data.settings[this.localeSortKey] || 0);
+        const anyOpt = Number(this.showAnyLangOpt) !== Number(app.data.settings[this.showAnyLangOptKey] || 0);
 
-        return dirty || native || flag || composerLocale || locale;
+        return dirty || native || flag || composerLocale || locale || anyOpt;
     }
 }

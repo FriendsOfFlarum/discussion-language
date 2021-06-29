@@ -14,6 +14,7 @@ namespace FoF\DiscussionLanguage\Middleware;
 use Flarum\Locale\LocaleManager;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Support\Arr;
+use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -61,11 +62,18 @@ class AddLanguageFilter implements MiddlewareInterface
             }
 
             if ($language) {
-                $request = $request->withQueryParams([
-                    'q' => Arr::get($params, 'q', '') . " language:$language",
-                ]);
-    
-                return $handler->handle($request);
+                if ((bool) $settings->get('fof-discussion-language.showAnyLangOpt', true)) {
+                    $uri = $request->getUri();
+                    $uri = $uri->withQuery("language=$language");
+
+                    return new RedirectResponse($uri, 303);
+                } else {
+                    $request = $request->withQueryParams([
+                        'q' => Arr::get($params, 'q', '') . " language:$language",
+                    ]);
+        
+                    return $handler->handle($request);
+                }
             }
         }
 
