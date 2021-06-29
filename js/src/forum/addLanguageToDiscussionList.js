@@ -31,23 +31,38 @@ export default () => {
     extend(DiscussionListState.prototype, 'requestParams', function (params) {
         params.include.push('language');
 
-        if (app.search.params().language) {
-            params.filter.q = (params.filter.q || '') + ' language:' + app.search.params().language;
+        if (app.forum.attribute('fof-discussion-language.showAnyLangOpt')) {
+            if (app.search.params().language) {
+                params.filter.q = (params.filter.q || '') + ' language:' + app.search.params().language;
+            }
+        } else {
+            params.filter.q =
+                (params.filter.q || '') +
+                ' language:' +
+                (app.search.params().language ? app.search.params().language : app.translator.formatter.locale);
         }
     });
 
     extend(GlobalSearchState.prototype, 'stickyParams', (params) => (params.language = m.route.param('language')));
 
     extend(IndexPage.prototype, 'viewItems', function (items) {
+        let extra, defaultSelected;
+        if (app.forum.attribute('fof-discussion-language.showAnyLangOpt')) {
+            extra = { any: app.translator.trans('fof-discussion-language.forum.index_language.any') };
+            defaultSelected = 'any';
+        } else {
+            defaultSelected = app.translator.formatter.locale;
+        }
+
         items.add(
             'language',
             LanguageDropdown.component({
-                extra: { any: app.translator.trans('fof-discussion-language.forum.index_language.any') },
-                default: 'any',
+                extra,
+                default: defaultSelected,
                 onclick: (key) => {
                     const params = app.search.params();
 
-                    if (key === 'any') delete params.language;
+                    if (key === defaultSelected) delete params.language;
                     else params.language = key;
 
                     setRouteWithForcedRefresh(app.route(app.current.get('routeName'), params));
