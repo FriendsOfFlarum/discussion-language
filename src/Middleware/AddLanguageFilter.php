@@ -69,9 +69,9 @@ class AddLanguageFilter implements MiddlewareInterface
                     return new RedirectResponse($uri, 303);
                 } else {
                     $request = $request->withQueryParams([
-                        'q' => Arr::get($params, 'q', '') . " language:$language",
+                        'q' => Arr::get($params, 'q', '')." language:$language",
                     ]);
-        
+
                     return $handler->handle($request);
                 }
             }
