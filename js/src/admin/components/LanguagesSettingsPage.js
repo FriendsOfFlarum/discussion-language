@@ -2,11 +2,12 @@ import ExtensionPage from 'flarum/admin/components/ExtensionPage';
 import Button from 'flarum/common/components/Button';
 import Select from 'flarum/common/components/Select';
 import Switch from 'flarum/common/components/Switch';
+import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
 import icon from 'flarum/common/helpers/icon';
 import saveSettings from 'flarum/admin/utils/saveSettings';
 import Stream from 'flarum/common/utils/Stream';
-import getLocales from '../utils/locales';
-import { default as getCountries, getCountryEmoji } from '../utils/countries';
+import getLocales, * as locales from '../utils/locales';
+import getCountries, * as countries from '../utils/countries';
 import flag from '../../common/utils/flag';
 
 export default class LanguagesSettingsPage extends ExtensionPage {
@@ -36,11 +37,29 @@ export default class LanguagesSettingsPage extends ExtensionPage {
 
         this.showAnyLangOptKey = 'fof-discussion-language.showAnyLangOpt';
         this.showAnyLangOpt = app.data.settings[this.showAnyLangOptKey];
+
+        this.loadingData = true;
+    }
+
+    oncreate(vnode) {
+        super.oncreate(vnode);
+
+        this.refresh();
+    }
+
+    refresh() {
+        this.loadingData = true;
+
+        return Promise.all([locales.load(), countries.load()]).then(() => {
+            this.loadingData = false;
+
+            m.redraw();
+        });
     }
 
     content() {
         const locales = getLocales(this.native);
-        const countries = getCountries(this.native);
+        const countryData = getCountries(this.native);
 
         return [
             <div className="container">
@@ -51,6 +70,7 @@ export default class LanguagesSettingsPage extends ExtensionPage {
                                 state: this.native,
                                 onchange: (val) => {
                                     this.native = val;
+                                    this.refresh();
                                     m.redraw.sync();
                                 },
                             },
@@ -100,81 +120,87 @@ export default class LanguagesSettingsPage extends ExtensionPage {
 
                     <hr />
 
-                    <div className="Form-group flex">
-                        {Select.component({
-                            onchange: this.newLocale,
-                            value: this.newLocale(),
-                            options: locales,
-                        })}
+                    {this.loadingData ? (
+                        <LoadingIndicator />
+                    ) : (
+                        <form>
+                            <div className="Form-group flex">
+                                {Select.component({
+                                    onchange: this.newLocale,
+                                    value: this.newLocale(),
+                                    options: locales,
+                                })}
 
-                        {Select.component({
-                            onchange: this.newCountry,
-                            value: this.newCountry(),
-                            options: countries,
-                        })}
+                                {Select.component({
+                                    onchange: this.newCountry,
+                                    value: this.newCountry(),
+                                    options: countryData,
+                                })}
 
-                        {flag(getCountryEmoji(this.newCountry()))}
+                                {flag(countries.getEmoji(this.newCountry()))}
 
-                        {Button.component(
-                            {
-                                className: 'Button Button--primary',
-                                onclick: this.add.bind(this),
-                                disabled: !this.newLocale() || !this.newCountry() || this.adding,
-                            },
-                            icon(this.adding ? 'fas fa-spinner fa-spin' : 'fas fa-plus')
-                        )}
-                    </div>
+                                {Button.component(
+                                    {
+                                        className: 'Button Button--primary',
+                                        onclick: this.add.bind(this),
+                                        disabled: !this.newLocale() || !this.newCountry() || this.adding,
+                                    },
+                                    icon(this.adding ? 'fas fa-spinner fa-spin' : 'fas fa-plus')
+                                )}
+                            </div>
 
-                    <div className="Form-group">
-                        {app.store.all('discussion-languages').map((language) => {
-                            const id = language.id();
-                            const updating = this.updating[id];
-                            const deleting = this.deleting[id];
+                            <div className="Form-group">
+                                {app.store.all('discussion-languages').map((language) => {
+                                    const id = language.id();
+                                    const updating = this.updating[id];
+                                    const deleting = this.deleting[id];
 
-                            const country = this.countries[id] || language.country();
+                                    const country = this.countries[id] || language.country();
 
-                            return (
-                                <div className="flex">
-                                    {Select.component({
-                                        onchange: (val) => (this.codes[id] = val),
-                                        value: this.codes[id] || language.code(),
-                                        options: locales,
-                                        disabled: updating || deleting,
-                                    })}
+                                    return (
+                                        <div className="flex">
+                                            {Select.component({
+                                                onchange: (val) => (this.codes[id] = val),
+                                                value: this.codes[id] || language.code(),
+                                                options: locales,
+                                                disabled: updating || deleting,
+                                            })}
 
-                                    {Select.component({
-                                        onchange: (val) => (this.countries[id] = val),
-                                        value: country,
-                                        options: countries,
-                                        disabled: updating || deleting,
-                                    })}
+                                            {Select.component({
+                                                onchange: (val) => (this.countries[id] = val),
+                                                value: country,
+                                                options: countryData,
+                                                disabled: updating || deleting,
+                                            })}
 
-                                    {flag(getCountryEmoji(country))}
+                                            {flag(countries.getEmoji(country))}
 
-                                    {Button.component(
-                                        {
-                                            className: `Button Button--danger`,
-                                            disabled: deleting,
-                                            onclick: this.remove.bind(this, language),
-                                        },
-                                        icon(deleting ? 'fas fa-spinner fa-spin' : 'fas fa-times')
-                                    )}
-                                </div>
-                            );
-                        })}
-                    </div>
+                                            {Button.component(
+                                                {
+                                                    className: `Button Button--danger`,
+                                                    disabled: deleting,
+                                                    onclick: this.remove.bind(this, language),
+                                                },
+                                                icon(deleting ? 'fas fa-spinner fa-spin' : 'fas fa-times')
+                                            )}
+                                        </div>
+                                    );
+                                })}
+                            </div>
 
-                    <div className="Form-group">
-                        <Button
-                            type="submit"
-                            className="Button Button--primary"
-                            loading={this.loading}
-                            disabled={!this.isChanged()}
-                            onclick={this.save.bind(this)}
-                        >
-                            {app.translator.trans('core.admin.settings.submit_button')}
-                        </Button>
-                    </div>
+                            <div className="Form-group">
+                                <Button
+                                    type="submit"
+                                    className="Button Button--primary"
+                                    loading={this.loading}
+                                    disabled={!this.isChanged()}
+                                    onclick={this.save.bind(this)}
+                                >
+                                    {app.translator.trans('core.admin.settings.submit_button')}
+                                </Button>
+                            </div>
+                        </form>
+                    )}
                 </div>
             </div>,
         ];
