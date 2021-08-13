@@ -1,3 +1,4 @@
+import app from 'flarum/admin/app';
 import ExtensionPage from 'flarum/admin/components/ExtensionPage';
 import Button from 'flarum/common/components/Button';
 import Select from 'flarum/common/components/Select';
@@ -6,6 +7,7 @@ import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
 import icon from 'flarum/common/helpers/icon';
 import saveSettings from 'flarum/admin/utils/saveSettings';
 import Stream from 'flarum/common/utils/Stream';
+import Alert from 'flarum/common/components/Alert';
 import getLocales, * as locales from '../utils/locales';
 import getCountries, * as countries from '../utils/countries';
 import flag from '../../common/utils/flag';
@@ -24,7 +26,7 @@ export default class LanguagesSettingsPage extends ExtensionPage {
         this.newCountry = Stream('');
 
         this.nativeKey = 'fof-discussion-language.native';
-        this.native = app.data.settings[this.nativeKey];
+        this.native = !!Number(app.data.settings[this.nativeKey]);
 
         this.showFlagsKey = 'fof-discussion-language.showFlags';
         this.showFlags = app.data.settings[this.showFlagsKey];
@@ -39,6 +41,7 @@ export default class LanguagesSettingsPage extends ExtensionPage {
         this.showAnyLangOpt = app.data.settings[this.showAnyLangOptKey];
 
         this.loadingData = true;
+        this.loadingDataError = false;
     }
 
     oncreate(vnode) {
@@ -49,12 +52,25 @@ export default class LanguagesSettingsPage extends ExtensionPage {
 
     refresh() {
         this.loadingData = true;
+        this.loadingDataError = false;
 
-        return Promise.all([locales.load(), countries.load()]).then(() => {
-            this.loadingData = false;
+        m.redraw();
 
-            m.redraw();
-        });
+        return Promise.all([locales.load(), countries.load()])
+            .then(() => {
+                this.loadingData = false;
+                this.loadingDataError = false;
+
+                m.redraw();
+            })
+            .catch((e) => {
+                console.error(e);
+
+                this.loadingData = false;
+                this.loadingDataError = true;
+
+                m.redraw();
+            });
     }
 
     content() {
@@ -122,6 +138,10 @@ export default class LanguagesSettingsPage extends ExtensionPage {
 
                     {this.loadingData ? (
                         <LoadingIndicator />
+                    ) : this.loadingDataError ? (
+                        <Alert ondismiss={this.refresh.bind(this)} type="error">
+                            {app.translator.trans('fof-discussion-language.admin.settings.errors.loading_data')}
+                        </Alert>
                     ) : (
                         <form>
                             <div className="Form-group flex">

@@ -19,6 +19,9 @@ use Flarum\Api\Serializer\DiscussionSerializer;
 use Flarum\Discussion\Discussion;
 use Flarum\Settings\SettingsRepositoryInterface;
 use IanM\ISO639\ISO639;
+use League\Csv\Reader;
+use League\Csv\Statement;
+use League\Csv\TabularDataReader;
 use Rinvex\Country\CountryLoader;
 
 class DiscussionLanguageSerializer extends AbstractSerializer
@@ -45,15 +48,15 @@ class DiscussionLanguageSerializer extends AbstractSerializer
      */
     protected $converter;
 
+    /**
+     * @var TabularDataReader
+     */
+    protected $records;
+
     public function __construct(SettingsRepositoryInterface $settings, ISO639 $iso)
     {
         $this->settings = $settings;
         $this->iso = $iso;
-
-        $adapter = new LanguageCode();
-        $this->converterOptions = new LanguageCodeOptions();
-
-        $this->converter = new Conversion(['adapter' => $adapter, 'options' => $this->converterOptions]);
     }
 
     /**
@@ -85,8 +88,39 @@ class DiscussionLanguageSerializer extends AbstractSerializer
     }
 
     protected function getLanguageName(string $code, bool $native) {
-        $this->converterOptions->setOutput($native ? 'native' : 'name');
+        if (!$this->records) {
+            $csv = Reader::createFromPath(__DIR__ . '/../../../resources/wikipedia-iso-639-2-codes.csv');
+            $csv->setHeaderOffset(0);
 
-        return $this->converter->filter($code);
+            $stmt = Statement::create();
+
+            $this->records = $stmt->process($csv);
+        }
+
+        /*
+         * array:9 [▼
+         *    "639-2[1]" => "aar"
+         *    "639-3[2]" => "aar"
+         *    "639-5[3]" => ""
+         *    "639-1" => "aa"
+         *    "Language name(s) from ISO 639-2[1]" => "Afar"
+         *    "Scope" => "Individual"
+         *    "Type" => "Living"
+         *    "Native name(s)" => "Qafaraf; ’Afar Af; Afaraf; Qafar af"
+         *    "Other name(s)" => ""
+         *  ]
+         */
+        foreach ($this->records as $record) {
+            $iso6391 = $record['639-1'];
+            $iso6392 = $record['639-2'];
+            $iso6393 = $record['639-3'];
+
+            $englishName = $record['Language name(s)'];
+            $nativeName = $record['Native name(s)'] ?: $englishName;
+
+            if ($iso6391 == $code || $iso6392 == $code || $iso6393 == $code) {
+                return $native ? $nativeName : $englishName;
+            }
+        }
     }
 }

@@ -14,6 +14,7 @@ module.exports = merge(config(), {
             dangerouslyAllowCleanPatternsOutsideProject: true,
             cleanOnceBeforeBuildPatterns: [
                 path.resolve(process.cwd(), '../assets/*'),
+                path.resolve(process.cwd(), 'dist/*'),
             ]
         }),
         new FileManagerPlugin({
@@ -26,4 +27,17 @@ module.exports = merge(config(), {
             },
         }),
     ],
+    module: {
+        rules: [
+            {
+                test: /\.csv$/,
+                loader: 'csv-loader',
+                options: {
+                    dynamicTyping: true,
+                    header: true,
+                    skipEmptyLines: true,
+                },
+            },
+        ],
+    },
 })

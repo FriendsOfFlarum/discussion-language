@@ -6,18 +6,24 @@ let ISO6392;
 export const load = () => {
     __webpack_public_path__ = `${app.forum.attribute('baseUrl')}/assets/extensions/fof-discussion-language/`;
 
-    return import(/* webpackChunkName: "iso-639-2" */ 'iso-639-2').then((pkg) => (window.ISO6392 = ISO6392 = pkg));
+    return import(/* webpackChunkName: "iso-639-2" */ '../../../../resources/wikipedia-iso-639-2-codes.csv').then(
+        (pkg) => (window.ISO6392 = ISO6392 = pkg)
+    );
 };
 
+export const getNameColumn = (data, native) => data?.[native ? 'Native name(s)' : 'Language name(s)'] || data?.['Language name(s)'];
+
 export default (native) =>
-    ISO6392?.iso6392
-        .sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase())
-        ?.reduce((o, data) => {
-            o[data.iso6392T || data.iso6392B] = data.name;
+    Array.from(Object.values(ISO6392 || {}))
+        ?.sort((a, b) => getNameColumn(a, native)?.toLowerCase() < getNameColumn(b, native)?.toLowerCase())
+        .reduce((o, data) => {
+            o[data['639-1'] || data['639-2']] = getNameColumn(data, native);
 
             return o;
-        }, {})
+        }, {});
 
-// export const getName = (code, native) => localeCodes?.find(data => data.tag === code)?.[native ? 'local' : 'name'];
-
-export const getName = (code, native) => ISO6392?.iso6392?.find(data => data.iso6392B === code || data.iso6391 === code)?.name;
+export const getName = (code, native) =>
+    getNameColumn(
+        ISO6392?.find((data) => [data['639-1'] || data['639-2']].includes(code)),
+        native
+    );

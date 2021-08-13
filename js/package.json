@@ -3,12 +3,7 @@
   "private": true,
   "dependencies": {
     "countries-list": "^2.5.6",
-    "filemanager-webpack-plugin": "^3.1.1",
     "flarum-webpack-config": "^0.1.0-beta.10",
-    "iso-639-1": "^2.1.5",
-    "iso-639-2": "^3.0.0",
-    "langs": "^2.0.0",
-    "locale-codes": "^1.3.1",
     "twemoji": "^13.0.2",
     "twemoji-basename": "^1.0.0",
     "webpack": "^4.46.0",
@@ -18,10 +13,12 @@
   "scripts": {
     "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
-    "lint": "prettier --single-quote --trailing-comma es5 --print-width 150 --tab-width 4 --write src"
+    "format": "prettier --single-quote --trailing-comma es5 --print-width 150 --tab-width 4 --write src"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "csv-loader": "^3.0.3",
+    "filemanager-webpack-plugin": "^3.1.1",
     "flarum": "0.1.0-beta.16",
     "prettier": "^2.3.0"
   }
