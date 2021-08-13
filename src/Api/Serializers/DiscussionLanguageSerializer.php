@@ -33,29 +33,13 @@ class DiscussionLanguageSerializer extends AbstractSerializer
     protected $settings;
 
     /**
-     * @var ISO639
-     */
-    protected $iso;
-
-    /**
-     * @var LanguageCodeOptions
-     */
-    protected $converterOptions;
-
-    /**
-     * @var Conversion
-     */
-    protected $converter;
-
-    /**
      * @var TabularDataReader
      */
     protected $records;
 
-    public function __construct(SettingsRepositoryInterface $settings, ISO639 $iso)
+    public function __construct(SettingsRepositoryInterface $settings)
     {
         $this->settings = $settings;
-        $this->iso = $iso;
     }
 
     /**
