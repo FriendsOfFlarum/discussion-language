@@ -21,10 +21,7 @@
   "require": {
     "flarum/core": "^1.0.0",
     "fof/extend": "^1.0.0",
-    "ianm/iso-639": "^1.0",
     "rinvex/countries": "^6.1.2 || ^7.0.1",
-    "leodido/langcode-conv": "^0.3.0",
-    "leodido/conversio": "^0.3.0",
     "league/csv": "^9.7"
   },
   "authors": [
