@@ -11,13 +11,10 @@
 
 namespace FoF\DiscussionLanguage\Api\Serializers;
 
-use Conversio\Adapter\Options\LanguageCodeOptions;
-use Conversio\Conversion;
 use Flarum\Api\Serializer\AbstractSerializer;
 use Flarum\Api\Serializer\DiscussionSerializer;
 use Flarum\Discussion\Discussion;
 use Flarum\Settings\SettingsRepositoryInterface;
-use IanM\ISO639\ISO639;
 use League\Csv\Reader;
 use League\Csv\Statement;
 use League\Csv\TabularDataReader;
