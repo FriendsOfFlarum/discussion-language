@@ -11,7 +11,6 @@
 
 namespace FoF\DiscussionLanguage\Api\Serializers;
 
-use Conversio\Adapter\LanguageCode;
 use Conversio\Adapter\Options\LanguageCodeOptions;
 use Conversio\Conversion;
 use Flarum\Api\Serializer\AbstractSerializer;
@@ -87,9 +86,10 @@ class DiscussionLanguageSerializer extends AbstractSerializer
         return $this->hasOne(Discussion::class, DiscussionSerializer::class);
     }
 
-    protected function getLanguageName(string $code, bool $native) {
+    protected function getLanguageName(string $code, bool $native)
+    {
         if (!$this->records) {
-            $csv = Reader::createFromPath(__DIR__ . '/../../../resources/wikipedia-iso-639-2-codes.csv');
+            $csv = Reader::createFromPath(__DIR__.'/../../../resources/wikipedia-iso-639-2-codes.csv');
             $csv->setHeaderOffset(0);
 
             $stmt = Statement::create();
