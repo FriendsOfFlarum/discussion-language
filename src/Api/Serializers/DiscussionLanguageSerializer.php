@@ -11,6 +11,9 @@
 
 namespace FoF\DiscussionLanguage\Api\Serializers;
 
+use Conversio\Adapter\LanguageCode;
+use Conversio\Adapter\Options\LanguageCodeOptions;
+use Conversio\Conversion;
 use Flarum\Api\Serializer\AbstractSerializer;
 use Flarum\Api\Serializer\DiscussionSerializer;
 use Flarum\Discussion\Discussion;
@@ -32,10 +35,25 @@ class DiscussionLanguageSerializer extends AbstractSerializer
      */
     protected $iso;
 
+    /**
+     * @var LanguageCodeOptions
+     */
+    protected $converterOptions;
+
+    /**
+     * @var Conversion
+     */
+    protected $converter;
+
     public function __construct(SettingsRepositoryInterface $settings, ISO639 $iso)
     {
         $this->settings = $settings;
         $this->iso = $iso;
+
+        $adapter = new LanguageCode();
+        $this->converterOptions = new LanguageCodeOptions();
+
+        $this->converter = new Conversion(['adapter' => $adapter, 'options' => $this->converterOptions]);
     }
 
     /**
@@ -55,11 +73,7 @@ class DiscussionLanguageSerializer extends AbstractSerializer
             'code'    => $model->code,
             'country' => $model->country,
 
-            'name' => ucfirst(
-                $native
-                    ? $this->iso->nativeByCode1($model->code)
-                    : $this->iso->languageByCode1($model->code)
-            ) ?: null,
+            'name' => $this->getLanguageName($model->code, $native),
 
             'emoji' => $showFlag ? (isset($country) ? $country->getEmoji() : null) : null,
         ];
@@ -68,5 +82,11 @@ class DiscussionLanguageSerializer extends AbstractSerializer
     public function discussion()
     {
         return $this->hasOne(Discussion::class, DiscussionSerializer::class);
+    }
+
+    protected function getLanguageName(string $code, bool $native) {
+        $this->converterOptions->setOutput($native ? 'native' : 'name');
+
+        return $this->converter->filter($code);
     }
 }

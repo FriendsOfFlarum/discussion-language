@@ -253,6 +253,8 @@ export default class LanguagesSettingsPage extends ExtensionPage {
                     )
                     .then(() => {
                         this.updating[id] = false;
+
+                        m.redraw();
                     });
             }),
             saveSettings({
