@@ -36,6 +36,7 @@ module.exports = merge(config(), {
                     dynamicTyping: true,
                     header: true,
                     skipEmptyLines: true,
+                    comments: '#',
                 },
             },
         ],

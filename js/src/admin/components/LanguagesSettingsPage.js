@@ -219,6 +219,15 @@ export default class LanguagesSettingsPage extends ExtensionPage {
                                     {app.translator.trans('core.admin.settings.submit_button')}
                                 </Button>
                             </div>
+
+                            <p className="helpText">
+                                This extension uses material from the Wikipedia article{' '}
+                                <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes" target="_blank" rel="noreferrer nofollow noopener">
+                                    List of ISO 639-2 Codes
+                                </a>
+                                , which is released under the{' '}
+                                <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-Share-Alike License 3.0</a>.
+                            </p>
                         </form>
                     )}
                 </div>
