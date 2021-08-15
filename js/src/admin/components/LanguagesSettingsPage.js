@@ -255,6 +255,7 @@ export default class LanguagesSettingsPage extends ExtensionPage {
             .save({ code, country })
             .then(() => {
                 this.newLocale('');
+                this.newCountry('');
 
                 this.adding = false;
 
