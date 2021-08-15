@@ -15,6 +15,7 @@ use Flarum\Api\Serializer\AbstractSerializer;
 use Flarum\Api\Serializer\DiscussionSerializer;
 use Flarum\Discussion\Discussion;
 use Flarum\Settings\SettingsRepositoryInterface;
+use IanM\ISO639\ISO639;
 use League\Csv\Reader;
 use League\Csv\Statement;
 use League\Csv\TabularDataReader;
@@ -30,13 +31,20 @@ class DiscussionLanguageSerializer extends AbstractSerializer
     protected $settings;
 
     /**
+     * @var ISO639
+     */
+    protected $iso;
+
+    /**
      * @var TabularDataReader
      */
     protected $records;
 
-    public function __construct(SettingsRepositoryInterface $settings)
+    public function __construct(SettingsRepositoryInterface $settings, ISO639 $iso)
     {
         $this->settings = $settings;
+
+        $this->iso = $iso;
     }
 
     /**
@@ -72,11 +80,21 @@ class DiscussionLanguageSerializer extends AbstractSerializer
         if (!$this->records) {
             $csv = Reader::createFromPath(__DIR__.'/../../../resources/wikipedia-iso-639-2-codes.csv');
             $csv->setHeaderOffset(5);
-//            $csv->skipInputBOM()
 
             $stmt = Statement::create();
 
             $this->records = $stmt->process($csv);
+        }
+
+        $name = ucfirst(
+            $native
+                ? $this->iso->nativeByCode1($code)
+                : $this->iso->languageByCode1($code)
+        );
+
+        // Use ISO 639-1 name to simplify display
+        if ($name) {
+            return $name;
         }
 
         /*
