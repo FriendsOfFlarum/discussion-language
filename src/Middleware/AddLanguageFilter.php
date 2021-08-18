@@ -36,7 +36,7 @@ class AddLanguageFilter implements MiddlewareInterface
 
         if ($language = Arr::get($params, 'language')) {
             $request = $request->withQueryParams([
-                'q' => Arr::get($params, 'q', '')." language:$language",
+                'q' => Arr::get($params, 'q', '') . " language:$language",
             ]);
 
             return $handler->handle($request);
@@ -62,18 +62,10 @@ class AddLanguageFilter implements MiddlewareInterface
             }
 
             if ($language) {
-                if ((bool) $settings->get('fof-discussion-language.showAnyLangOpt', true)) {
-                    $uri = $request->getUri();
-                    $uri = $uri->withQuery("language=$language");
+                $uri = $request->getUri();
+                $uri = $uri->withQuery("language=$language");
 
-                    return new RedirectResponse($uri, 303);
-                } else {
-                    $request = $request->withQueryParams([
-                        'q' => Arr::get($params, 'q', '')." language:$language",
-                    ]);
-
-                    return $handler->handle($request);
-                }
+                return new RedirectResponse($uri, 303);
             }
         }
 
