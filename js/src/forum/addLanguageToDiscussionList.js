@@ -41,7 +41,7 @@ export default () => {
             params.filter.q =
                 (params.filter.q || '') +
                 ' language:' +
-                (app.search.params().language ? app.search.params().language : app.translator.formatter.locale);// +  ' tag:' + params.filter.tag;
+                (app.search.params().language ? app.search.params().language : app.translator.formatter.locale);
         }
     });
 
