@@ -31,6 +31,8 @@ export default () => {
     extend(DiscussionListState.prototype, 'requestParams', function (params) {
         params.include.push('language');
 
+        if (params.filter?.tag) params.filter.q = (params.filter.q || '') + ' tag:' + params.filter.tag;
+
         if (app.forum.attribute('fof-discussion-language.showAnyLangOpt')) {
             if (app.search.params().language) {
                 params.filter.q = (params.filter.q || '') + ' language:' + app.search.params().language;
@@ -39,7 +41,7 @@ export default () => {
             params.filter.q =
                 (params.filter.q || '') +
                 ' language:' +
-                (app.search.params().language ? app.search.params().language : app.translator.formatter.locale);
+                (app.search.params().language ? app.search.params().language : app.translator.formatter.locale);// +  ' tag:' + params.filter.tag;
         }
     });
 
