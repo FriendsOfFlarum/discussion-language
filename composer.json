@@ -47,7 +47,8 @@
         "color": "#fff"
       },
       "optional-dependencies": [
-        "flarum/tags"
+        "flarum/tags",
+        "fof/byobu"
       ]
     },
     "flagrow": {
