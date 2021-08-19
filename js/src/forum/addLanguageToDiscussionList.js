@@ -33,16 +33,19 @@ export default () => {
   extend(DiscussionHero.prototype, 'items', addLanguage);
 
   extend(DiscussionListState.prototype, 'requestParams', function (params) {
+    if (app.current.data.routeName === 'byobuPrivate') return;
+
     params.include.push('language');
 
-    if (app.current.data.routeName === 'byobuPrivate') return;
+    if (params.filter?.tag) params.filter.q = (params.filter.q || '') + ' tag:' + params.filter.tag;
 
     if (app.forum.attribute('fof-discussion-language.showAnyLangOpt')) {
       if (app.search.params().language) {
-        params.filter.language = app.search.params().language;
+        params.filter.q = (params.filter.q || '') + ' language:' + app.search.params().language;
       }
     } else {
-      params.filter.language = app.search.params().language ? app.search.params().language : app.translator.formatter.locale;
+      params.filter.q =
+        (params.filter.q || '') + ' language:' + (app.search.params().language ? app.search.params().language : app.translator.formatter.locale);
     }
   });
 
