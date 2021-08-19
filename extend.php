@@ -19,6 +19,7 @@ use Flarum\Api\Serializer\DiscussionSerializer;
 use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Discussion\Discussion;
 use Flarum\Discussion\Event\Saving;
+use Flarum\Discussion\Filter\DiscussionFilterer;
 use Flarum\Discussion\Search\DiscussionSearcher;
 use Flarum\Extend;
 use FoF\DiscussionLanguage\Api\Serializers\DiscussionLanguageSerializer;
@@ -49,7 +50,10 @@ return [
         ->listen(Saving::class, Listeners\AddDiscussionLanguage::class),
 
     (new Extend\SimpleFlarumSearch(DiscussionSearcher::class))
-        ->addGambit(Gambit\LanguageGambit::class),
+        ->addGambit(Search\LanguageFilterGambit::class),
+
+    (new Extend\Filter(DiscussionFilterer::class))
+        ->addFilter(Search\LanguageFilterGambit::class),
 
     (new Extend\Policy())
         ->modelPolicy(Discussion::class, Access\DiscussionPolicy::class),
