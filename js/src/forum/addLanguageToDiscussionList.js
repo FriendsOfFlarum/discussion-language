@@ -30,7 +30,8 @@ export default () => {
 
     extend(DiscussionListState.prototype, 'requestParams', function (params) {
         params.include.push('language');
-
+        if (app.current.data.routeName === 'byobuPrivate') return;
+        
         if (params.filter?.tag) params.filter.q = (params.filter.q || '') + ' tag:' + params.filter.tag;
 
         if (app.forum.attribute('fof-discussion-language.showAnyLangOpt')) {
@@ -48,6 +49,9 @@ export default () => {
     extend(GlobalSearchState.prototype, 'stickyParams', (params) => (params.language = m.route.param('language')));
 
     extend(IndexPage.prototype, 'viewItems', function (items) {
+        // Don't add language controls to /private (fof/byobu)
+        if (app.current.data.routeName === 'byobuPrivate') return;
+        
         let extra, defaultSelected;
         if (app.forum.attribute('fof-discussion-language.showAnyLangOpt')) {
             extra = { any: app.translator.trans('fof-discussion-language.forum.index_language.any') };
