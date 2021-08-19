@@ -5,18 +5,18 @@ import Button from 'flarum/common/components/Button';
 import LanguageDiscussionModal from './components/LanguageDiscussionModal';
 
 export default () => {
-    extend(DiscussionControls, 'moderationControls', function (items, discussion) {
-        if (discussion.canChangeLanguage()) {
-            items.add(
-                'language',
-                Button.component(
-                    {
-                        icon: 'fas fa-globe',
-                        onclick: () => app.modal.show(LanguageDiscussionModal, { discussion }),
-                    },
-                    app.translator.trans('fof-discussion-language.forum.discussion_controls.change_language_button')
-                )
-            );
-        }
-    });
+  extend(DiscussionControls, 'moderationControls', function (items, discussion) {
+    if (discussion.canChangeLanguage()) {
+      items.add(
+        'language',
+        Button.component(
+          {
+            icon: 'fas fa-globe',
+            onclick: () => app.modal.show(LanguageDiscussionModal, { discussion }),
+          },
+          app.translator.trans('fof-discussion-language.forum.discussion_controls.change_language_button')
+        )
+      );
+    }
+  });
 };
