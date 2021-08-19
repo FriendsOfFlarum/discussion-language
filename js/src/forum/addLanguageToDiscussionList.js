@@ -11,9 +11,8 @@ import LanguageDropdown from './components/LanguageDropdown';
 
 const addLanguage = function (items) {
   // Ignore PDs from Byobu
-  if (this.attrs.discussion.recipientUsers?.() || this.attrs.discussion.oldRecipientUsers?.()) {
-    return;
-  }
+  // Must be conditional call in case byobu not installed
+  if (this.attrs.discussion.isPrivateDiscussion?.()) return;
 
   const language = this.attrs.discussion.language();
 
