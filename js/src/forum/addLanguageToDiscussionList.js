@@ -33,9 +33,16 @@ export default () => {
   extend(DiscussionHero.prototype, 'items', addLanguage);
 
   extend(DiscussionListState.prototype, 'requestParams', function (params) {
-    if (app.current.data.routeName === 'byobuPrivate') return;
+    const routeName = app.current.data.routeName;
+
+    if (routeName === 'byobuPrivate') return;
 
     params.include.push('language');
+
+    if (routeName === 'following') {
+      params.filter.language = app.search.params().language ? app.search.params().language : app.translator.formatter.locale;
+      return;
+    }
 
     if (params.filter?.tag) params.filter.q = (params.filter.q || '') + ' tag:' + params.filter.tag;
 
