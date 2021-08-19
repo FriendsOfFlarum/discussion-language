@@ -1,13 +1,19 @@
+import app from 'flarum/forum/app';
+
 import Component from 'flarum/common/Component';
 import Dropdown from 'flarum/common/components/Dropdown';
 import Button from 'flarum/common/components/Button';
 
 import Language from './Language';
+import SelectDropdown from 'flarum/common/components/SelectDropdown';
 
 export default class LanguageDropdown extends Component {
   oninit(vnode) {
     super.oninit(vnode);
     this.languages = app.store.all('discussion-languages');
+    /**
+     * @type {Record<string, import('mithril').Component>}
+     */
     this.options = this.languages.reduce((o, lang) => {
       o[lang.code()] = <Language language={lang} />;
 
@@ -16,32 +22,20 @@ export default class LanguageDropdown extends Component {
   }
 
   view() {
-    const selected = this.attrs.selected;
+    const defaultValue = app.forum.attribute('fof-discussion-language.showAnyLangOpt') ? 'any' : app.translator.formatter.locale;
 
-    return Dropdown.component(
-      {
-        buttonClassName: 'Button',
-        label: this.options[selected] || this.options[this.attrs.default],
-      },
-      Object.keys(this.options).map((key) => {
-        let defaultSelected;
-        if (app.forum.attribute('fof-discussion-language.composerLocaleDefault')) {
-          defaultSelected = 'any';
-        } else {
-          defaultSelected = app.translator.formatter.locale;
-        }
-        const isSelected = selected || defaultSelected;
-        const active = key === isSelected;
+    return (
+      <SelectDropdown buttonClassName="Button">
+        {Object.keys(this.options).map((langId) => {
+          const isItemSelected = this.attrs.selected ? langId === this.attrs.selected : langId === defaultValue;
 
-        return Button.component(
-          {
-            active,
-            icon: active ? 'fas fa-check' : true,
-            onclick: () => this.attrs.onclick(key),
-          },
-          this.options[key]
-        );
-      })
+          return (
+            <Button active={isItemSelected} icon={isItemSelected ? 'fas fa-check' : true} onclick={this.attrs.onclick?.bind?.(this, langId)}>
+              {this.options[langId]}
+            </Button>
+          );
+        })}
+      </SelectDropdown>
     );
   }
 }
