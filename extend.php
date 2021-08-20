@@ -106,7 +106,7 @@ return [
 
             // Attach discussion title as this is needed for the tags page
             foreach ($json as $languageId => $data) {
-                $data['title'] = Discussion::find($data['id'])->title;
+                $data['title'] = optional(Discussion::find($data['id']))->title || '';
                 $json[$languageId] = $data;
             }
 
