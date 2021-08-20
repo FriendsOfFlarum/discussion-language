@@ -22,23 +22,21 @@ use Flarum\Discussion\Event\Saving;
 use Flarum\Discussion\Filter\DiscussionFilterer;
 use Flarum\Discussion\Search\DiscussionSearcher;
 use Flarum\Extend;
-
-use FoF\DiscussionLanguage\Api\Serializers\DiscussionLanguageSerializer;
-
-use Flarum\Tags\Event\Creating as TagCreating;
 use Flarum\Tags\Api\Serializer\TagSerializer;
+use Flarum\Tags\Event\Creating as TagCreating;
 use Flarum\Tags\Tag;
+use FoF\DiscussionLanguage\Api\Serializers\DiscussionLanguageSerializer;
 
 return [
     (new Extend\Frontend('forum'))
-        ->js(__DIR__ . '/js/dist/forum.js')
-        ->css(__DIR__ . '/resources/less/forum.less'),
+        ->js(__DIR__.'/js/dist/forum.js')
+        ->css(__DIR__.'/resources/less/forum.less'),
 
     (new Extend\Frontend('admin'))
-        ->js(__DIR__ . '/js/dist/admin.js')
-        ->css(__DIR__ . '/resources/less/admin.less'),
+        ->js(__DIR__.'/js/dist/admin.js')
+        ->css(__DIR__.'/resources/less/admin.less'),
 
-    new Extend\Locales(__DIR__ . '/resources/locale'),
+    new Extend\Locales(__DIR__.'/resources/locale'),
 
     (new Extend\Routes('api'))
         ->post('/fof/discussion-language', 'fof.discussion-language.create', Api\Controllers\CreateLanguageController::class)
@@ -101,7 +99,6 @@ return [
     (new Extend\Event())
         ->listen(TagCreating::class, Listeners\TagCreating::class)
         ->subscribe(Listener\UpdateTagMetadata::class),
-
 
     (new Extend\ApiSerializer(TagSerializer::class))
         ->attributes(function (TagSerializer $serializer, Tag $tag, array $attributes) {

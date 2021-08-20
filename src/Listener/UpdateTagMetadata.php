@@ -20,10 +20,8 @@ use Flarum\Post\Event\Deleted as PostDeleted;
 use Flarum\Post\Event\Hidden as PostHidden;
 use Flarum\Post\Event\Posted;
 use Flarum\Post\Event\Restored as PostRestored;
-
 use Flarum\Tags\Event\DiscussionWasTagged;
 use Flarum\Tags\Tag;
-
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
 
@@ -125,9 +123,9 @@ class UpdateTagMetadata
 
     /**
      * @param \Flarum\Discussion\Discussion $discussion
-     * @param int $delta
-     * @param Tag[]|null $tags
-     * @param Post $post: This is only used when a post has been hidden
+     * @param int                           $delta
+     * @param Tag[]|null                    $tags
+     * @param Post                          $post:      This is only used when a post has been hidden
      */
     protected function updateTags(Discussion $discussion, $delta = 0, $tags = null, $post = null)
     {
@@ -148,14 +146,16 @@ class UpdateTagMetadata
             }
 
             $raw_json_string = $tag->localised_last_discussion;
-            if (strlen($raw_json_string) < 2) $raw_json_string = '{}';
+            if (strlen($raw_json_string) < 2) {
+                $raw_json_string = '{}';
+            }
 
             $localisedLastPost = json_decode($raw_json_string, true);
             $lang = $discussion->language_id;
 
             // If this is a new / restored discussion, it isn't private, it isn't null,
             // and it's more recent than what we have now, set it as last posted discussion.
-            if ($delta >= 0 && !$discussion->is_private && $discussion->hidden_at == null &&  (!Arr::exists($localisedLastPost, $lang) || ($discussion->last_posted_at->timestamp >= $localisedLastPost[$lang]['at']))) {
+            if ($delta >= 0 && !$discussion->is_private && $discussion->hidden_at == null && (!Arr::exists($localisedLastPost, $lang) || ($discussion->last_posted_at->timestamp >= $localisedLastPost[$lang]['at']))) {
                 $this->setLocalisedLastDiscussion($tag, $discussion);
             } elseif ($discussion->id == $tag->last_posted_discussion_id) {
                 // This is to persist refreshLastPost above. It is here instead of there so that
@@ -184,9 +184,9 @@ class UpdateTagMetadata
         $lang = $discussion->language_id;
 
         $localisedLastPost[$lang] = [
-            'id' => $discussion->id,
-            'at' => $discussion->last_posted_at->timestamp,
-            'user_id' => $discussion->last_posted_user_id
+            'id'      => $discussion->id,
+            'at'      => $discussion->last_posted_at->timestamp,
+            'user_id' => $discussion->last_posted_user_id,
         ];
 
         $tag->localised_last_discussion = json_encode($localisedLastPost);
