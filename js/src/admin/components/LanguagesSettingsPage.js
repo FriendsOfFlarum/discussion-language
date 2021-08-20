@@ -40,6 +40,9 @@ export default class LanguagesSettingsPage extends ExtensionPage {
     this.showAnyLangOptKey = 'fof-discussion-language.showAnyLangOpt';
     this.showAnyLangOpt = app.data.settings[this.showAnyLangOptKey];
 
+    this.tagsPageDiscussionLocaleDefaultKey = 'fof-discussion-language.useLocaleForTagsPageLastDiscussion';
+    this.tagsPageDiscussionLocale = app.data.settings[this.composerLocaleDefaultKey] || 0;
+
     this.loadingData = true;
     this.loadingDataError = false;
   }
@@ -131,6 +134,16 @@ export default class LanguagesSettingsPage extends ExtensionPage {
                 onchange: (value) => (this.showAnyLangOpt = value),
               },
               app.translator.trans('fof-discussion-language.admin.settings.show_any_lang_opt_label')
+            )}
+          </div>
+
+          <div className="Form-group">
+            {Switch.component(
+              {
+                state: this.tagsPageDiscussionLocale,
+                onchange: (value) => (this.tagsPageDiscussionLocale = value),
+              },
+              app.translator.trans('fof-discussion-language.admin.settings.tags_page_discussion_locale_label')
             )}
           </div>
 
@@ -293,6 +306,7 @@ export default class LanguagesSettingsPage extends ExtensionPage {
         [this.composerLocaleDefaultKey]: this.composerLocaleDefault,
         [this.localeSortKey]: this.localeSort,
         [this.showAnyLangOptKey]: this.showAnyLangOpt,
+        [this.tagsPageDiscussionLocaleDefaultKey]: this.tagsPageDiscussionLocale,
       }).then(this.onsaved.bind(this)),
     ]);
   }
@@ -327,7 +341,8 @@ export default class LanguagesSettingsPage extends ExtensionPage {
     const composerLocale = Number(this.composerLocaleDefault) !== Number(app.data.settings[this.composerLocaleDefaultKey] || 0);
     const locale = Number(this.localeSort) !== Number(app.data.settings[this.localeSortKey] || 0);
     const anyOpt = Number(this.showAnyLangOpt) !== Number(app.data.settings[this.showAnyLangOptKey] || 0);
+    const tagsPageFilter = Number(this.tagsPageDiscussionLocaleDefault) !== Number(app.data.settings[this.tagsPageDiscussionLocaleDefaultKey] || 0);
 
-    return dirty || native || flag || composerLocale || locale || anyOpt;
+    return dirty || native || flag || composerLocale || locale || anyOpt || tagsPageFilter;
   }
 }
