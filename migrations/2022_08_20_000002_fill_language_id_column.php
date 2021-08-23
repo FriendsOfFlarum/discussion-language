@@ -15,11 +15,11 @@ use Illuminate\Database\Schema\Builder;
 return [
     'up' => function (Builder $schema) {
         Tag::all()->each(function (Tag $tag) {
-            $tag->localised_last_discussion = "{}";
+            $tag->localised_last_discussion = '{}';
             $tag->save();
         });
     },
     'down' => function (Builder $schema) {
         // Do nothing
-    }
+    },
 ];
