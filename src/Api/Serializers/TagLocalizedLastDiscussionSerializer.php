@@ -23,7 +23,9 @@ class TagLocalizedLastDiscussionSerializer
 
         // Attach discussion title as this is needed for the tags page
         foreach ($json as $languageId => $data) {
-            $data['title'] = optional(Discussion::find($data['id']))->title || '';
+            $discussion = optional(Discussion::find($data['id']));
+
+            $data['title'] = $discussion->title || '';
             $json[$languageId] = $data;
         }
 
