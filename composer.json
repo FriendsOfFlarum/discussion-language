@@ -28,12 +28,6 @@
   "require-dev": {
     "flarum/tags": "^1.0"
   },
-  "suggest": {
-    "flarum/tags": "This extension works well with flarum/tags."
-  },
-  "conflict": {
-    "flarum/tags": "<1.0,>=2.0"
-  },
   "authors": [
     {
       "name": "David Sevilla Martin",
