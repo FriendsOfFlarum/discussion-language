@@ -40,7 +40,7 @@ export default () => {
     params.include.push('language');
 
     if (routeName === 'following') {
-      params.filter.language = app.search.params().language ? app.search.params().language : app.translator.formatter.locale;
+      params.filter.language = app.search.params().language ?? app.translator.formatter.locale;
       return;
     }
 
@@ -52,7 +52,7 @@ export default () => {
       }
     } else {
       params.filter.q =
-        (params.filter.q || '') + ' language:' + (app.search.params().language ? app.search.params().language : app.translator.formatter.locale);
+        (params.filter.q || '') + ' language:' + (app.search.params().language ?? app.translator.formatter.locale);
     }
   });
 
