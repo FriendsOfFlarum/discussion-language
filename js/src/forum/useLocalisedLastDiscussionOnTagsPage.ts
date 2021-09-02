@@ -39,8 +39,6 @@ export default function useLocalisedLastDiscussionOnTagsPage() {
 
     const discussion = data[desiredLanguageId];
 
-    console.log(data, desiredLanguageCode, desiredLanguageId, discussion);
-
     // fall back to original attribute
     if (!discussion) return original();
 
