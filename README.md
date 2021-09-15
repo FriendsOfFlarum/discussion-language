@@ -2,6 +2,8 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg) [![Latest Stable Version](https://img.shields.io/packagist/v/fof/discussion-language.svg)](https://packagist.org/packages/fof/discussion-language) [![OpenCollective](https://img.shields.io/badge/opencollective-fof-blue.svg)](https://opencollective.com/fof/donate)  [![Donate](https://img.shields.io/badge/donate-datitisev-important.svg)](https://datitisev.me/donate)
 
+![image](https://extiverse.com/extension/fof/discussion-language/open-graph-image)
+
 A [Flarum](http://flarum.org) extension. Specify the language a discussion is written in & sort by language.
 
 ### Installation
