@@ -1,11 +1,11 @@
-import app from 'flarum/admin/app';
+import loadAsset from './loadAsset';
 
 let countries;
 
-export const load = () => {
-  __webpack_public_path__ = `${app.forum.attribute('baseUrl')}/assets/extensions/fof-discussion-language/`;
+export const load = async () => {
+  countries = await loadAsset('countries.json');
 
-  return import(/* webpackChunkName: "countries" */ '../../common/generated/countries.json').then((pkg) => (countries = pkg.default));
+  return countries;
 };
 
 export default (native) => {

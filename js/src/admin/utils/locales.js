@@ -1,12 +1,11 @@
-import app from 'flarum/admin/app';
-// import locales from 'i18n-locales';
+import loadAsset from './loadAsset';
 
 let ISO6392;
 
-export const load = () => {
-  __webpack_public_path__ = `${app.forum.attribute('baseUrl')}/assets/extensions/fof-discussion-language/`;
+export const load = async () => {
+  ISO6392 = await loadAsset('iso-639-2.json');
 
-  return import(/* webpackChunkName: "iso-639-2" */ '../../../../resources/wikipedia-iso-639-2-codes.csv').then((pkg) => (ISO6392 = pkg.default));
+  return ISO6392;
 };
 
 export const getNameColumn = (data, native) => (native && data?.['Native name(s)']) || data?.['Language name(s)'];
