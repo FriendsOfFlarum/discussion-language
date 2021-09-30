@@ -1,0 +1,733 @@
+[
+{"639-2":"aar","639-3":"aar","639-5":"","639-1":"aa","Language name(s)":"Afar","Scope":"Individual","Type":"Living","Native name(s)":"Qafaraf; ’Afar Af; Afaraf; Qafar af","Other name(s)":""}
+,
+{"639-2":"abk","639-3":"abk","639-5":"","639-1":"ab","Language name(s)":"Abkhazian","Scope":"Individual","Type":"Living","Native name(s)":"Аҧсуа бызшәа Aƥsua bızšwa; Аҧсшәа Aƥsua","Other name(s)":"Abkhaz"}
+,
+{"639-2":"ace","639-3":"ace","639-5":"","639-1":"","Language name(s)":"Achinese","Scope":"Individual","Type":"Living","Native name(s)":"بهسا اچيه","Other name(s)":"Acehnese"}
+,
+{"639-2":"ach","639-3":"ach","639-5":"","639-1":"","Language name(s)":"Acoli","Scope":"Individual","Type":"Living","Native name(s)":"Lwo","Other name(s)":"Acholi"},
+{"639-2":"ada","639-3":"ada","639-5":"","639-1":"","Language name(s)":"Adangme","Scope":"Individual","Type":"Living","Native name(s)":"Dangme","Other name(s)":"Dangme"},
+{"639-2":"ady","639-3":"ady","639-5":"","639-1":"","Language name(s)":"Adyghe; Adygei","Scope":"Individual","Type":"Living","Native name(s)":"Адыгабзэ; Кӏахыбзэ","Other name(s)":"West Circassian"}
+,
+{"639-2":"afa","639-3":"","639-5":"afa","639-1":"","Language name(s)":"Afro-Asiatic languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"afh","639-3":"afh","639-5":"","639-1":"","Language name(s)":"Afrihili","Scope":"Individual","Type":"Constructed","Native name(s)":"El-Afrihili","Other name(s)":""},
+{"639-2":"afr","639-3":"afr","639-5":"","639-1":"af","Language name(s)":"Afrikaans","Scope":"Individual","Type":"Living","Native name(s)":"Afrikaans","Other name(s)":""},
+{"639-2":"ain","639-3":"ain","639-5":"","639-1":"","Language name(s)":"Ainu","Scope":"Individual","Type":"Living","Native name(s)":"アイヌ・イタㇰ Ainu-itak","Other name(s)":""}
+,
+{"639-2":"aka","639-3":"aka","639-5":"","639-1":"ak","Language name(s)":"Akan","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Akan","Other name(s)":""},
+{"639-2":"akk","639-3":"akk","639-5":"","639-1":"","Language name(s)":"Akkadian","Scope":"Individual","Type":"Ancient","Native name(s)":"𒀝𒅗𒁺𒌑","Other name(s)":""}
+,
+{"639-2":"ale","639-3":"ale","639-5":"","639-1":"","Language name(s)":"Aleut","Scope":"Individual","Type":"Living","Native name(s)":"Уна́ӈам тунуу́; Унаӈан умсуу","Other name(s)":""}
+,
+{"639-2":"alg","639-3":"","639-5":"alg","639-1":"","Language name(s)":"Algonquian languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"alt","639-3":"alt","639-5":"","639-1":"","Language name(s)":"Southern Altai","Scope":"Individual","Type":"Living","Native name(s)":"Алтай тили","Other name(s)":""}
+,
+{"639-2":"amh","639-3":"amh","639-5":"","639-1":"am","Language name(s)":"Amharic","Scope":"Individual","Type":"Living","Native name(s)":"አማርኛ Amârıñâ","Other name(s)":""}
+,
+{"639-2":"ang","639-3":"ang","639-5":"","639-1":"","Language name(s)":"English, Old (ca.450–1100)","Scope":"Individual","Type":"Historical","Native name(s)":"Ænglisc; Anglisc; Englisc","Other name(s)":""}
+,
+{"639-2":"anp","639-3":"anp","639-5":"","639-1":"","Language name(s)":"Angika","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"apa","639-3":"","639-5":"apa","639-1":"","Language name(s)":"Apache languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":"Southern Athabaskan languages"},
+{"639-2":"ara","639-3":"ara","639-5":"","639-1":"ar","Language name(s)":"Arabic","Scope":"Macrolanguage","Type":"Living","Native name(s)":"العَرَبِيَّة al'Arabiyyeẗ","Other name(s)":""}
+,
+{"639-2":"arc","639-3":"arc","639-5":"","639-1":"","Language name(s)":"Official Aramaic (700–300 BCE); Imperial Aramaic (700–300 BCE)","Scope":"Individual","Type":"Ancient","Native name(s)":"","Other name(s)":""}
+,
+{"639-2":"arg","639-3":"arg","639-5":"","639-1":"an","Language name(s)":"Aragonese","Scope":"Individual","Type":"Living","Native name(s)":"aragonés","Other name(s)":""}
+,
+{"639-2":"arn","639-3":"arn","639-5":"","639-1":"","Language name(s)":"Mapudungun; Mapuche","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"arp","639-3":"arp","639-5":"","639-1":"","Language name(s)":"Arapaho","Scope":"Individual","Type":"Living","Native name(s)":"Hinónoʼeitíít","Other name(s)":""}
+,
+{"639-2":"art","639-3":"","639-5":"art","639-1":"","Language name(s)":"Artificial languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"arw","639-3":"arw","639-5":"","639-1":"","Language name(s)":"Arawak","Scope":"Individual","Type":"Living","Native name(s)":"Lokono","Other name(s)":"Lokono"},
+{"639-2":"asm","639-3":"asm","639-5":"","639-1":"as","Language name(s)":"Assamese","Scope":"Individual","Type":"Living","Native name(s)":"অসমীয়া","Other name(s)":""}
+,
+{"639-2":"ast","639-3":"ast","639-5":"","639-1":"","Language name(s)":"Asturian; Bable; Leonese; Asturleonese","Scope":"Individual","Type":"Living","Native name(s)":"Asturianu","Other name(s)":""},
+{"639-2":"ath","639-3":"","639-5":"ath","639-1":"","Language name(s)":"Athapascan languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":"Athabaskan languages"},
+{"639-2":"aus","639-3":"","639-5":"aus","639-1":"","Language name(s)":"Australian languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"ava","639-3":"ava","639-5":"","639-1":"av","Language name(s)":"Avaric","Scope":"Individual","Type":"Living","Native name(s)":"Магӏарул мацӏ; Авар мацӏ","Other name(s)":"Avar"}
+,
+{"639-2":"ave","639-3":"ave","639-5":"","639-1":"ae","Language name(s)":"Avestan","Scope":"Individual","Type":"Ancient","Native name(s)":"","Other name(s)":""},
+{"639-2":"awa","639-3":"awa","639-5":"","639-1":"","Language name(s)":"Awadhi","Scope":"Individual","Type":"Living","Native name(s)":"अवधी","Other name(s)":""}
+,
+{"639-2":"aym","639-3":"aym","639-5":"","639-1":"ay","Language name(s)":"Aymara","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Aymar aru","Other name(s)":""},
+{"639-2":"aze","639-3":"aze","639-5":"","639-1":"az","Language name(s)":"Azerbaijani","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Azərbaycan dili; آذربایجان دیلی; Азәрбајҹан дили","Other name(s)":""}
+,
+{"639-2":"bad","639-3":"","639-5":"bad","639-1":"","Language name(s)":"Banda languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"bai","639-3":"","639-5":"bai","639-1":"","Language name(s)":"Bamileke languages","Scope":"Collective","Type":"","Native name(s)":"Bamiléké","Other name(s)":""}
+,
+{"639-2":"bak","639-3":"bak","639-5":"","639-1":"ba","Language name(s)":"Bashkir","Scope":"Individual","Type":"Living","Native name(s)":"Башҡорт теле; Başqort tele","Other name(s)":""}
+,
+{"639-2":"bal","639-3":"bal","639-5":"","639-1":"","Language name(s)":"Baluchi","Scope":"Macrolanguage","Type":"Living","Native name(s)":"بلوچی","Other name(s)":"Balochi"}
+,
+{"639-2":"bam","639-3":"bam","639-5":"","639-1":"bm","Language name(s)":"Bambara","Scope":"Individual","Type":"Living","Native name(s)":"ߓߊߡߊߣߊߣߞߊߣ","Other name(s)":""}
+,
+{"639-2":"ban","639-3":"ban","639-5":"","639-1":"","Language name(s)":"Balinese","Scope":"Individual","Type":"Living","Native name(s)":"ᬪᬵᬱᬩᬮᬶ; ᬩᬲᬩᬮᬶ; Basa Bali","Other name(s)":""}
+,
+{"639-2":"bas","639-3":"bas","639-5":"","639-1":"","Language name(s)":"Basa","Scope":"Individual","Type":"Living","Native name(s)":"Mbene; Ɓasaá","Other name(s)":"Basaa"}
+,
+{"639-2":"bat","639-3":"","639-5":"bat","639-1":"","Language name(s)":"Baltic languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"bej","639-3":"bej","639-5":"","639-1":"","Language name(s)":"Beja; Bedawiyet","Scope":"Individual","Type":"Living","Native name(s)":"Bidhaawyeet","Other name(s)":""},
+{"639-2":"bel","639-3":"bel","639-5":"","639-1":"be","Language name(s)":"Belarusian","Scope":"Individual","Type":"Living","Native name(s)":"Беларуская мова Belaruskaâ mova","Other name(s)":""}
+,
+{"639-2":"bem","639-3":"bem","639-5":"","639-1":"","Language name(s)":"Bemba","Scope":"Individual","Type":"Living","Native name(s)":"Chibemba","Other name(s)":""},
+{"639-2":"ben","639-3":"ben","639-5":"","639-1":"bn","Language name(s)":"Bengali","Scope":"Individual","Type":"Living","Native name(s)":"বাংলা Bāŋlā","Other name(s)":""}
+,
+{"639-2":"ber","639-3":"","639-5":"ber","639-1":"","Language name(s)":"Berber languages","Scope":"Collective","Type":"","Native name(s)":"Tamaziɣt; Tamazight; ⵜⴰⵎⴰⵣⵉⵖⵜ; ⵝⴰⵎⴰⵣⵉⵗⵝ; ⵜⴰⵎⴰⵣⵉⵗⵜ","Other name(s)":"Amazigh languages"}
+,
+{"639-2":"bho","639-3":"bho","639-5":"","639-1":"","Language name(s)":"Bhojpuri","Scope":"Individual","Type":"Living","Native name(s)":"भोजपुरी","Other name(s)":""}
+,
+{"639-2":"bih","639-3":"","639-5":"bih","639-1":"bh","Language name(s)":"Bihari languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"bik","639-3":"bik","639-5":"","639-1":"","Language name(s)":"Bikol","Scope":"Macrolanguage","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"bin","639-3":"bin","639-5":"","639-1":"","Language name(s)":"Bini; Edo","Scope":"Individual","Type":"Living","Native name(s)":"Ẹ̀dó","Other name(s)":""}
+,
+{"639-2":"bis","639-3":"bis","639-5":"","639-1":"bi","Language name(s)":"Bislama","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"bla","639-3":"bla","639-5":"","639-1":"","Language name(s)":"Siksika","Scope":"Individual","Type":"Living","Native name(s)":"ᓱᖽᐧᖿ","Other name(s)":"Blackfoot"}
+,
+{"639-2":"bnt","639-3":"","639-5":"bnt","639-1":"","Language name(s)":"Bantu languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"bod / tib*","639-3":"bod","639-5":"","639-1":"bo","Language name(s)":"Tibetan","Scope":"Individual","Type":"Living","Native name(s)":"བོད་སྐད་ Bodskad; ལྷ་སའི་སྐད་ Lhas'iskad","Other name(s)":""}
+,
+{"639-2":"bos","639-3":"bos","639-5":"","639-1":"bs","Language name(s)":"Bosnian","Scope":"Individual","Type":"Living","Native name(s)":"bosanski","Other name(s)":""},
+{"639-2":"bra","639-3":"bra","639-5":"","639-1":"","Language name(s)":"Braj","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":"Braj Bhāshā"}
+,
+{"639-2":"bre","639-3":"bre","639-5":"","639-1":"br","Language name(s)":"Breton","Scope":"Individual","Type":"Living","Native name(s)":"Brezhoneg","Other name(s)":""},
+{"639-2":"btk","639-3":"","639-5":"btk","639-1":"","Language name(s)":"Batak languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"bua","639-3":"bua","639-5":"","639-1":"","Language name(s)":"Buriat","Scope":"Macrolanguage","Type":"Living","Native name(s)":"буряад хэлэн","Other name(s)":"Buryat"}
+,
+{"639-2":"bug","639-3":"bug","639-5":"","639-1":"","Language name(s)":"Buginese","Scope":"Individual","Type":"Living","Native name(s)":"ᨅᨔ ᨕᨘᨁᨗ","Other name(s)":""}
+,
+{"639-2":"bul","639-3":"bul","639-5":"","639-1":"bg","Language name(s)":"Bulgarian","Scope":"Individual","Type":"Living","Native name(s)":"български език bălgarski ezik","Other name(s)":""}
+,
+{"639-2":"byn","639-3":"byn","639-5":"","639-1":"","Language name(s)":"Blin; Bilin","Scope":"Individual","Type":"Living","Native name(s)":"ብሊና; ብሊን","Other name(s)":"Bilen"}
+,
+{"639-2":"cad","639-3":"cad","639-5":"","639-1":"","Language name(s)":"Caddo","Scope":"Individual","Type":"Living","Native name(s)":"Hasí:nay","Other name(s)":""}
+,
+{"639-2":"cai","639-3":"","639-5":"cai","639-1":"","Language name(s)":"Central American Indian languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"car","639-3":"car","639-5":"","639-1":"","Language name(s)":"Galibi Carib","Scope":"Individual","Type":"Living","Native name(s)":"Kari'nja","Other name(s)":"Carib"},
+{"639-2":"cat","639-3":"cat","639-5":"","639-1":"ca","Language name(s)":"Catalan; Valencian","Scope":"Individual","Type":"Living","Native name(s)":"català,valencià","Other name(s)":""}
+,
+{"639-2":"cau","639-3":"","639-5":"cau","639-1":"","Language name(s)":"Caucasian languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"ceb","639-3":"ceb","639-5":"","639-1":"","Language name(s)":"Cebuano","Scope":"Individual","Type":"Living","Native name(s)":"Sinugbuanong Binisayâ","Other name(s)":""}
+,
+{"639-2":"cel","639-3":"","639-5":"cel","639-1":"","Language name(s)":"Celtic languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"ces / cze*","639-3":"ces","639-5":"","639-1":"cs","Language name(s)":"Czech","Scope":"Individual","Type":"Living","Native name(s)":"čeština; český jazyk","Other name(s)":""}
+,
+{"639-2":"cha","639-3":"cha","639-5":"","639-1":"ch","Language name(s)":"Chamorro","Scope":"Individual","Type":"Living","Native name(s)":"Finu' Chamoru","Other name(s)":""},
+{"639-2":"chb","639-3":"chb","639-5":"","639-1":"","Language name(s)":"Chibcha","Scope":"Individual","Type":"Extinct","Native name(s)":"Muysccubun","Other name(s)":""},
+{"639-2":"che","639-3":"che","639-5":"","639-1":"ce","Language name(s)":"Chechen","Scope":"Individual","Type":"Living","Native name(s)":"Нохчийн мотт; نَاخچیین موٓتت; ნახჩიე მუოთთ","Other name(s)":""}
+,
+{"639-2":"chg","639-3":"chg","639-5":"","639-1":"","Language name(s)":"Chagatai","Scope":"Individual","Type":"Extinct","Native name(s)":"جغتای","Other name(s)":""}
+,
+{"639-2":"chk","639-3":"chk","639-5":"","639-1":"","Language name(s)":"Chuukese","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"chm","639-3":"chm","639-5":"","639-1":"","Language name(s)":"Mari","Scope":"Macrolanguage","Type":"Living","Native name(s)":"марий йылме","Other name(s)":""}
+,
+{"639-2":"chn","639-3":"chn","639-5":"","639-1":"","Language name(s)":"Chinook jargon","Scope":"Individual","Type":"Living","Native name(s)":"chinuk wawa; wawa; chinook lelang; lelang","Other name(s)":""},
+{"639-2":"cho","639-3":"cho","639-5":"","639-1":"","Language name(s)":"Choctaw","Scope":"Individual","Type":"Living","Native name(s)":"Chahta'","Other name(s)":""},
+{"639-2":"chp","639-3":"chp","639-5":"","639-1":"","Language name(s)":"Chipewyan; Dene Suline","Scope":"Individual","Type":"Living","Native name(s)":"ᑌᓀᓱᒼᕄᓀ (Dënesųłiné)","Other name(s)":""}
+,
+{"639-2":"chr","639-3":"chr","639-5":"","639-1":"","Language name(s)":"Cherokee","Scope":"Individual","Type":"Living","Native name(s)":"ᏣᎳᎩ ᎦᏬᏂᎯᏍᏗ Tsalagi gawonihisdi","Other name(s)":""}
+,
+{"639-2":"chu","639-3":"chu","639-5":"","639-1":"cu","Language name(s)":"Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic","Scope":"Individual","Type":"Ancient","Native name(s)":"Славе́нскїй ѧ҆зы́къ","Other name(s)":""}
+,
+{"639-2":"chv","639-3":"chv","639-5":"","639-1":"cv","Language name(s)":"Chuvash","Scope":"Individual","Type":"Living","Native name(s)":"Чӑвашла","Other name(s)":""}
+,
+{"639-2":"chy","639-3":"chy","639-5":"","639-1":"","Language name(s)":"Cheyenne","Scope":"Individual","Type":"Living","Native name(s)":"Tsėhésenėstsestȯtse","Other name(s)":""}
+,
+{"639-2":"cmc","639-3":"","639-5":"cmc","639-1":"","Language name(s)":"Chamic languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"cnr","639-3":"cnr","639-5":"","639-1":"","Language name(s)":"Montenegrin","Scope":"Individual","Type":"Living","Native name(s)":"crnogorski / црногорски","Other name(s)":""}
+,
+{"639-2":"cop","639-3":"cop","639-5":"","639-1":"","Language name(s)":"Coptic","Scope":"Individual","Type":"Extinct","Native name(s)":"ϯⲙⲉⲑⲣⲉⲙⲛ̀ⲭⲏⲙⲓ; ⲧⲙⲛ̄ⲧⲣⲙ̄ⲛ̄ⲕⲏⲙⲉ","Other name(s)":""}
+,
+{"639-2":"cor","639-3":"cor","639-5":"","639-1":"kw","Language name(s)":"Cornish","Scope":"Individual","Type":"Living","Native name(s)":"Kernowek","Other name(s)":""},
+{"639-2":"cos","639-3":"cos","639-5":"","639-1":"co","Language name(s)":"Corsican","Scope":"Individual","Type":"Living","Native name(s)":"Corsu; Lingua corsa","Other name(s)":""},
+{"639-2":"cpe","639-3":"","639-5":"cpe","639-1":"","Language name(s)":"Creoles and pidgins, English based","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"cpf","639-3":"","639-5":"cpf","639-1":"","Language name(s)":"Creoles and pidgins, French-based","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"cpp","639-3":"","639-5":"cpp","639-1":"","Language name(s)":"Creoles and pidgins, Portuguese-based","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"cre","639-3":"cre","639-5":"","639-1":"cr","Language name(s)":"Cree","Scope":"Macrolanguage","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"crh","639-3":"crh","639-5":"","639-1":"","Language name(s)":"Crimean Tatar; Crimean Turkish","Scope":"Individual","Type":"Living","Native name(s)":"Къырымтатарджа; Къырымтатар тили; Ҡырымтатарҗа; Ҡырымтатар тили","Other name(s)":""}
+,
+{"639-2":"crp","639-3":"","639-5":"crp","639-1":"","Language name(s)":"Creoles and pidgins","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"csb","639-3":"csb","639-5":"","639-1":"","Language name(s)":"Kashubian","Scope":"Individual","Type":"Living","Native name(s)":"Kaszëbsczi jãzëk","Other name(s)":"Cassubian"}
+,
+{"639-2":"cus","639-3":"","639-5":"cus","639-1":"","Language name(s)":"Cushitic languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"cym / wel*","639-3":"cym","639-5":"","639-1":"cy","Language name(s)":"Welsh","Scope":"Individual","Type":"Living","Native name(s)":"Cymraeg; y Gymraeg","Other name(s)":""},
+{"639-2":"dak","639-3":"dak","639-5":"","639-1":"","Language name(s)":"Dakota","Scope":"Individual","Type":"Living","Native name(s)":"Dakhótiyapi; Dakȟótiyapi","Other name(s)":""}
+,
+{"639-2":"dan","639-3":"dan","639-5":"","639-1":"da","Language name(s)":"Danish","Scope":"Individual","Type":"Living","Native name(s)":"dansk","Other name(s)":""},
+{"639-2":"dar","639-3":"dar","639-5":"","639-1":"","Language name(s)":"Dargwa","Scope":"Individual","Type":"Living","Native name(s)":"дарган мез","Other name(s)":""}
+,
+{"639-2":"day","639-3":"","639-5":"day","639-1":"","Language name(s)":"Land Dayak languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"del","639-3":"del","639-5":"","639-1":"","Language name(s)":"Delaware","Scope":"Macrolanguage","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"den","639-3":"den","639-5":"","639-1":"","Language name(s)":"Slave (Athapascan)","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Dene K'e","Other name(s)":"Slavey"},
+{"639-2":"deu / ger*","639-3":"deu","639-5":"","639-1":"de","Language name(s)":"German","Scope":"Individual","Type":"Living","Native name(s)":"Deutsch","Other name(s)":""},
+{"639-2":"dgr","639-3":"dgr","639-5":"","639-1":"","Language name(s)":"Dogrib","Scope":"Individual","Type":"Living","Native name(s)":""},
+{"639-2":"din","639-3":"din","639-5":"","639-1":"","Language name(s)":"Dinka","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Thuɔŋjäŋ","Other name(s)":""}
+,
+{"639-2":"div","639-3":"div","639-5":"","639-1":"dv","Language name(s)":"Divehi; Dhivehi; Maldivian","Scope":"Individual","Type":"Living","Native name(s)":"ދިވެހި; ދިވެހިބަސް Divehi","Other name(s)":""}
+,
+{"639-2":"doi","639-3":"doi","639-5":"","639-1":"","Language name(s)":"Dogri","Scope":"Macrolanguage","Type":"Living","Native name(s)":"𑠖𑠵𑠌𑠤𑠮; डोगरी; ڈوگرى","Other name(s)":""}
+,
+{"639-2":"dra","639-3":"","639-5":"dra","639-1":"","Language name(s)":"Dravidian languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"dsb","639-3":"dsb","639-5":"","639-1":"","Language name(s)":"Lower Sorbian","Scope":"Individual","Type":"Living","Native name(s)":"Dolnoserbski; Dolnoserbšćina","Other name(s)":""}
+,
+{"639-2":"dua","639-3":"dua","639-5":"","639-1":"","Language name(s)":"Duala","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"dum","639-3":"dum","639-5":"","639-1":"","Language name(s)":"Dutch, Middle (ca. 1050–1350)","Scope":"Individual","Type":"Historical","Native name(s)":"","Other name(s)":""}
+,
+{"639-2":"dyu","639-3":"dyu","639-5":"","639-1":"","Language name(s)":"Dyula","Scope":"Individual","Type":"Living","Native name(s)":"Julakan","Other name(s)":"Jula"},
+{"639-2":"dzo","639-3":"dzo","639-5":"","639-1":"dz","Language name(s)":"Dzongkha","Scope":"Individual","Type":"Living","Native name(s)":"རྫོང་ཁ་ Ĵoŋkha","Other name(s)":""}
+,
+{"639-2":"efi","639-3":"efi","639-5":"","639-1":"","Language name(s)":"Efik","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"egy","639-3":"egy","639-5":"","639-1":"","Language name(s)":"Egyptian (Ancient)","Scope":"Individual","Type":"Ancient","Native name(s)":"","Other name(s)":""},
+{"639-2":"eka","639-3":"eka","639-5":"","639-1":"","Language name(s)":"Ekajuk","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":"Kajuk"},
+{"639-2":"ell / gre*","639-3":"ell","639-5":"","639-1":"el","Language name(s)":"Greek, Modern (1453–)","Scope":"Individual","Type":"Living","Native name(s)":"Νέα Ελληνικά Néa Ellêniká","Other name(s)":""}
+,
+{"639-2":"elx","639-3":"elx","639-5":"","639-1":"","Language name(s)":"Elamite","Scope":"Individual","Type":"Ancient","Native name(s)":"","Other name(s)":""},
+{"639-2":"eng","639-3":"eng","639-5":"","639-1":"en","Language name(s)":"English","Scope":"Individual","Type":"Living","Native name(s)":"English","Other name(s)":""},
+{"639-2":"enm","639-3":"enm","639-5":"","639-1":"","Language name(s)":"English, Middle (1100–1500)","Scope":"Individual","Type":"Historical","Native name(s)":"","Other name(s)":""}
+,
+{"639-2":"epo","639-3":"epo","639-5":"","639-1":"eo","Language name(s)":"Esperanto","Scope":"Individual","Type":"Constructed","Native name(s)":"Esperanto","Other name(s)":""},
+{"639-2":"est","639-3":"est","639-5":"","639-1":"et","Language name(s)":"Estonian","Scope":"Macrolanguage","Type":"Living","Native name(s)":"eesti keel","Other name(s)":""},
+{"639-2":"eus / baq*","639-3":"eus","639-5":"","639-1":"eu","Language name(s)":"Basque","Scope":"Individual","Type":"Living","Native name(s)":"euskara","Other name(s)":""},
+{"639-2":"ewe","639-3":"ewe","639-5":"","639-1":"ee","Language name(s)":"Ewe","Scope":"Individual","Type":"Living","Native name(s)":"Èʋegbe","Other name(s)":""}
+,
+{"639-2":"ewo","639-3":"ewo","639-5":"","639-1":"","Language name(s)":"Ewondo","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":"Kolo"},
+{"639-2":"fan","639-3":"fan","639-5":"","639-1":"","Language name(s)":"Fang","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"fao","639-3":"fao","639-5":"","639-1":"fo","Language name(s)":"Faroese","Scope":"Individual","Type":"Living","Native name(s)":"føroyskt","Other name(s)":""}
+,
+{"639-2":"fas / per*","639-3":"fas","639-5":"","639-1":"fa","Language name(s)":"Persian","Scope":"Macrolanguage","Type":"Living","Native name(s)":"فارسی Fārsiy","Other name(s)":"Farsi"}
+,
+{"639-2":"fat","639-3":"fat","639-5":"","639-1":"","Language name(s)":"Fanti","Scope":"Individual","Type":"Living","Native name(s)":"Mfantse; Fante; Fanti","Other name(s)":"Fante"},
+{"639-2":"fij","639-3":"fij","639-5":"","639-1":"fj","Language name(s)":"Fijian","Scope":"Individual","Type":"Living","Native name(s)":"Na Vosa Vakaviti","Other name(s)":""},
+{"639-2":"fil","639-3":"fil","639-5":"","639-1":"","Language name(s)":"Filipino; Pilipino","Scope":"Individual","Type":"Living","Native name(s)":"Wikang Filipino","Other name(s)":""},
+{"639-2":"fin","639-3":"fin","639-5":"","639-1":"fi","Language name(s)":"Finnish","Scope":"Individual","Type":"Living","Native name(s)":"suomen kieli","Other name(s)":""},
+{"639-2":"fiu","639-3":"","639-5":"fiu","639-1":"","Language name(s)":"Finno-Ugrian languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":"Finno-Ugric languages"},
+{"639-2":"fon","639-3":"fon","639-5":"","639-1":"","Language name(s)":"Fon","Scope":"Individual","Type":"Living","Native name(s)":"Fon gbè","Other name(s)":""}
+,
+{"639-2":"fra / fre*","639-3":"fra","639-5":"","639-1":"fr","Language name(s)":"French","Scope":"Individual","Type":"Living","Native name(s)":"français","Other name(s)":""}
+,
+{"639-2":"frm","639-3":"frm","639-5":"","639-1":"","Language name(s)":"French, Middle (ca. 1400–1600)","Scope":"Individual","Type":"Historical","Native name(s)":"françois; franceis","Other name(s)":""}
+,
+{"639-2":"fro","639-3":"fro","639-5":"","639-1":"","Language name(s)":"French, Old (842–ca. 1400)","Scope":"Individual","Type":"Historical","Native name(s)":"Franceis; François; Romanz","Other name(s)":""}
+,
+{"639-2":"frr","639-3":"frr","639-5":"","639-1":"","Language name(s)":"Northern Frisian","Scope":"Individual","Type":"Living","Native name(s)":"Frasch; Fresk; Freesk; Friisk","Other name(s)":"North Frisian"},
+{"639-2":"frs","639-3":"frs","639-5":"","639-1":"","Language name(s)":"East Frisian Low Saxon","Scope":"Individual","Type":"Living","Native name(s)":"Oostfreesk; Plattdüütsk","Other name(s)":"East Frisian Low Saxon"}
+,
+{"639-2":"fry","639-3":"fry","639-5":"","639-1":"fy","Language name(s)":"Western Frisian","Scope":"Individual","Type":"Living","Native name(s)":"Frysk","Other name(s)":"West Frisian"},
+{"639-2":"ful","639-3":"ful","639-5":"","639-1":"ff","Language name(s)":"Fulah","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Fulfulde; Pulaar; Pular","Other name(s)":"Fula"},
+{"639-2":"fur","639-3":"fur","639-5":"","639-1":"","Language name(s)":"Friulian","Scope":"Individual","Type":"Living","Native name(s)":"Furlan","Other name(s)":""},
+{"639-2":"gaa","639-3":"gaa","639-5":"","639-1":"","Language name(s)":"Ga","Scope":"Individual","Type":"Living","Native name(s)":"Gã","Other name(s)":""}
+,
+{"639-2":"gay","639-3":"gay","639-5":"","639-1":"","Language name(s)":"Gayo","Scope":"Individual","Type":"Living","Native name(s)":"Basa Gayo","Other name(s)":""},
+{"639-2":"gba","639-3":"gba","639-5":"","639-1":"","Language name(s)":"Gbaya","Scope":"Macrolanguage","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"gem","639-3":"","639-5":"gem","639-1":"","Language name(s)":"Germanic languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"gez","639-3":"gez","639-5":"","639-1":"","Language name(s)":"Geez","Scope":"Individual","Type":"Ancient","Native name(s)":"ግዕዝ","Other name(s)":"Ge'ez"}
+,
+{"639-2":"gil","639-3":"gil","639-5":"","639-1":"","Language name(s)":"Gilbertese","Scope":"Individual","Type":"Living","Native name(s)":"Taetae ni Kiribati","Other name(s)":""},
+{"639-2":"gla","639-3":"gla","639-5":"","639-1":"gd","Language name(s)":"Gaelic; Scottish Gaelic","Scope":"Individual","Type":"Living","Native name(s)":"Gàidhlig","Other name(s)":""}
+,
+{"639-2":"gle","639-3":"gle","639-5":"","639-1":"ga","Language name(s)":"Irish","Scope":"Individual","Type":"Living","Native name(s)":"Gaeilge","Other name(s)":""},
+{"639-2":"glg","639-3":"glg","639-5":"","639-1":"gl","Language name(s)":"Galician","Scope":"Individual","Type":"Living","Native name(s)":"galego","Other name(s)":""},
+{"639-2":"glv","639-3":"glv","639-5":"","639-1":"gv","Language name(s)":"Manx","Scope":"Individual","Type":"Living","Native name(s)":"Gaelg; Gailck","Other name(s)":""},
+{"639-2":"gmh","639-3":"gmh","639-5":"","639-1":"","Language name(s)":"German, Middle High (ca. 1050–1500)","Scope":"Individual","Type":"Historical","Native name(s)":"Diutsch","Other name(s)":""}
+,
+{"639-2":"goh","639-3":"goh","639-5":"","639-1":"","Language name(s)":"German, Old High (ca. 750–1050)","Scope":"Individual","Type":"Historical","Native name(s)":"Diutisk","Other name(s)":""}
+,
+{"639-2":"gon","639-3":"gon","639-5":"","639-1":"","Language name(s)":"Gondi","Scope":"Macrolanguage","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"gor","639-3":"gor","639-5":"","639-1":"","Language name(s)":"Gorontalo","Scope":"Individual","Type":"Living","Native name(s)":"Bahasa Hulontalo","Other name(s)":""},
+{"639-2":"got","639-3":"got","639-5":"","639-1":"","Language name(s)":"Gothic","Scope":"Individual","Type":"Ancient","Native name(s)":"","Other name(s)":""},
+{"639-2":"grb","639-3":"grb","639-5":"","639-1":"","Language name(s)":"Grebo","Scope":"Macrolanguage","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"grc","639-3":"grc","639-5":"","639-1":"","Language name(s)":"Greek, Ancient (to 1453)","Scope":"Individual","Type":"Historical","Native name(s)":"Ἑλληνική","Other name(s)":""}
+,
+{"639-2":"grn","639-3":"grn","639-5":"","639-1":"gn","Language name(s)":"Guarani","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Avañe'ẽ","Other name(s)":""}
+,
+{"639-2":"gsw","639-3":"gsw","639-5":"","639-1":"","Language name(s)":"Swiss German; Alemannic; Alsatian","Scope":"Individual","Type":"Living","Native name(s)":"Schwiizerdütsch","Other name(s)":""}
+,
+{"639-2":"guj","639-3":"guj","639-5":"","639-1":"gu","Language name(s)":"Gujarati","Scope":"Individual","Type":"Living","Native name(s)":"ગુજરાતી Gujarātī","Other name(s)":""}
+,
+{"639-2":"gwi","639-3":"gwi","639-5":"","639-1":"","Language name(s)":"Gwich'in","Scope":"Individual","Type":"Living","Native name(s)":"Dinjii Zhu’ Ginjik","Other name(s)":""}
+,
+{"639-2":"hai","639-3":"hai","639-5":"","639-1":"","Language name(s)":"Haida","Scope":"Macrolanguage","Type":"Living","Native name(s)":"X̱aat Kíl; X̱aadas Kíl; X̱aayda Kil; Xaad kil","Other name(s)":""}
+,
+{"639-2":"hat","639-3":"hat","639-5":"","639-1":"ht","Language name(s)":"Haitian; Haitian Creole","Scope":"Individual","Type":"Living","Native name(s)":"kreyòl ayisyen","Other name(s)":""}
+,
+{"639-2":"hau","639-3":"hau","639-5":"","639-1":"ha","Language name(s)":"Hausa","Scope":"Individual","Type":"Living","Native name(s)":"Harshen Hausa; هَرْشَن","Other name(s)":""}
+,
+{"639-2":"haw","639-3":"haw","639-5":"","639-1":"","Language name(s)":"Hawaiian","Scope":"Individual","Type":"Living","Native name(s)":"ʻŌlelo Hawaiʻi","Other name(s)":""}
+,
+{"639-2":"heb","639-3":"heb","639-5":"","639-1":"he","Language name(s)":"Hebrew","Scope":"Individual","Type":"Living","Native name(s)":"עברית 'Ivriyþ","Other name(s)":""}
+,
+{"639-2":"her","639-3":"her","639-5":"","639-1":"hz","Language name(s)":"Herero","Scope":"Individual","Type":"Living","Native name(s)":"Otjiherero","Other name(s)":""},
+{"639-2":"hil","639-3":"hil","639-5":"","639-1":"","Language name(s)":"Hiligaynon","Scope":"Individual","Type":"Living","Native name(s)":"Ilonggo","Other name(s)":""},
+{"639-2":"him","639-3":"","639-5":"[a]","639-1":"","Language name(s)":"Himachali languages; Pahari languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"hin","639-3":"hin","639-5":"","639-1":"hi","Language name(s)":"Hindi","Scope":"Individual","Type":"Living","Native name(s)":"हिन्दी Hindī","Other name(s)":""}
+,
+{"639-2":"hit","639-3":"hit","639-5":"","639-1":"","Language name(s)":"Hittite","Scope":"Individual","Type":"Ancient","Native name(s)":"𒉈𒅆𒇷","Other name(s)":""}
+,
+{"639-2":"hmn","639-3":"hmn","639-5":"","639-1":"","Language name(s)":"Hmong; Mong","Scope":"Macrolanguage","Type":"Living","Native name(s)":"lus Hmoob; lug Moob; lol Hmongb; 𖬇𖬰𖬞 𖬌𖬣𖬵","Other name(s)":""}
+,
+{"639-2":"hmo","639-3":"hmo","639-5":"","639-1":"ho","Language name(s)":"Hiri Motu","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"hrv","639-3":"hrv","639-5":"","639-1":"hr","Language name(s)":"Croatian","Scope":"Individual","Type":"Living","Native name(s)":"hrvatski","Other name(s)":""},
+{"639-2":"hsb","639-3":"hsb","639-5":"","639-1":"","Language name(s)":"Upper Sorbian","Scope":"Individual","Type":"Living","Native name(s)":"hornjoserbšćina","Other name(s)":""}
+,
+{"639-2":"hun","639-3":"hun","639-5":"","639-1":"hu","Language name(s)":"Hungarian","Scope":"Individual","Type":"Living","Native name(s)":"magyar nyelv","Other name(s)":""},
+{"639-2":"hup","639-3":"hup","639-5":"","639-1":"","Language name(s)":"Hupa","Scope":"Individual","Type":"Living","Native name(s)":"Na:tinixwe Mixine:whe'","Other name(s)":""},
+{"639-2":"hye / arm*","639-3":"hye","639-5":"","639-1":"hy","Language name(s)":"Armenian","Scope":"Individual","Type":"Living","Native name(s)":"Հայերէն Hayerèn; Հայերեն Hayeren","Other name(s)":""}
+,
+{"639-2":"iba","639-3":"iba","639-5":"","639-1":"","Language name(s)":"Iban","Scope":"Individual","Type":"Living","Native name(s)":"Jaku Iban","Other name(s)":""},
+{"639-2":"ibo","639-3":"ibo","639-5":"","639-1":"ig","Language name(s)":"Igbo","Scope":"Individual","Type":"Living","Native name(s)":"Asụsụ Igbo","Other name(s)":""}
+,
+{"639-2":"ido","639-3":"ido","639-5":"","639-1":"io","Language name(s)":"Ido","Scope":"Individual","Type":"Constructed","Native name(s)":"","Other name(s)":""},
+{"639-2":"iii","639-3":"iii","639-5":"","639-1":"ii","Language name(s)":"Sichuan Yi; Nuosu","Scope":"Individual","Type":"Living","Native name(s)":"ꆈꌠꉙ Nuosuhxop","Other name(s)":""}
+,
+{"639-2":"ijo","639-3":"","639-5":"ijo","639-1":"","Language name(s)":"Ijo languages","Scope":"Collective","Type":"","Native name(s)":"Ịjọ","Other name(s)":"Ijaw languages"}
+,
+{"639-2":"iku","639-3":"iku","639-5":"","639-1":"iu","Language name(s)":"Inuktitut","Scope":"Macrolanguage","Type":"Living","Native name(s)":"ᐃᓄᒃᑎᑐᑦ Inuktitut","Other name(s)":""}
+,
+{"639-2":"ile","639-3":"ile","639-5":"","639-1":"ie","Language name(s)":"Interlingue; Occidental","Scope":"Individual","Type":"Constructed","Native name(s)":"","Other name(s)":""},
+{"639-2":"ilo","639-3":"ilo","639-5":"","639-1":"","Language name(s)":"Iloko","Scope":"Individual","Type":"Living","Native name(s)":"Pagsasao nga Ilokano; Ilokano","Other name(s)":"Ilocano"},
+{"639-2":"ina","639-3":"ina","639-5":"","639-1":"ia","Language name(s)":"Interlingua (International Auxiliary Language Association)","Scope":"Individual","Type":"Constructed","Native name(s)":"","Other name(s)":""},
+{"639-2":"inc","639-3":"","639-5":"inc","639-1":"","Language name(s)":"Indic languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":"Indo-Aryan languages"},
+{"639-2":"ind","639-3":"ind","639-5":"","639-1":"id","Language name(s)":"Indonesian","Scope":"Individual","Type":"Living","Native name(s)":"bahasa Indonesia","Other name(s)":""},
+{"639-2":"ine","639-3":"","639-5":"ine","639-1":"","Language name(s)":"Indo-European languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"inh","639-3":"inh","639-5":"","639-1":"","Language name(s)":"Ingush","Scope":"Individual","Type":"Living","Native name(s)":"ГӀалгӀай мотт","Other name(s)":""}
+,
+{"639-2":"ipk","639-3":"ipk","639-5":"","639-1":"ik","Language name(s)":"Inupiaq","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Iñupiaq","Other name(s)":""}
+,
+{"639-2":"ira","639-3":"","639-5":"ira","639-1":"","Language name(s)":"Iranian languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"iro","639-3":"","639-5":"iro","639-1":"","Language name(s)":"Iroquoian languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"isl / ice*","639-3":"isl","639-5":"","639-1":"is","Language name(s)":"Icelandic","Scope":"Individual","Type":"Living","Native name(s)":"íslenska","Other name(s)":""}
+,
+{"639-2":"ita","639-3":"ita","639-5":"","639-1":"it","Language name(s)":"Italian","Scope":"Individual","Type":"Living","Native name(s)":"italiano; lingua italiana","Other name(s)":""},
+{"639-2":"jav","639-3":"jav","639-5":"","639-1":"jv","Language name(s)":"Javanese","Scope":"Individual","Type":"Living","Native name(s)":"ꦧꦱꦗꦮ / Basa Jawa","Other name(s)":""}
+,
+{"639-2":"jbo","639-3":"jbo","639-5":"","639-1":"","Language name(s)":"Lojban","Scope":"Individual","Type":"Constructed","Native name(s)":"la .lojban.","Other name(s)":""},
+{"639-2":"jpn","639-3":"jpn","639-5":"","639-1":"ja","Language name(s)":"Japanese","Scope":"Individual","Type":"Living","Native name(s)":"日本語 Nihongo","Other name(s)":""}
+,
+{"639-2":"jpr","639-3":"jpr","639-5":"","639-1":"","Language name(s)":"Judeo-Persian","Scope":"Individual","Type":"Living","Native name(s)":"Dzhidi","Other name(s)":""},
+{"639-2":"jrb","639-3":"jrb","639-5":"","639-1":"","Language name(s)":"Judeo-Arabic","Scope":"Macrolanguage","Type":"Living","Native name(s)":"عربية يهودية / ערבית יהודית","Other name(s)":""}
+,
+{"639-2":"kaa","639-3":"kaa","639-5":"","639-1":"","Language name(s)":"Kara-Kalpak","Scope":"Individual","Type":"Living","Native name(s)":"Qaraqalpaq tili; Қарақалпақ тили","Other name(s)":"Karakalpak"}
+,
+{"639-2":"kab","639-3":"kab","639-5":"","639-1":"","Language name(s)":"Kabyle","Scope":"Individual","Type":"Living","Native name(s)":"Tamaziɣt Taqbaylit; Tazwawt","Other name(s)":""}
+,
+{"639-2":"kac","639-3":"kac","639-5":"","639-1":"","Language name(s)":"Kachin; Jingpho","Scope":"Individual","Type":"Living","Native name(s)":"Jingpho","Other name(s)":""},
+{"639-2":"kal","639-3":"kal","639-5":"","639-1":"kl","Language name(s)":"Kalaallisut; Greenlandic","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"kam","639-3":"kam","639-5":"","639-1":"","Language name(s)":"Kamba","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"kan","639-3":"kan","639-5":"","639-1":"kn","Language name(s)":"Kannada","Scope":"Individual","Type":"Living","Native name(s)":"ಕನ್ನಡ Kannađa","Other name(s)":""}
+,
+{"639-2":"kar","639-3":"","639-5":"kar","639-1":"","Language name(s)":"Karen languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":"Karenic languages"},
+{"639-2":"kas","639-3":"kas","639-5":"","639-1":"ks","Language name(s)":"Kashmiri","Scope":"Individual","Type":"Living","Native name(s)":"कॉशुर / كأشُر","Other name(s)":""}
+,
+{"639-2":"kat / geo*","639-3":"kat","639-5":"","639-1":"ka","Language name(s)":"Georgian","Scope":"Individual","Type":"Living","Native name(s)":"ქართული Kharthuli","Other name(s)":""}
+,
+{"639-2":"kau","639-3":"kau","639-5":"","639-1":"kr","Language name(s)":"Kanuri","Scope":"Macrolanguage","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"kaw","639-3":"kaw","639-5":"","639-1":"","Language name(s)":"Kawi","Scope":"Individual","Type":"Ancient","Native name(s)":"ꦧꦱꦗꦮ","Other name(s)":""}
+,
+{"639-2":"kaz","639-3":"kaz","639-5":"","639-1":"kk","Language name(s)":"Kazakh","Scope":"Individual","Type":"Living","Native name(s)":"қазақ тілі qazaq tili; қазақша qazaqşa","Other name(s)":""}
+,
+{"639-2":"kbd","639-3":"kbd","639-5":"","639-1":"","Language name(s)":"Kabardian","Scope":"Individual","Type":"Living","Native name(s)":"Адыгэбзэ (Къэбэрдейбзэ) Adıgăbză (Qăbărdeĭbză)","Other name(s)":""}
+,
+{"639-2":"kha","639-3":"kha","639-5":"","639-1":"","Language name(s)":"Khasi","Scope":"Individual","Type":"Living","Native name(s)":"কা কতিয়েন খাশি","Other name(s)":""}
+,
+{"639-2":"khi","639-3":"","639-5":"khi","639-1":"","Language name(s)":"Khoisan languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"khm","639-3":"khm","639-5":"","639-1":"km","Language name(s)":"Central Khmer","Scope":"Individual","Type":"Living","Native name(s)":"ភាសាខ្មែរ Phiəsaakhmær","Other name(s)":""}
+,
+{"639-2":"kho","639-3":"kho","639-5":"","639-1":"","Language name(s)":"Khotanese; Sakan","Scope":"Individual","Type":"Ancient","Native name(s)":"","Other name(s)":"Saka"},
+{"639-2":"kik","639-3":"kik","639-5":"","639-1":"ki","Language name(s)":"Kikuyu; Gikuyu","Scope":"Individual","Type":"Living","Native name(s)":"Gĩkũyũ","Other name(s)":""}
+,
+{"639-2":"kin","639-3":"kin","639-5":"","639-1":"rw","Language name(s)":"Kinyarwanda","Scope":"Individual","Type":"Living","Native name(s)":"Ikinyarwanda","Other name(s)":""},
+{"639-2":"kir","639-3":"kir","639-5":"","639-1":"ky","Language name(s)":"Kirghiz; Kyrgyz","Scope":"Individual","Type":"Living","Native name(s)":"кыргызча kırgızça; кыргыз тили kırgız tili","Other name(s)":""}
+,
+{"639-2":"kmb","639-3":"kmb","639-5":"","639-1":"","Language name(s)":"Kimbundu","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"kok","639-3":"kok","639-5":"","639-1":"","Language name(s)":"Konkani","Scope":"Macrolanguage","Type":"Living","Native name(s)":"कोंकणी","Other name(s)":""}
+,
+{"639-2":"kom","639-3":"kom","639-5":"","639-1":"kv","Language name(s)":"Komi","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Коми кыв","Other name(s)":""}
+,
+{"639-2":"kon","639-3":"kon","639-5":"","639-1":"kg","Language name(s)":"Kongo","Scope":"Macrolanguage","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"kor","639-3":"kor","639-5":"","639-1":"ko","Language name(s)":"Korean","Scope":"Individual","Type":"Living","Native name(s)":"한국어 Han'gug'ô","Other name(s)":""}
+,
+{"639-2":"kos","639-3":"kos","639-5":"","639-1":"","Language name(s)":"Kosraean","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"kpe","639-3":"kpe","639-5":"","639-1":"","Language name(s)":"Kpelle","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Kpɛlɛwoo","Other name(s)":""}
+,
+{"639-2":"krc","639-3":"krc","639-5":"","639-1":"","Language name(s)":"Karachay-Balkar","Scope":"Individual","Type":"Living","Native name(s)":"Къарачай-Малкъар тил; Таулу тил","Other name(s)":""}
+,
+{"639-2":"krl","639-3":"krl","639-5":"","639-1":"","Language name(s)":"Karelian","Scope":"Individual","Type":"Living","Native name(s)":"karjal; kariela; karjala","Other name(s)":""},
+{"639-2":"kro","639-3":"","639-5":"kro","639-1":"","Language name(s)":"Kru languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"kru","639-3":"kru","639-5":"","639-1":"","Language name(s)":"Kurukh","Scope":"Individual","Type":"Living","Native name(s)":"कुड़ुख़","Other name(s)":""}
+,
+{"639-2":"kua","639-3":"kua","639-5":"","639-1":"kj","Language name(s)":"Kuanyama; Kwanyama","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"kum","639-3":"kum","639-5":"","639-1":"","Language name(s)":"Kumyk","Scope":"Individual","Type":"Living","Native name(s)":"къумукъ тил/qumuq til","Other name(s)":""}
+,
+{"639-2":"kur","639-3":"kur","639-5":"","639-1":"ku","Language name(s)":"Kurdish","Scope":"Macrolanguage","Type":"Living","Native name(s)":"kurdî / کوردی","Other name(s)":""}
+,
+{"639-2":"kut","639-3":"kut","639-5":"","639-1":"","Language name(s)":"Kutenai","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"lad","639-3":"lad","639-5":"","639-1":"","Language name(s)":"Ladino","Scope":"Individual","Type":"Living","Native name(s)":"Judeo-español","Other name(s)":"Judaeo-Spanish"}
+,
+{"639-2":"lah","639-3":"lah","639-5":"","639-1":"","Language name(s)":"Lahnda","Scope":"Macrolanguage","Type":"Living","Native name(s)":"بھارت کا","Other name(s)":"Western Punjabi"}
+,
+{"639-2":"lam","639-3":"lam","639-5":"","639-1":"","Language name(s)":"Lamba","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"lao","639-3":"lao","639-5":"","639-1":"lo","Language name(s)":"Lao","Scope":"Individual","Type":"Living","Native name(s)":"ພາສາລາວ Phasalaw","Other name(s)":""}
+,
+{"639-2":"lat","639-3":"lat","639-5":"","639-1":"la","Language name(s)":"Latin","Scope":"Individual","Type":"Ancient","Native name(s)":"Lingua latīna","Other name(s)":""}
+,
+{"639-2":"lav","639-3":"lav","639-5":"","639-1":"lv","Language name(s)":"Latvian","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Latviešu valoda","Other name(s)":""}
+,
+{"639-2":"lez","639-3":"lez","639-5":"","639-1":"","Language name(s)":"Lezghian","Scope":"Individual","Type":"Living","Native name(s)":"Лезги чӏал","Other name(s)":"Lezgian"}
+,
+{"639-2":"lim","639-3":"lim","639-5":"","639-1":"li","Language name(s)":"Limburgan; Limburger; Limburgish","Scope":"Individual","Type":"Living","Native name(s)":"Lèmburgs","Other name(s)":""}
+,
+{"639-2":"lin","639-3":"lin","639-5":"","639-1":"ln","Language name(s)":"Lingala","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"lit","639-3":"lit","639-5":"","639-1":"lt","Language name(s)":"Lithuanian","Scope":"Individual","Type":"Living","Native name(s)":"lietuvių kalba","Other name(s)":""}
+,
+{"639-2":"lol","639-3":"lol","639-5":"","639-1":"","Language name(s)":"Mongo","Scope":"Individual","Type":"Living","Native name(s)":"Lomongo","Other name(s)":""},
+{"639-2":"loz","639-3":"loz","639-5":"","639-1":"","Language name(s)":"Lozi","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"ltz","639-3":"ltz","639-5":"","639-1":"lb","Language name(s)":"Luxembourgish; Letzeburgesch","Scope":"Individual","Type":"Living","Native name(s)":"Lëtzebuergesch","Other name(s)":""}
+,
+{"639-2":"lua","639-3":"lua","639-5":"","639-1":"","Language name(s)":"Luba-Lulua","Scope":"Individual","Type":"Living","Native name(s)":"Tshiluba","Other name(s)":"Luba-Kasai"},
+{"639-2":"lub","639-3":"lub","639-5":"","639-1":"lu","Language name(s)":"Luba-Katanga","Scope":"Individual","Type":"Living","Native name(s)":"Kiluba","Other name(s)":""},
+{"639-2":"lug","639-3":"lug","639-5":"","639-1":"lg","Language name(s)":"Ganda","Scope":"Individual","Type":"Living","Native name(s)":"Luganda","Other name(s)":"Luganda"},
+{"639-2":"lui","639-3":"lui","639-5":"","639-1":"","Language name(s)":"Luiseno","Scope":"Individual","Type":"Extinct","Native name(s)":"Cham'teela","Other name(s)":""},
+{"639-2":"lun","639-3":"lun","639-5":"","639-1":"","Language name(s)":"Lunda","Scope":"Individual","Type":"Living","Native name(s)":"Chilunda","Other name(s)":""},
+{"639-2":"luo","639-3":"luo","639-5":"","639-1":"","Language name(s)":"Luo (Kenya and Tanzania)","Scope":"Individual","Type":"Living","Native name(s)":"Dholuo","Other name(s)":""},
+{"639-2":"lus","639-3":"lus","639-5":"","639-1":"","Language name(s)":"Lushai","Scope":"Individual","Type":"Living","Native name(s)":"Mizo ṭawng","Other name(s)":"Mizo"}
+,
+{"639-2":"mad","639-3":"mad","639-5":"","639-1":"","Language name(s)":"Madurese","Scope":"Individual","Type":"Living","Native name(s)":"Madhura","Other name(s)":""},
+{"639-2":"mag","639-3":"mag","639-5":"","639-1":"","Language name(s)":"Magahi","Scope":"Individual","Type":"Living","Native name(s)":"मगही","Other name(s)":""}
+,
+{"639-2":"mah","639-3":"mah","639-5":"","639-1":"mh","Language name(s)":"Marshallese","Scope":"Individual","Type":"Living","Native name(s)":"Kajin M̧ajeļ","Other name(s)":""}
+,
+{"639-2":"mai","639-3":"mai","639-5":"","639-1":"","Language name(s)":"Maithili","Scope":"Individual","Type":"Living","Native name(s)":"मैथिली; মৈথিলী","Other name(s)":""}
+,
+{"639-2":"mak","639-3":"mak","639-5":"","639-1":"","Language name(s)":"Makasar","Scope":"Individual","Type":"Living","Native name(s)":"Basa Mangkasara' / ᨅᨔ ᨆᨀᨔᨑ","Other name(s)":"Makassarese"}
+,
+{"639-2":"mal","639-3":"mal","639-5":"","639-1":"ml","Language name(s)":"Malayalam","Scope":"Individual","Type":"Living","Native name(s)":"മലയാളം Malayāļã","Other name(s)":""}
+,
+{"639-2":"man","639-3":"man","639-5":"","639-1":"","Language name(s)":"Mandingo","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Mandi'nka kango","Other name(s)":"Manding"},
+{"639-2":"map","639-3":"","639-5":"map","639-1":"","Language name(s)":"Austronesian languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"mar","639-3":"mar","639-5":"","639-1":"mr","Language name(s)":"Marathi","Scope":"Individual","Type":"Living","Native name(s)":"मराठी Marāţhī","Other name(s)":""}
+,
+{"639-2":"mas","639-3":"mas","639-5":"","639-1":"","Language name(s)":"Masai","Scope":"Individual","Type":"Living","Native name(s)":"ɔl","Other name(s)":""}
+,
+{"639-2":"mdf","639-3":"mdf","639-5":"","639-1":"","Language name(s)":"Moksha","Scope":"Individual","Type":"Living","Native name(s)":"мокшень кяль","Other name(s)":""}
+,
+{"639-2":"mdr","639-3":"mdr","639-5":"","639-1":"","Language name(s)":"Mandar","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"men","639-3":"men","639-5":"","639-1":"","Language name(s)":"Mende","Scope":"Individual","Type":"Living","Native name(s)":"Mɛnde yia","Other name(s)":""}
+,
+{"639-2":"mga","639-3":"mga","639-5":"","639-1":"","Language name(s)":"Irish, Middle (900–1200)","Scope":"Individual","Type":"Historical","Native name(s)":"Gaoidhealg","Other name(s)":""}
+,
+{"639-2":"mic","639-3":"mic","639-5":"","639-1":"","Language name(s)":"Mi'kmaq; Micmac","Scope":"Individual","Type":"Living","Native name(s)":"Míkmawísimk","Other name(s)":""}
+,
+{"639-2":"min","639-3":"min","639-5":"","639-1":"","Language name(s)":"Minangkabau","Scope":"Individual","Type":"Living","Native name(s)":"Baso Minang","Other name(s)":""},
+{"639-2":"mis","639-3":"mis","639-5":"","639-1":"","Language name(s)":"Uncoded languages","Scope":"Special","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"mkd / mac*","639-3":"mkd","639-5":"","639-1":"mk","Language name(s)":"Macedonian","Scope":"Individual","Type":"Living","Native name(s)":"македонски јазик makedonski jazik","Other name(s)":""}
+,
+{"639-2":"mkh","639-3":"","639-5":"mkh","639-1":"","Language name(s)":"Mon-Khmer languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":"Austroasiatic languages"},
+{"639-2":"mlg","639-3":"mlg","639-5":"","639-1":"mg","Language name(s)":"Malagasy","Scope":"Macrolanguage","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"mlt","639-3":"mlt","639-5":"","639-1":"mt","Language name(s)":"Maltese","Scope":"Individual","Type":"Living","Native name(s)":"Malti","Other name(s)":""},
+{"639-2":"mnc","639-3":"mnc","639-5":"","639-1":"","Language name(s)":"Manchu","Scope":"Individual","Type":"Living","Native name(s)":"ᠮᠠᠨᠵᡠ ᡤᡳᠰᡠᠨ Manju gisun","Other name(s)":""}
+,
+{"639-2":"mni","639-3":"mni","639-5":"","639-1":"","Language name(s)":"Manipuri","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":"Meitei"},
+{"639-2":"mno","639-3":"","639-5":"mno","639-1":"","Language name(s)":"Manobo languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"moh","639-3":"moh","639-5":"","639-1":"","Language name(s)":"Mohawk","Scope":"Individual","Type":"Living","Native name(s)":"Kanien’kéha","Other name(s)":""}
+,
+{"639-2":"mon","639-3":"mon","639-5":"","639-1":"mn","Language name(s)":"Mongolian","Scope":"Macrolanguage","Type":"Living","Native name(s)":"монгол хэл mongol xel; ᠮᠣᠩᠭᠣᠯ ᠬᠡᠯᠡ","Other name(s)":""}
+,
+{"639-2":"mos","639-3":"mos","639-5":"","639-1":"","Language name(s)":"Mossi","Scope":"Individual","Type":"Living","Native name(s)":"Mooré","Other name(s)":""}
+,
+{"639-2":"mri / mao*","639-3":"mri","639-5":"","639-1":"mi","Language name(s)":"Māori","Scope":"Individual","Type":"Living","Native name(s)":"Te Reo Māori","Other name(s)":""}
+,
+{"639-2":"msa / may*","639-3":"msa","639-5":"","639-1":"ms","Language name(s)":"Malay","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Bahasa Melayu","Other name(s)":""},
+{"639-2":"mul","639-3":"mul","639-5":"","639-1":"","Language name(s)":"Multiple languages","Scope":"Special","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"mun","639-3":"","639-5":"mun","639-1":"","Language name(s)":"Munda languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"mus","639-3":"mus","639-5":"","639-1":"","Language name(s)":"Creek","Scope":"Individual","Type":"Living","Native name(s)":"Mvskoke","Other name(s)":"Muscogee"},
+{"639-2":"mwl","639-3":"mwl","639-5":"","639-1":"","Language name(s)":"Mirandese","Scope":"Individual","Type":"Living","Native name(s)":"mirandés; lhéngua mirandesa","Other name(s)":""}
+,
+{"639-2":"mwr","639-3":"mwr","639-5":"","639-1":"","Language name(s)":"Marwari","Scope":"Macrolanguage","Type":"Living","Native name(s)":"मारवाड़ी","Other name(s)":""}
+,
+{"639-2":"mya / bur*","639-3":"mya","639-5":"","639-1":"my","Language name(s)":"Burmese","Scope":"Individual","Type":"Living","Native name(s)":"မြန်မာစာ Mrãmācā; မြန်မာစကား Mrãmākā:","Other name(s)":"Myanmar"}
+,
+{"639-2":"myn","639-3":"","639-5":"myn","639-1":"","Language name(s)":"Mayan languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"myv","639-3":"myv","639-5":"","639-1":"","Language name(s)":"Erzya","Scope":"Individual","Type":"Living","Native name(s)":"эрзянь кель","Other name(s)":""}
+,
+{"639-2":"nah","639-3":"","639-5":"nah","639-1":"","Language name(s)":"Nahuatl languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":"Nahuan languages"},
+{"639-2":"nai","639-3":"","639-5":"nai","639-1":"","Language name(s)":"North American Indian languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"nap","639-3":"nap","639-5":"","639-1":"","Language name(s)":"Neapolitan","Scope":"Individual","Type":"Living","Native name(s)":"napulitano","Other name(s)":""},
+{"639-2":"nau","639-3":"nau","639-5":"","639-1":"na","Language name(s)":"Nauru","Scope":"Individual","Type":"Living","Native name(s)":"dorerin Naoero","Other name(s)":"Nauruan"},
+{"639-2":"nav","639-3":"nav","639-5":"","639-1":"nv","Language name(s)":"Navajo; Navaho","Scope":"Individual","Type":"Living","Native name(s)":"Diné bizaad; Naabeehó bizaad","Other name(s)":""}
+,
+{"639-2":"nbl","639-3":"nbl","639-5":"","639-1":"nr","Language name(s)":"Ndebele, South; South Ndebele","Scope":"Individual","Type":"Living","Native name(s)":"isiNdebele seSewula","Other name(s)":"Southern Ndebele"},
+{"639-2":"nde","639-3":"nde","639-5":"","639-1":"nd","Language name(s)":"Ndebele, North; North Ndebele","Scope":"Individual","Type":"Living","Native name(s)":"siNdebele saseNyakatho","Other name(s)":"Northern Ndebele"},
+{"639-2":"ndo","639-3":"ndo","639-5":"","639-1":"ng","Language name(s)":"Ndonga","Scope":"Individual","Type":"Living","Native name(s)":"ndonga","Other name(s)":""},
+{"639-2":"nds","639-3":"nds","639-5":"","639-1":"","Language name(s)":"Low German; Low Saxon; German, Low; Saxon, Low","Scope":"Individual","Type":"Living","Native name(s)":"Plattdütsch; Plattdüütsch","Other name(s)":""}
+,
+{"639-2":"nep","639-3":"nep","639-5":"","639-1":"ne","Language name(s)":"Nepali","Scope":"Macrolanguage","Type":"Living","Native name(s)":"नेपाली भाषा Nepālī bhāśā","Other name(s)":""}
+,
+{"639-2":"new","639-3":"new","639-5":"","639-1":"","Language name(s)":"Nepal Bhasa; Newari","Scope":"Individual","Type":"Living","Native name(s)":"नेपाल भाषा; नेवाः भाय्","Other name(s)":"Newar"}
+,
+{"639-2":"nia","639-3":"nia","639-5":"","639-1":"","Language name(s)":"Nias","Scope":"Individual","Type":"Living","Native name(s)":"Li Niha","Other name(s)":""},
+{"639-2":"nic","639-3":"","639-5":"nic","639-1":"","Language name(s)":"Niger-Kordofanian languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":"Niger-Congo languages"},
+{"639-2":"niu","639-3":"niu","639-5":"","639-1":"","Language name(s)":"Niuean","Scope":"Individual","Type":"Living","Native name(s)":"ko e vagahau Niuē","Other name(s)":""}
+,
+{"639-2":"nld / dut*","639-3":"nld","639-5":"","639-1":"nl","Language name(s)":"Dutch; Flemish","Scope":"Individual","Type":"Living","Native name(s)":"Nederlands; Vlaams","Other name(s)":""},
+{"639-2":"nno","639-3":"nno","639-5":"","639-1":"nn","Language name(s)":"Norwegian Nynorsk; Nynorsk, Norwegian","Scope":"Individual","Type":"Living","Native name(s)":"norsk nynorsk","Other name(s)":"Nynorsk"},
+{"639-2":"nob","639-3":"nob","639-5":"","639-1":"nb","Language name(s)":"Bokmål, Norwegian; Norwegian Bokmål","Scope":"Individual","Type":"Living","Native name(s)":"norsk bokmål","Other name(s)":"Bokmål"}
+,
+{"639-2":"nog","639-3":"nog","639-5":"","639-1":"","Language name(s)":"Nogai","Scope":"Individual","Type":"Living","Native name(s)":"Ногай тили","Other name(s)":""}
+,
+{"639-2":"non","639-3":"non","639-5":"","639-1":"","Language name(s)":"Norse, Old","Scope":"Individual","Type":"Historical","Native name(s)":"Dǫnsk tunga; Norrœnt mál","Other name(s)":""}
+,
+{"639-2":"nor","639-3":"nor","639-5":"","639-1":"no","Language name(s)":"Norwegian","Scope":"Macrolanguage","Type":"Living","Native name(s)":"norsk","Other name(s)":""},
+{"639-2":"nqo","639-3":"nqo","639-5":"","639-1":"","Language name(s)":"N'Ko","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"nso","639-3":"nso","639-5":"","639-1":"","Language name(s)":"Pedi; Sepedi; Northern Sotho","Scope":"Individual","Type":"Living","Native name(s)":"Sesotho sa Leboa","Other name(s)":""},
+{"639-2":"nub","639-3":"","639-5":"nub","639-1":"","Language name(s)":"Nubian languages","Scope":"Collective","Type":"","Native name(s)":"لغات نوبية","Other name(s)":""}
+,
+{"639-2":"nwc","639-3":"nwc","639-5":"","639-1":"","Language name(s)":"Classical Newari; Old Newari; Classical Nepal Bhasa","Scope":"Individual","Type":"Historical","Native name(s)":"पुलां भाय्; पुलाङु नेपाल भाय्","Other name(s)":""}
+,
+{"639-2":"nya","639-3":"nya","639-5":"","639-1":"ny","Language name(s)":"Chichewa; Chewa; Nyanja","Scope":"Individual","Type":"Living","Native name(s)":"Chichewa; Chinyanja","Other name(s)":""},
+{"639-2":"nym","639-3":"nym","639-5":"","639-1":"","Language name(s)":"Nyamwezi","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"nyn","639-3":"nyn","639-5":"","639-1":"","Language name(s)":"Nyankole","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":"Nkore"},
+{"639-2":"nyo","639-3":"nyo","639-5":"","639-1":"","Language name(s)":"Nyoro","Scope":"Individual","Type":"Living","Native name(s)":"Runyoro","Other name(s)":""},
+{"639-2":"nzi","639-3":"nzi","639-5":"","639-1":"","Language name(s)":"Nzima","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":"Nzema"},
+{"639-2":"oci","639-3":"oci","639-5":"","639-1":"oc","Language name(s)":"Occitan (post 1500)","Scope":"Individual","Type":"Living","Native name(s)":"occitan; lenga d'òc","Other name(s)":""}
+,
+{"639-2":"oji","639-3":"oji","639-5":"","639-1":"oj","Language name(s)":"Ojibwa","Scope":"Macrolanguage","Type":"Living","Native name(s)":"","Other name(s)":"Ojibwe"},
+{"639-2":"ori","639-3":"ori","639-5":"","639-1":"or","Language name(s)":"Oriya","Scope":"Macrolanguage","Type":"Living","Native name(s)":"ଓଡ଼ିଆ","Other name(s)":"Odia"}
+,
+{"639-2":"orm","639-3":"orm","639-5":"","639-1":"om","Language name(s)":"Oromo","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Afaan Oromoo","Other name(s)":""},
+{"639-2":"osa","639-3":"osa","639-5":"","639-1":"","Language name(s)":"Osage","Scope":"Individual","Type":"Living","Native name(s)":"Wazhazhe ie / 𐓏𐓘𐓻𐓘𐓻𐓟 𐒻𐓟","Other name(s)":""}
+,
+{"639-2":"oss","639-3":"oss","639-5":"","639-1":"os","Language name(s)":"Ossetian; Ossetic","Scope":"Individual","Type":"Living","Native name(s)":"Ирон æвзаг Iron ævzag","Other name(s)":""}
+,
+{"639-2":"ota","639-3":"ota","639-5":"","639-1":"","Language name(s)":"Turkish, Ottoman (1500–1928)","Scope":"Individual","Type":"Historical","Native name(s)":"لسان عثمانى / lisân-ı Osmânî","Other name(s)":""}
+,
+{"639-2":"oto","639-3":"","639-5":"oto","639-1":"","Language name(s)":"Otomian languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":"Oto-Pamean languages"},
+{"639-2":"paa","639-3":"","639-5":"paa","639-1":"","Language name(s)":"Papuan languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"pag","639-3":"pag","639-5":"","639-1":"","Language name(s)":"Pangasinan","Scope":"Individual","Type":"Living","Native name(s)":"Salitan Pangasinan","Other name(s)":""},
+{"639-2":"pal","639-3":"pal","639-5":"","639-1":"","Language name(s)":"Pahlavi","Scope":"Individual","Type":"Ancient","Native name(s)":"Pārsīk; Pārsīg","Other name(s)":"Middle Persian"}
+,
+{"639-2":"pam","639-3":"pam","639-5":"","639-1":"","Language name(s)":"Pampanga; Kapampangan","Scope":"Individual","Type":"Living","Native name(s)":"Amánung Kapampangan; Amánung Sísuan","Other name(s)":""}
+,
+{"639-2":"pan","639-3":"pan","639-5":"","639-1":"pa","Language name(s)":"Panjabi; Punjabi","Scope":"Individual","Type":"Living","Native name(s)":"ਪੰਜਾਬੀ / پنجابی Pãjābī","Other name(s)":""}
+,
+{"639-2":"pap","639-3":"pap","639-5":"","639-1":"","Language name(s)":"Papiamento","Scope":"Individual","Type":"Living","Native name(s)":"Papiamentu","Other name(s)":""},
+{"639-2":"pau","639-3":"pau","639-5":"","639-1":"","Language name(s)":"Palauan","Scope":"Individual","Type":"Living","Native name(s)":"a tekoi er a Belau","Other name(s)":""},
+{"639-2":"peo","639-3":"peo","639-5":"","639-1":"","Language name(s)":"Persian, Old (ca. 600–400 B.C.)","Scope":"Individual","Type":"Historical","Native name(s)":"","Other name(s)":""}
+,
+{"639-2":"phi","639-3":"","639-5":"phi","639-1":"","Language name(s)":"Philippine languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"phn","639-3":"phn","639-5":"","639-1":"","Language name(s)":"Phoenician","Scope":"Individual","Type":"Ancient","Native name(s)":"𐤃𐤁𐤓𐤉𐤌 𐤊𐤍𐤏𐤍𐤉𐤌 Dabariym Kana'aniym","Other name(s)":""}
+,
+{"639-2":"pli","639-3":"pli","639-5":"","639-1":"pi","Language name(s)":"Pali","Scope":"Individual","Type":"Ancient","Native name(s)":"Pāli","Other name(s)":""}
+,
+{"639-2":"pol","639-3":"pol","639-5":"","639-1":"pl","Language name(s)":"Polish","Scope":"Individual","Type":"Living","Native name(s)":"Język polski","Other name(s)":""}
+,
+{"639-2":"pon","639-3":"pon","639-5":"","639-1":"","Language name(s)":"Pohnpeian","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"por","639-3":"por","639-5":"","639-1":"pt","Language name(s)":"Portuguese","Scope":"Individual","Type":"Living","Native name(s)":"português","Other name(s)":""}
+,
+{"639-2":"pra","639-3":"","639-5":"pra","639-1":"","Language name(s)":"Prakrit languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"pro","639-3":"pro","639-5":"","639-1":"","Language name(s)":"Provençal, Old (to 1500); Old Occitan (to 1500)","Scope":"Individual","Type":"Historical","Native name(s)":"","Other name(s)":""}
+,
+{"639-2":"pus","639-3":"pus","639-5":"","639-1":"ps","Language name(s)":"Pushto; Pashto","Scope":"Macrolanguage","Type":"Living","Native name(s)":"پښتو Pax̌tow","Other name(s)":""}
+,
+{"639-2":"qaa-qtz","639-3":"qaa-qtz","639-5":"","639-1":"","Language name(s)":"Reserved for local use","Scope":"Local","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"que","639-3":"que","639-5":"","639-1":"qu","Language name(s)":"Quechua","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Runa simi; kichwa simi; Nuna shimi","Other name(s)":""},
+{"639-2":"raj","639-3":"raj","639-5":"","639-1":"","Language name(s)":"Rajasthani","Scope":"Macrolanguage","Type":"Living","Native name(s)":"राजस्थानी","Other name(s)":""}
+,
+{"639-2":"rap","639-3":"rap","639-5":"","639-1":"","Language name(s)":"Rapanui","Scope":"Individual","Type":"Living","Native name(s)":"Vananga rapa nui","Other name(s)":""},
+{"639-2":"rar","639-3":"rar","639-5":"","639-1":"","Language name(s)":"Rarotongan; Cook Islands Māori","Scope":"Individual","Type":"Living","Native name(s)":"Māori Kūki 'Āirani","Other name(s)":""}
+,
+{"639-2":"roa","639-3":"","639-5":"roa","639-1":"","Language name(s)":"Romance languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"roh","639-3":"roh","639-5":"","639-1":"rm","Language name(s)":"Romansh","Scope":"Individual","Type":"Living","Native name(s)":"Rumantsch; Rumàntsch; Romauntsch; Romontsch","Other name(s)":""}
+,
+{"639-2":"rom","639-3":"rom","639-5":"","639-1":"","Language name(s)":"Romany","Scope":"Macrolanguage","Type":"Living","Native name(s)":"romani čhib","Other name(s)":"Romani"}
+,
+{"639-2":"ron / rum*","639-3":"ron","639-5":"","639-1":"ro","Language name(s)":"Romanian; Moldavian; Moldovan","Scope":"Individual","Type":"Living","Native name(s)":"limba română","Other name(s)":""}
+,
+{"639-2":"run","639-3":"run","639-5":"","639-1":"rn","Language name(s)":"Rundi","Scope":"Individual","Type":"Living","Native name(s)":"Ikirundi","Other name(s)":"Kirundi"},
+{"639-2":"rup","639-3":"rup","639-5":"","639-1":"","Language name(s)":"Aromanian; Arumanian; Macedo-Romanian[b]","Scope":"Individual","Type":"Living","Native name(s)":"armãneashce; armãneashti; rrãmãneshti","Other name(s)":""}
+,
+{"639-2":"rus","639-3":"rus","639-5":"","639-1":"ru","Language name(s)":"Russian","Scope":"Individual","Type":"Living","Native name(s)":"русский язык russkiĭ âzık","Other name(s)":""}
+,
+{"639-2":"sad","639-3":"sad","639-5":"","639-1":"","Language name(s)":"Sandawe","Scope":"Individual","Type":"Living","Native name(s)":"Sandaweeki","Other name(s)":""},
+{"639-2":"sag","639-3":"sag","639-5":"","639-1":"sg","Language name(s)":"Sango","Scope":"Individual","Type":"Living","Native name(s)":"yângâ tî sängö","Other name(s)":""}
+,
+{"639-2":"sah","639-3":"sah","639-5":"","639-1":"","Language name(s)":"Yakut","Scope":"Individual","Type":"Living","Native name(s)":"Сахалыы","Other name(s)":""}
+,
+{"639-2":"sai","639-3":"","639-5":"sai","639-1":"","Language name(s)":"South American Indian languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"sal","639-3":"","639-5":"sal","639-1":"","Language name(s)":"Salishan languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"sam","639-3":"sam","639-5":"","639-1":"","Language name(s)":"Samaritan Aramaic","Scope":"Individual","Type":"Extinct","Native name(s)":"ארמית","Other name(s)":""}
+,
+{"639-2":"san","639-3":"san","639-5":"","639-1":"sa","Language name(s)":"Sanskrit","Scope":"Individual","Type":"Ancient","Native name(s)":"संस्कृतम् Sąskŕtam; 𑌸𑌂𑌸𑍍𑌕𑍃𑌤𑌮𑍍","Other name(s)":""}
+,
+{"639-2":"sas","639-3":"sas","639-5":"","639-1":"","Language name(s)":"Sasak","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"sat","639-3":"sat","639-5":"","639-1":"","Language name(s)":"Santali","Scope":"Individual","Type":"Living","Native name(s)":"ᱥᱟᱱᱛᱟᱲᱤ","Other name(s)":""}
+,
+{"639-2":"scn","639-3":"scn","639-5":"","639-1":"","Language name(s)":"Sicilian","Scope":"Individual","Type":"Living","Native name(s)":"Sicilianu","Other name(s)":""},
+{"639-2":"sco","639-3":"sco","639-5":"","639-1":"","Language name(s)":"Scots","Scope":"Individual","Type":"Living","Native name(s)":"Braid Scots; Lallans","Other name(s)":""},
+{"639-2":"sel","639-3":"sel","639-5":"","639-1":"","Language name(s)":"Selkup","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"sem","639-3":"","639-5":"sem","639-1":"","Language name(s)":"Semitic languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"sga","639-3":"sga","639-5":"","639-1":"","Language name(s)":"Irish, Old (to 900)","Scope":"Individual","Type":"Historical","Native name(s)":"Goídelc","Other name(s)":""}
+,
+{"639-2":"sgn","639-3":"","639-5":"sgn","639-1":"","Language name(s)":"Sign Languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"shn","639-3":"shn","639-5":"","639-1":"","Language name(s)":"Shan","Scope":"Individual","Type":"Living","Native name(s)":"ၵႂၢမ်းတႆးယႂ်","Other name(s)":""}
+,
+{"639-2":"sid","639-3":"sid","639-5":"","639-1":"","Language name(s)":"Sidamo","Scope":"Individual","Type":"Living","Native name(s)":"Sidaamu Afoo","Other name(s)":""},
+{"639-2":"sin","639-3":"sin","639-5":"","639-1":"si","Language name(s)":"Sinhala; Sinhalese","Scope":"Individual","Type":"Living","Native name(s)":"සිංහල Sĩhala","Other name(s)":""}
+,
+{"639-2":"sio","639-3":"","639-5":"sio","639-1":"","Language name(s)":"Siouan languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"sit","639-3":"","639-5":"sit","639-1":"","Language name(s)":"Sino-Tibetan languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"sla","639-3":"","639-5":"sla","639-1":"","Language name(s)":"Slavic languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"slk / slo*","639-3":"slk","639-5":"","639-1":"sk","Language name(s)":"Slovak","Scope":"Individual","Type":"Living","Native name(s)":"slovenčina; slovenský jazyk","Other name(s)":""}
+,
+{"639-2":"slv","639-3":"slv","639-5":"","639-1":"sl","Language name(s)":"Slovenian","Scope":"Individual","Type":"Living","Native name(s)":"slovenski jezik; slovenščina","Other name(s)":"Slovene"}
+,
+{"639-2":"sma","639-3":"sma","639-5":"","639-1":"","Language name(s)":"Southern Sami","Scope":"Individual","Type":"Living","Native name(s)":"Åarjelsaemien gïele","Other name(s)":""}
+,
+{"639-2":"sme","639-3":"sme","639-5":"","639-1":"se","Language name(s)":"Northern Sami","Scope":"Individual","Type":"Living","Native name(s)":"davvisámegiella","Other name(s)":""}
+,
+{"639-2":"smi","639-3":"","639-5":"smi","639-1":"","Language name(s)":"Sami languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"smj","639-3":"smj","639-5":"","639-1":"","Language name(s)":"Lule Sami","Scope":"Individual","Type":"Living","Native name(s)":"julevsámegiella","Other name(s)":""}
+,
+{"639-2":"smn","639-3":"smn","639-5":"","639-1":"","Language name(s)":"Inari Sami","Scope":"Individual","Type":"Living","Native name(s)":"anarâškielâ","Other name(s)":""}
+,
+{"639-2":"smo","639-3":"smo","639-5":"","639-1":"sm","Language name(s)":"Samoan","Scope":"Individual","Type":"Living","Native name(s)":"Gagana faʻa Sāmoa","Other name(s)":""}
+,
+{"639-2":"sms","639-3":"sms","639-5":"","639-1":"","Language name(s)":"Skolt Sami","Scope":"Individual","Type":"Living","Native name(s)":"sääʹmǩiõll","Other name(s)":""}
+,
+{"639-2":"sna","639-3":"sna","639-5":"","639-1":"sn","Language name(s)":"Shona","Scope":"Individual","Type":"Living","Native name(s)":"chiShona","Other name(s)":""},
+{"639-2":"snd","639-3":"snd","639-5":"","639-1":"sd","Language name(s)":"Sindhi","Scope":"Individual","Type":"Living","Native name(s)":"سنڌي / सिन्धी / ਸਿੰਧੀ","Other name(s)":""}
+,
+{"639-2":"snk","639-3":"snk","639-5":"","639-1":"","Language name(s)":"Soninke","Scope":"Individual","Type":"Living","Native name(s)":"Sooninkanxanne","Other name(s)":""},
+{"639-2":"sog","639-3":"sog","639-5":"","639-1":"","Language name(s)":"Sogdian","Scope":"Individual","Type":"Ancient","Native name(s)":"","Other name(s)":""},
+{"639-2":"som","639-3":"som","639-5":"","639-1":"so","Language name(s)":"Somali","Scope":"Individual","Type":"Living","Native name(s)":"af Soomaali","Other name(s)":""},
+{"639-2":"son","639-3":"","639-5":"son","639-1":"","Language name(s)":"Songhai languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":"Songhay languages"},
+{"639-2":"sot","639-3":"sot","639-5":"","639-1":"st","Language name(s)":"Sotho, Southern","Scope":"Individual","Type":"Living","Native name(s)":"Sesotho [southern]","Other name(s)":""},
+{"639-2":"spa","639-3":"spa","639-5":"","639-1":"es","Language name(s)":"Spanish; Castilian","Scope":"Individual","Type":"Living","Native name(s)":"español; castellano","Other name(s)":""}
+,
+{"639-2":"sqi / alb*","639-3":"sqi","639-5":"","639-1":"sq","Language name(s)":"Albanian","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Shqip","Other name(s)":""},
+{"639-2":"srd","639-3":"srd","639-5":"","639-1":"sc","Language name(s)":"Sardinian","Scope":"Macrolanguage","Type":"Living","Native name(s)":"sardu; limba sarda; lingua sarda","Other name(s)":""},
+{"639-2":"srn","639-3":"srn","639-5":"","639-1":"","Language name(s)":"Sranan Tongo","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"srp","639-3":"srp","639-5":"","639-1":"sr","Language name(s)":"Serbian","Scope":"Individual","Type":"Living","Native name(s)":"српски / srpski","Other name(s)":""}
+,
+{"639-2":"srr","639-3":"srr","639-5":"","639-1":"","Language name(s)":"Serer","Scope":"Individual","Type":"Living","Native name(s)":"Seereer","Other name(s)":""},
+{"639-2":"ssa","639-3":"","639-5":"ssa","639-1":"","Language name(s)":"Nilo-Saharan languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"ssw","639-3":"ssw","639-5":"","639-1":"ss","Language name(s)":"Swati","Scope":"Individual","Type":"Living","Native name(s)":"siSwati","Other name(s)":"Swazi"},
+{"639-2":"suk","639-3":"suk","639-5":"","639-1":"","Language name(s)":"Sukuma","Scope":"Individual","Type":"Living","Native name(s)":"Kɪsukuma","Other name(s)":""}
+,
+{"639-2":"sun","639-3":"sun","639-5":"","639-1":"su","Language name(s)":"Sundanese","Scope":"Individual","Type":"Living","Native name(s)":"ᮘᮞ ᮞᮥᮔ᮪ᮓ / Basa Sunda","Other name(s)":""}
+,
+{"639-2":"sus","639-3":"sus","639-5":"","639-1":"","Language name(s)":"Susu","Scope":"Individual","Type":"Living","Native name(s)":"Sosoxui","Other name(s)":""},
+{"639-2":"sux","639-3":"sux","639-5":"","639-1":"","Language name(s)":"Sumerian","Scope":"Individual","Type":"Ancient","Native name(s)":"𒅴𒂠","Other name(s)":""}
+,
+{"639-2":"swa","639-3":"swa","639-5":"","639-1":"sw","Language name(s)":"Swahili","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Kiswahili","Other name(s)":""},
+{"639-2":"swe","639-3":"swe","639-5":"","639-1":"sv","Language name(s)":"Swedish","Scope":"Individual","Type":"Living","Native name(s)":"svenska","Other name(s)":""},
+{"639-2":"syc","639-3":"syc","639-5":"","639-1":"","Language name(s)":"Classical Syriac","Scope":"Individual","Type":"Historical","Native name(s)":"","Other name(s)":""},
+{"639-2":"syr","639-3":"syr","639-5":"","639-1":"","Language name(s)":"Syriac","Scope":"Macrolanguage","Type":"Living","Native name(s)":"ܠܫܢܐ ܣܘܪܝܝܐ Lešānā Suryāyā","Other name(s)":""}
+,
+{"639-2":"tah","639-3":"tah","639-5":"","639-1":"ty","Language name(s)":"Tahitian","Scope":"Individual","Type":"Living","Native name(s)":"Reo Tahiti; Reo Mā'ohi","Other name(s)":""}
+,
+{"639-2":"tai","639-3":"","639-5":"tai","639-1":"","Language name(s)":"Tai languages","Scope":"Collective","Type":"","Native name(s)":"ภาษาไท; ภาษาไต","Other name(s)":""}
+,
+{"639-2":"tam","639-3":"tam","639-5":"","639-1":"ta","Language name(s)":"Tamil","Scope":"Individual","Type":"Living","Native name(s)":"தமிழ் Tamił","Other name(s)":""}
+,
+{"639-2":"tat","639-3":"tat","639-5":"","639-1":"tt","Language name(s)":"Tatar","Scope":"Individual","Type":"Living","Native name(s)":"татар теле / tatar tele / تاتار","Other name(s)":""}
+,
+{"639-2":"tel","639-3":"tel","639-5":"","639-1":"te","Language name(s)":"Telugu","Scope":"Individual","Type":"Living","Native name(s)":"తెలుగు Telugu","Other name(s)":""}
+,
+{"639-2":"tem","639-3":"tem","639-5":"","639-1":"","Language name(s)":"Timne","Scope":"Individual","Type":"Living","Native name(s)":"KʌThemnɛ","Other name(s)":"Temne"}
+,
+{"639-2":"ter","639-3":"ter","639-5":"","639-1":"","Language name(s)":"Tereno","Scope":"Individual","Type":"Living","Native name(s)":"Terêna","Other name(s)":"Terena"}
+,
+{"639-2":"tet","639-3":"tet","639-5":"","639-1":"","Language name(s)":"Tetum","Scope":"Individual","Type":"Living","Native name(s)":"Lia-Tetun","Other name(s)":""},
+{"639-2":"tgk","639-3":"tgk","639-5":"","639-1":"tg","Language name(s)":"Tajik","Scope":"Individual","Type":"Living","Native name(s)":"тоҷикӣ toçikī","Other name(s)":""}
+,
+{"639-2":"tgl","639-3":"tgl","639-5":"","639-1":"tl","Language name(s)":"Tagalog","Scope":"Individual","Type":"Living","Native name(s)":"Wikang Tagalog","Other name(s)":""},
+{"639-2":"tha","639-3":"tha","639-5":"","639-1":"th","Language name(s)":"Thai","Scope":"Individual","Type":"Living","Native name(s)":"ภาษาไทย Phasathay","Other name(s)":""}
+,
+{"639-2":"tig","639-3":"tig","639-5":"","639-1":"","Language name(s)":"Tigre","Scope":"Individual","Type":"Living","Native name(s)":"ትግረ; ትግሬ; ኻሳ; ትግራይት","Other name(s)":""}
+,
+{"639-2":"tir","639-3":"tir","639-5":"","639-1":"ti","Language name(s)":"Tigrinya","Scope":"Individual","Type":"Living","Native name(s)":"ትግርኛ","Other name(s)":""}
+,
+{"639-2":"tiv","639-3":"tiv","639-5":"","639-1":"","Language name(s)":"Tiv","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"tkl","639-3":"tkl","639-5":"","639-1":"","Language name(s)":"Tokelau","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":"Tokelauan"},
+{"639-2":"tlh","639-3":"tlh","639-5":"","639-1":"","Language name(s)":"Klingon; tlhIngan-Hol","Scope":"Individual","Type":"Constructed","Native name(s)":"","Other name(s)":""},
+{"639-2":"tli","639-3":"tli","639-5":"","639-1":"","Language name(s)":"Tlingit","Scope":"Individual","Type":"Living","Native name(s)":"Lingít","Other name(s)":""}
+,
+{"639-2":"tmh","639-3":"tmh","639-5":"","639-1":"","Language name(s)":"Tamashek","Scope":"Macrolanguage","Type":"Living","Native name(s)":"","Other name(s)":"Tamasheq"},
+{"639-2":"tog","639-3":"tog","639-5":"","639-1":"","Language name(s)":"Tonga (Nyasa)","Scope":"Individual","Type":"Living","Native name(s)":"chiTonga","Other name(s)":""},
+{"639-2":"ton","639-3":"ton","639-5":"","639-1":"to","Language name(s)":"Tonga (Tonga Islands)","Scope":"Individual","Type":"Living","Native name(s)":"lea faka-Tonga","Other name(s)":"Tongan"},
+{"639-2":"tpi","639-3":"tpi","639-5":"","639-1":"","Language name(s)":"Tok Pisin","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"tsi","639-3":"tsi","639-5":"","639-1":"","Language name(s)":"Tsimshian","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"tsn","639-3":"tsn","639-5":"","639-1":"tn","Language name(s)":"Tswana","Scope":"Individual","Type":"Living","Native name(s)":"Setswana","Other name(s)":""},
+{"639-2":"tso","639-3":"tso","639-5":"","639-1":"ts","Language name(s)":"Tsonga","Scope":"Individual","Type":"Living","Native name(s)":"Xitsonga","Other name(s)":""},
+{"639-2":"tuk","639-3":"tuk","639-5":"","639-1":"tk","Language name(s)":"Turkmen","Scope":"Individual","Type":"Living","Native name(s)":"Türkmençe / Түркменче / تورکمن تیلی تورکمنچ; türkmen dili / түркмен дили","Other name(s)":""}
+,
+{"639-2":"tum","639-3":"tum","639-5":"","639-1":"","Language name(s)":"Tumbuka","Scope":"Individual","Type":"Living","Native name(s)":"chiTumbuka","Other name(s)":""},
+{"639-2":"tup","639-3":"","639-5":"tup","639-1":"","Language name(s)":"Tupi languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":"Tupian languages"},
+{"639-2":"tur","639-3":"tur","639-5":"","639-1":"tr","Language name(s)":"Turkish","Scope":"Individual","Type":"Living","Native name(s)":"Türkçe","Other name(s)":""}
+,
+{"639-2":"tut","639-3":"","639-5":"tut","639-1":"","Language name(s)":"Altaic languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"tvl","639-3":"tvl","639-5":"","639-1":"","Language name(s)":"Tuvalu","Scope":"Individual","Type":"Living","Native name(s)":"Te Ggana Tuuvalu; Te Gagana Tuuvalu","Other name(s)":"Tuvaluan"},
+{"639-2":"twi","639-3":"twi","639-5":"","639-1":"tw","Language name(s)":"Twi","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"tyv","639-3":"tyv","639-5":"","639-1":"","Language name(s)":"Tuvinian","Scope":"Individual","Type":"Living","Native name(s)":"тыва дыл","Other name(s)":"Tuvan"}
+,
+{"639-2":"udm","639-3":"udm","639-5":"","639-1":"","Language name(s)":"Udmurt","Scope":"Individual","Type":"Living","Native name(s)":"удмурт кыл","Other name(s)":""}
+,
+{"639-2":"uga","639-3":"uga","639-5":"","639-1":"","Language name(s)":"Ugaritic","Scope":"Individual","Type":"Ancient","Native name(s)":"","Other name(s)":""},
+{"639-2":"uig","639-3":"uig","639-5":"","639-1":"ug","Language name(s)":"Uighur; Uyghur","Scope":"Individual","Type":"Living","Native name(s)":"ئۇيغۇرچە  ;  ئۇيغۇر تىلى","Other name(s)":""}
+,
+{"639-2":"ukr","639-3":"ukr","639-5":"","639-1":"uk","Language name(s)":"Ukrainian","Scope":"Individual","Type":"Living","Native name(s)":"Українська мова; Українська","Other name(s)":""}
+,
+{"639-2":"umb","639-3":"umb","639-5":"","639-1":"","Language name(s)":"Umbundu","Scope":"Individual","Type":"Living","Native name(s)":"Úmbúndú","Other name(s)":""}
+,
+{"639-2":"und","639-3":"und","639-5":"","639-1":"","Language name(s)":"Undetermined","Scope":"Special","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"urd","639-3":"urd","639-5":"","639-1":"ur","Language name(s)":"Urdu","Scope":"Individual","Type":"Living","Native name(s)":"اُردُو Urduw","Other name(s)":""}
+,
+{"639-2":"uzb","639-3":"uzb","639-5":"","639-1":"uz","Language name(s)":"Uzbek","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Oʻzbekcha / Ózbekça / ўзбекча / ئوزبېچه; oʻzbek tili / ўзбек тили /  ئوبېک تیلی","Other name(s)":""}
+,
+{"639-2":"vai","639-3":"vai","639-5":"","639-1":"","Language name(s)":"Vai","Scope":"Individual","Type":"Living","Native name(s)":"ꕙꔤ","Other name(s)":""}
+,
+{"639-2":"","639-3":"vec","639-5":"","639-1":"","Language name(s)":"Venetian","Scope":"Individual","Type":"Living","Native name(s)":"Veneto","Other name(s)":""},
+{"639-2":"ven","639-3":"ven","639-5":"","639-1":"ve","Language name(s)":"Venda","Scope":"Individual","Type":"Living","Native name(s)":"Tshivenḓa","Other name(s)":""}
+,
+{"639-2":"vie","639-3":"vie","639-5":"","639-1":"vi","Language name(s)":"Vietnamese","Scope":"Individual","Type":"Living","Native name(s)":"Tiếng Việt","Other name(s)":""}
+,
+{"639-2":"vol","639-3":"vol","639-5":"","639-1":"vo","Language name(s)":"Volapük","Scope":"Individual","Type":"Constructed","Native name(s)":"","Other name(s)":""}
+,
+{"639-2":"vot","639-3":"vot","639-5":"","639-1":"","Language name(s)":"Votic","Scope":"Individual","Type":"Living","Native name(s)":"vađđa ceeli","Other name(s)":""}
+,
+{"639-2":"wak","639-3":"","639-5":"wak","639-1":"","Language name(s)":"Wakashan languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"wal","639-3":"wal","639-5":"","639-1":"","Language name(s)":"Wolaitta; Wolaytta","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"war","639-3":"war","639-5":"","639-1":"","Language name(s)":"Waray","Scope":"Individual","Type":"Living","Native name(s)":"Winaray; Samareño; Lineyte-Samarnon; Binisayâ nga Winaray; Binisayâ nga Samar-Leyte; “Binisayâ nga Waray”","Other name(s)":""}
+,
+{"639-2":"was","639-3":"was","639-5":"","639-1":"","Language name(s)":"Washo","Scope":"Individual","Type":"Living","Native name(s)":"wá:šiw ʔítlu","Other name(s)":""}
+,
+{"639-2":"wen","639-3":"","639-5":"wen","639-1":"","Language name(s)":"Sorbian languages","Scope":"Collective","Type":"","Native name(s)":"Serbsce / Serbski","Other name(s)":""},
+{"639-2":"wln","639-3":"wln","639-5":"","639-1":"wa","Language name(s)":"Walloon","Scope":"Individual","Type":"Living","Native name(s)":"Walon","Other name(s)":""},
+{"639-2":"wol","639-3":"wol","639-5":"","639-1":"wo","Language name(s)":"Wolof","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"xal","639-3":"xal","639-5":"","639-1":"","Language name(s)":"Kalmyk; Oirat","Scope":"Individual","Type":"Living","Native name(s)":"Хальмг келн / Xaľmg keln","Other name(s)":""}
+,
+{"639-2":"xho","639-3":"xho","639-5":"","639-1":"xh","Language name(s)":"Xhosa","Scope":"Individual","Type":"Living","Native name(s)":"isiXhosa","Other name(s)":""},
+{"639-2":"yao","639-3":"yao","639-5":"","639-1":"","Language name(s)":"Yao","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"yap","639-3":"yap","639-5":"","639-1":"","Language name(s)":"Yapese","Scope":"Individual","Type":"Living","Native name(s)":"","Other name(s)":""},
+{"639-2":"yid","639-3":"yid","639-5":"","639-1":"yi","Language name(s)":"Yiddish","Scope":"Macrolanguage","Type":"Living","Native name(s)":"ייִדיש; יידיש; אידיש Yidiš","Other name(s)":""}
+,
+{"639-2":"yor","639-3":"yor","639-5":"","639-1":"yo","Language name(s)":"Yoruba","Scope":"Individual","Type":"Living","Native name(s)":"èdè Yorùbá","Other name(s)":""}
+,
+{"639-2":"ypk","639-3":"","639-5":"ypk","639-1":"","Language name(s)":"Yupik languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"zap","639-3":"zap","639-5":"","639-1":"","Language name(s)":"Zapotec","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Diidxazá/Dizhsa","Other name(s)":""}
+,
+{"639-2":"zbl","639-3":"zbl","639-5":"","639-1":"","Language name(s)":"Blissymbols; Blissymbolics; Bliss","Scope":"Individual","Type":"Constructed","Native name(s)":"","Other name(s)":""},
+{"639-2":"zen","639-3":"zen","639-5":"","639-1":"","Language name(s)":"Zenaga","Scope":"Individual","Type":"Living","Native name(s)":"Tuḍḍungiyya","Other name(s)":""}
+,
+{"639-2":"zgh","639-3":"zgh","639-5":"","639-1":"","Language name(s)":"Standard Moroccan Tamazight","Scope":"Individual","Type":"Living","Native name(s)":"ⵜⴰⵎⴰⵣⵉⵖⵜ ⵜⴰⵏⴰⵡⴰⵢⵜ","Other name(s)":"Standard Moroccan Berber"}
+,
+{"639-2":"zha","639-3":"zha","639-5":"","639-1":"za","Language name(s)":"Zhuang; Chuang","Scope":"Macrolanguage","Type":"Living","Native name(s)":"Vahcuengh / 話僮","Other name(s)":""}
+,
+{"639-2":"zho / chi*","639-3":"zho","639-5":"","639-1":"zh","Language name(s)":"Chinese","Scope":"Macrolanguage","Type":"Living","Native name(s)":"中文 Zhōngwén; 汉语; 漢語 Hànyǔ","Other name(s)":""}
+,
+{"639-2":"znd","639-3":"","639-5":"znd","639-1":"","Language name(s)":"Zande languages","Scope":"Collective","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"zul","639-3":"zul","639-5":"","639-1":"zu","Language name(s)":"Zulu","Scope":"Individual","Type":"Living","Native name(s)":"isiZulu","Other name(s)":""},
+{"639-2":"zun","639-3":"zun","639-5":"","639-1":"","Language name(s)":"Zuni","Scope":"Individual","Type":"Living","Native name(s)":"Shiwi'ma","Other name(s)":""},
+{"639-2":"zxx","639-3":"zxx","639-5":"","639-1":"","Language name(s)":"No linguistic content; Not applicable","Scope":"Special","Type":"","Native name(s)":"","Other name(s)":""},
+{"639-2":"zza","639-3":"zza","639-5":"","639-1":"","Language name(s)":"Zaza; Dimili; Dimli; Kirdki; Kirmanjki; Zazaki","Scope":"Macrolanguage","Type":"Living","Native name(s)":"kirmanckî; dimilkî; kirdkî; zazakî","Other name(s)":""}
+
+]

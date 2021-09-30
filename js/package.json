@@ -12,16 +12,15 @@
     "webpack-merge": "^5.8.0"
   },
   "scripts": {
-    "dev": "webpack --mode development --watch",
-    "build": "webpack --mode production",
-    "format": "prettier --write src"
+    "dev": "npm run build:iso && npm run build:countries && webpack --mode development --watch",
+    "build": "npm run build:iso && npm run build:countries && webpack --mode production",
+    "format": "prettier --write src",
+    "build:iso": "npx --yes csvtojson \"../resources/wikipedia-iso-639-2-codes.csv\" > \"../assets/iso-639-2.json\"",
+    "build:countries": "cp ./node_modules/countries-list/dist/countries.json ../assets/countries.json"
   },
   "devDependencies": {
     "@flarum/prettier-config": "^1.0.0",
-    "clean-webpack-plugin": "^4.0.0-alpha.0",
-    "csv-loader": "^3.0.3",
-    "filemanager-webpack-plugin": "^3.1.1",
-    "flarum-tsconfig": "^1.0.1",
-    "prettier": "^2.3.2"
+    "flarum-tsconfig": "^1.0.2",
+    "prettier": "^2.4.1"
   }
 }

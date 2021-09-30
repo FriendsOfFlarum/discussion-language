@@ -45,6 +45,10 @@ export default class LanguagesSettingsPage extends ExtensionPage {
 
     this.loadingData = true;
     this.loadingDataError = false;
+    /**
+     * @type {Error}
+     */
+    this.error = null;
   }
 
   oncreate(vnode) {
@@ -53,33 +57,31 @@ export default class LanguagesSettingsPage extends ExtensionPage {
     this.refresh();
   }
 
-  refresh() {
+  async refresh() {
     this.loadingData = true;
     this.loadingDataError = false;
 
     m.redraw();
 
-    return Promise.all([locales.load(), countries.load()])
-      .then(() => {
-        this.loadingData = false;
-        this.loadingDataError = false;
+    try {
+      await Promise.all([locales.load(), countries.load()]);
 
-        m.redraw();
-      })
-      .catch((e) => {
-        console.error(e);
+      this.loadingData = false;
+      this.loadingDataError = false;
 
-        this.loadingData = false;
-        this.loadingDataError = true;
+      m.redraw();
+    } catch (e) {
+      console.error(e);
 
-        m.redraw();
-      });
+      this.loadingData = false;
+      this.loadingDataError = true;
+      this.error = e;
+
+      m.redraw();
+    }
   }
 
   content() {
-    const locales = getLocales(this.native);
-    const countryData = getCountries(this.native);
-
     return [
       <div className="container">
         <div className="FofDiscussionLanguagesSettingsPage">
@@ -149,103 +151,110 @@ export default class LanguagesSettingsPage extends ExtensionPage {
 
           <hr />
 
-          {this.loadingData ? (
-            <LoadingIndicator />
-          ) : this.loadingDataError ? (
-            <Alert ondismiss={this.refresh.bind(this)} type="error">
-              {app.translator.trans('fof-discussion-language.admin.settings.errors.loading_data')}
-            </Alert>
-          ) : (
-            <form>
-              <div className="Form-group flex">
-                {Select.component({
-                  onchange: this.newLocale,
-                  value: this.newLocale(),
-                  options: locales,
-                })}
-
-                {Select.component({
-                  onchange: this.newCountry,
-                  value: this.newCountry(),
-                  options: countryData,
-                })}
-
-                {flag(countries.getEmoji(this.newCountry()))}
-
-                {Button.component(
-                  {
-                    className: 'Button Button--primary',
-                    onclick: this.add.bind(this),
-                    disabled: !this.newLocale() || !this.newCountry() || this.adding,
-                  },
-                  icon(this.adding ? 'fas fa-spinner fa-spin' : 'fas fa-plus')
-                )}
-              </div>
-
-              <div className="Form-group">
-                {app.store.all('discussion-languages').map((language) => {
-                  const id = language.id();
-                  const updating = this.updating[id];
-                  const deleting = this.deleting[id];
-
-                  const country = this.countries[id] || language.country();
-
-                  return (
-                    <div className="flex">
-                      {Select.component({
-                        onchange: (val) => (this.codes[id] = val),
-                        value: this.codes[id] || language.code(),
-                        options: locales,
-                        disabled: updating || deleting,
-                      })}
-
-                      {Select.component({
-                        onchange: (val) => (this.countries[id] = val),
-                        value: country,
-                        options: countryData,
-                        disabled: updating || deleting,
-                      })}
-
-                      {flag(countries.getEmoji(country))}
-
-                      {Button.component(
-                        {
-                          className: `Button Button--danger`,
-                          disabled: deleting,
-                          onclick: this.remove.bind(this, language),
-                        },
-                        icon(deleting ? 'fas fa-spinner fa-spin' : 'fas fa-times')
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div className="Form-group">
-                <Button
-                  type="submit"
-                  className="Button Button--primary"
-                  loading={this.loading}
-                  disabled={!this.isChanged()}
-                  onclick={this.save.bind(this)}
-                >
-                  {app.translator.trans('core.admin.settings.submit_button')}
-                </Button>
-              </div>
-
-              <p className="helpText">
-                This extension uses material from the Wikipedia article{' '}
-                <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes" target="_blank" rel="noreferrer nofollow noopener">
-                  List of ISO 639-2 Codes
-                </a>
-                , which is released under the{' '}
-                <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-Share-Alike License 3.0</a>.
-              </p>
-            </form>
-          )}
+          {this.localeSettings()}
         </div>
       </div>,
     ];
+  }
+
+  localeSettings() {
+    if (this.loadingData) return <LoadingIndicator />;
+
+    if (this.loadingDataError) {
+      return (
+        <Alert dismissible={false} type="error">
+          {app.translator.trans('fof-discussion-language.admin.settings.errors.missing_assets')}
+          <br />
+          <b>Error:</b> <code>{this.error.message}</code>
+        </Alert>
+      );
+    }
+
+    const locales = getLocales(this.native);
+    const countryData = getCountries(this.native);
+
+    return (
+      <form>
+        <div className="Form-group flex">
+          {Select.component({
+            onchange: this.newLocale,
+            value: this.newLocale(),
+            options: locales,
+          })}
+
+          {Select.component({
+            onchange: this.newCountry,
+            value: this.newCountry(),
+            options: countryData,
+          })}
+
+          {flag(countries.getEmoji(this.newCountry()))}
+
+          {Button.component(
+            {
+              className: 'Button Button--primary',
+              onclick: this.add.bind(this),
+              disabled: !this.newLocale() || !this.newCountry() || this.adding,
+            },
+            icon(this.adding ? 'fas fa-spinner fa-spin' : 'fas fa-plus')
+          )}
+        </div>
+
+        <div className="Form-group">
+          {app.store.all('discussion-languages').map((language) => {
+            const id = language.id();
+            const updating = this.updating[id];
+            const deleting = this.deleting[id];
+
+            const country = this.countries[id] || language.country();
+
+            return (
+              <div className="flex">
+                {Select.component({
+                  onchange: (val) => (this.codes[id] = val),
+                  value: this.codes[id] || language.code(),
+                  options: locales,
+                  disabled: updating || deleting,
+                })}
+
+                {Select.component({
+                  onchange: (val) => (this.countries[id] = val),
+                  value: country,
+                  options: countryData,
+                  disabled: updating || deleting,
+                })}
+
+                {flag(countries.getEmoji(country))}
+
+                {Button.component(
+                  {
+                    className: `Button Button--danger`,
+                    disabled: deleting,
+                    onclick: this.remove.bind(this, language),
+                  },
+                  icon(deleting ? 'fas fa-spinner fa-spin' : 'fas fa-times')
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="Form-group">
+          <Button type="submit" className="Button Button--primary" loading={this.loading} disabled={!this.isChanged()} onclick={this.save.bind(this)}>
+            {app.translator.trans('core.admin.settings.submit_button')}
+          </Button>
+        </div>
+
+        <p className="helpText">
+          This extension uses material from the Wikipedia article{' '}
+          <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes" target="_blank" rel="noreferrer nofollow noopener">
+            List of ISO 639-2 Codes
+          </a>
+          , which is released under the{' '}
+          <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-Share-Alike License 3.0</a>.
+        </p>
+      </form>
+    );
   }
 
   onkeydown(e) {

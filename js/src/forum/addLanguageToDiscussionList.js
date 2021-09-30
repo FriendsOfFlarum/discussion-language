@@ -51,8 +51,7 @@ export default () => {
         params.filter.q = (params.filter.q || '') + ' language:' + app.search.params().language;
       }
     } else {
-      params.filter.q =
-        (params.filter.q || '') + ' language:' + (app.search.params().language ?? app.translator.formatter.locale);
+      params.filter.q = (params.filter.q || '') + ' language:' + (app.search.params().language ?? app.translator.formatter.locale);
     }
   });
 

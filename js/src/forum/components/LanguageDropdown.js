@@ -1,7 +1,6 @@
 import app from 'flarum/forum/app';
 
 import Component from 'flarum/common/Component';
-import Dropdown from 'flarum/common/components/Dropdown';
 import Button from 'flarum/common/components/Button';
 
 import Language from './Language';
