@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace FoF\DiscussionLanguage\Listeners;
+namespace FoF\DiscussionLanguage\Listener;
 
 use Flarum\Discussion\Event\Saving;
 use FoF\DiscussionLanguage\Validators\DiscussionValidator;
