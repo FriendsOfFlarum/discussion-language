@@ -97,7 +97,7 @@ return [
         ->serializeToForum('fof-discussion-language.useLocaleForTagsPageLastDiscussion', 'fof-discussion-language.useLocaleForTagsPageLastDiscussion', 'boolVal'),
 
     (new Extend\Event())
-        ->listen(TagCreating::class, Listeners\TagCreating::class)
+        ->listen(TagCreating::class, Listener\TagCreating::class)
         ->subscribe(Listener\UpdateTagMetadata::class),
 
     (new Extend\ApiSerializer(TagSerializer::class))
