@@ -25,7 +25,7 @@ class TagLocalizedLastDiscussionSerializer
         if ($json) {
             foreach ($json as $languageId => $data) {
                 $discussion = optional(Discussion::find($data['id']));
-    
+
                 $data['title'] = $discussion->title ?: '';
                 $json[$languageId] = $data;
             }
