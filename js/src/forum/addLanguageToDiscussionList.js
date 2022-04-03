@@ -39,6 +39,9 @@ export default () => {
 
     params.include.push('language');
 
+    // Do not filter user discussions page as there is no dropdown
+    if (routeName === 'user.discussions') return;
+
     // Required until https://github.com/flarum/framework/pull/3376 is released.
     if (routeName === 'following' && params.filter.q) {
       params.filter.q += ` is:${params.filter.subscription || 'following'}`;
