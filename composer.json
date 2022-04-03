@@ -19,9 +19,9 @@
     }
   ],
   "require": {
-    "flarum/core": "^1.0.0",
+    "flarum/core": "^1.2.0",
     "fof/extend": "^1.0.0",
-    "rinvex/countries": "^6.1.2 || ^7.0.1",
+    "rinvex/countries": "^6.1.2 || ^7.0.1 || ^8.1.0",
     "league/csv": "^9.7",
     "ianm/iso-639": "^1.0"
   },
