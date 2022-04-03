@@ -39,19 +39,25 @@ export default () => {
 
     params.include.push('language');
 
-    if (routeName === 'following') {
-      params.filter.language = app.search.params().language ?? app.translator.formatter.locale;
-      return;
+    // Required until https://github.com/flarum/framework/pull/3376 is released.
+    if (routeName === 'following' && params.filter.q) {
+      params.filter.q += ` is:${params.filter.subscription || 'following'}`;
+      delete params.filter.subscription;
     }
 
-    if (params.filter?.tag) params.filter.q = (params.filter.q || '') + ' tag:' + params.filter.tag;
+    const paramLang = app.search.params().language;
+    const locale = app.search.params().language ?? app.translator.formatter.locale;
 
-    if (app.forum.attribute('fof-discussion-language.showAnyLangOpt')) {
-      if (app.search.params().language) {
-        params.filter.q = (params.filter.q || '') + ' language:' + app.search.params().language;
+    if (params.filter.q) {
+      if (app.forum.attribute('fof-discussion-language.showAnyLangOpt')) {
+        if (app.serach.params().language) {
+          params.filter.q += ' language:' + paramLang;
+        }
+      } else {
+        params.filter.q += ' language:' + locale;
       }
     } else {
-      params.filter.q = (params.filter.q || '') + ' language:' + (app.search.params().language ?? app.translator.formatter.locale);
+      params.filter.language = locale;
     }
   });
 
