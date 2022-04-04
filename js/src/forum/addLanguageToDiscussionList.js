@@ -53,7 +53,7 @@ export default () => {
 
     if (params.filter.q) {
       if (app.forum.attribute('fof-discussion-language.showAnyLangOpt')) {
-        if (app.serach.params().language) {
+        if (paramLang) {
           params.filter.q += ' language:' + paramLang;
         }
       } else {
