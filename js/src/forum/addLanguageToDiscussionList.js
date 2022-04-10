@@ -1,3 +1,4 @@
+import app from 'flarum/forum/app';
 import { extend } from 'flarum/common/extend';
 import IndexPage from 'flarum/forum/components/IndexPage';
 import DiscussionHero from 'flarum/forum/components/DiscussionHero';
@@ -50,9 +51,10 @@ export default () => {
 
     const paramLang = app.search.params().language;
     const locale = app.search.params().language ?? app.translator.formatter.locale;
+    const showAnyOpt = app.forum.attribute('fof-discussion-language.showAnyLangOpt');
 
     if (params.filter.q) {
-      if (app.forum.attribute('fof-discussion-language.showAnyLangOpt')) {
+      if (showAnyOpt) {
         if (paramLang) {
           params.filter.q += ' language:' + paramLang;
         }
@@ -60,7 +62,9 @@ export default () => {
         params.filter.q += ' language:' + locale;
       }
     } else {
-      params.filter.language = locale;
+      if (!showAnyOpt || paramLang) {
+        params.filter.language = locale;
+      }
     }
   });
 
