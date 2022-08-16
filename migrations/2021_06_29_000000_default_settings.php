@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Database\Schema\Builder;
 
 return [
