@@ -9,8 +9,13 @@
  * file that was distributed with this source code.
  */
 
-use Flarum\Database\Migration;
+use Illuminate\Database\Schema\Builder;
 
-return Migration::addSettings([
-    'fof-discussion-language.useLocaleForTagsPageLastDiscussion' => '0',
-]);
+return [
+    'up' => function (Builder $schema) {
+        // do nothing, default settings are now handled by the extender
+    },
+    'down' => function (Builder $schema) {
+        // do nothing, default settings are now handled by the extender
+    },
+];

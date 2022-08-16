@@ -9,24 +9,13 @@
  * file that was distributed with this source code.
  */
 
-use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Database\Schema\Builder;
 
 return [
     'up' => function (Builder $schema) {
-        /**
-         * @var SettingsRepositoryInterface
-         */
-        $settings = resolve('flarum.settings');
-
-        $settings->set('fof-discussion-language.showFlags', true);
+        // do nothing, default settings are now handled by the extender
     },
     'down' => function (Builder $schema) {
-        /**
-         * @var SettingsRepositoryInterface
-         */
-        $settings = resolve('flarum.settings');
-
-        $settings->delete('fof-discussion-language.showFlags');
+        // do nothing, default settings are now handled by the extender
     },
 ];

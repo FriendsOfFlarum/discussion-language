@@ -45,7 +45,7 @@ class AddLanguageFilter implements MiddlewareInterface
         /** @var SettingsRepositoryInterface */
         $settings = resolve(SettingsRepositoryInterface::class);
 
-        if ((bool) $settings->get('fof-discussion-language.filter_language_on_http_request', false)) {
+        if ((bool) $settings->get('fof-discussion-language.filter_language_on_http_request')) {
             /** @var \Flarum\User\User */
             $actor = $request->getAttribute('actor');
 
@@ -62,7 +62,7 @@ class AddLanguageFilter implements MiddlewareInterface
             }
 
             if ($language) {
-                if ((bool) $settings->get('fof-discussion-language.showAnyLangOpt', true)) {
+                if ((bool) $settings->get('fof-discussion-language.showAnyLangOpt')) {
                     $uri = $request->getUri();
                     $uri = $uri->withQuery("language=$language");
 
