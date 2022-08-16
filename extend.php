@@ -94,6 +94,12 @@ return [
         ->addInclude(['language']),
 
     (new Extend\Settings())
+        ->default('fof-discussion-language.showFlags', true)
+        ->default('fof-discussion-language.showAnyLangOpt', true)
+        ->default('fof-discussion-language.allow_language_change', 10)
+        ->default('fof-discussion-language.native', false)
+        ->default('fof-discussion-language.filter_language_on_http_request', false)
+        ->default('fof-discussion-language.useLocaleForTagsPageLastDiscussion', false)
         ->serializeToForum('fof-discussion-language.composerLocaleDefault', 'fof-discussion-language.composerLocaleDefault', 'boolVal')
         ->serializeToForum('fof-discussion-language.showAnyLangOpt', 'fof-discussion-language.showAnyLangOpt', 'boolVal')
         ->serializeToForum('fof-discussion-language.useLocaleForTagsPageLastDiscussion', 'fof-discussion-language.useLocaleForTagsPageLastDiscussion', 'boolVal'),
