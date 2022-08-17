@@ -32,13 +32,13 @@ class AddLanguageFilter implements MiddlewareInterface
      * @var LocaleManager
      */
     protected $locales;
-    
+
     public function __construct(SettingsRepositoryInterface $settings, LocaleManager $locales)
     {
         $this->settings = $settings;
         $this->locales = $locales;
     }
-    
+
     /**
      * {@inheritdoc}
      */
