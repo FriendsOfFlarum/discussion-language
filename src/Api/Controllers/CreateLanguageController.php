@@ -12,6 +12,7 @@
 namespace FoF\DiscussionLanguage\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractCreateController;
+use Flarum\Http\RequestUtil;
 use FoF\DiscussionLanguage\Api\Serializers\DiscussionLanguageSerializer;
 use FoF\DiscussionLanguage\Commands\CreateLanguageCommand;
 use Illuminate\Contracts\Bus\Dispatcher;
@@ -42,7 +43,7 @@ class CreateLanguageController extends AbstractCreateController
     protected function data(ServerRequestInterface $request, Document $document)
     {
         return $this->bus->dispatch(
-            new CreateLanguageCommand($request->getAttribute('actor'), Arr::get($request->getParsedBody(), 'data.attributes', []))
+            new CreateLanguageCommand(RequestUtil::getActor($request), Arr::get($request->getParsedBody(), 'data.attributes', []))
         );
     }
 }

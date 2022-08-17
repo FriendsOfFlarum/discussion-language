@@ -12,6 +12,7 @@
 namespace FoF\DiscussionLanguage\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractDeleteController;
+use Flarum\Http\RequestUtil;
 use FoF\DiscussionLanguage\Commands\DeleteLanguageCommand;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Support\Arr;
@@ -38,7 +39,7 @@ class DeleteLanguageController extends AbstractDeleteController
     protected function delete(ServerRequestInterface $request)
     {
         return $this->bus->dispatch(
-            new DeleteLanguageCommand($request->getAttribute('actor'), Arr::get($request->getQueryParams(), 'id'))
+            new DeleteLanguageCommand(RequestUtil::getActor($request), Arr::get($request->getQueryParams(), 'id'))
         );
     }
 }
