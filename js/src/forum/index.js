@@ -1,3 +1,4 @@
+import app from 'flarum/forum/app';
 import Model from 'flarum/common/Model';
 import Forum from 'flarum/common/models/Forum';
 import Tag from 'flarum/tags/common/models/Tag';

@@ -11,6 +11,7 @@
 
 namespace FoF\DiscussionLanguage\Middleware;
 
+use Flarum\Http\RequestUtil;
 use Flarum\Locale\LocaleManager;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Support\Arr;
@@ -35,9 +36,7 @@ class AddLanguageFilter implements MiddlewareInterface
         $params = $request->getQueryParams();
 
         if ($language = Arr::get($params, 'language')) {
-            $request = $request->withQueryParams([
-                'filter' => ['language' => $language],
-            ]);
+            $request = $this->addQueryParams($request, $params, $language);
 
             return $handler->handle($request);
         }
@@ -47,7 +46,7 @@ class AddLanguageFilter implements MiddlewareInterface
 
         if ((bool) $settings->get('fof-discussion-language.filter_language_on_http_request')) {
             /** @var \Flarum\User\User */
-            $actor = $request->getAttribute('actor');
+            $actor = RequestUtil::getActor($request);
 
             $language = null;
 
@@ -68,9 +67,7 @@ class AddLanguageFilter implements MiddlewareInterface
 
                     return new RedirectResponse($uri, 303);
                 } else {
-                    $request = $request->withQueryParams([
-                        'filter' => ['language' => $language],
-                    ]);
+                    $request = $this->addQueryParams($request, $params, $language);
 
                     return $handler->handle($request);
                 }
@@ -78,6 +75,13 @@ class AddLanguageFilter implements MiddlewareInterface
         }
 
         return $handler->handle($request);
+    }
+
+    private function addQueryParams(ServerRequestInterface $request, array $params, string $language): ServerRequestInterface
+    {
+        return $request->withQueryParams(
+            array_merge($params, ['filter' => ['language' => $language]]),
+        );
     }
 
     private function isDiscussionListPath($request)

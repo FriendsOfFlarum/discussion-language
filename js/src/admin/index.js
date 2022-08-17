@@ -1,3 +1,4 @@
+import app from 'flarum/admin/app';
 import { extend } from 'flarum/common/extend';
 import Forum from 'flarum/common/models/Forum';
 import PermissionGrid from 'flarum/admin/components/PermissionGrid';

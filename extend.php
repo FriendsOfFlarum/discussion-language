@@ -100,6 +100,7 @@ return [
         ->default('fof-discussion-language.native', false)
         ->default('fof-discussion-language.filter_language_on_http_request', false)
         ->default('fof-discussion-language.useLocaleForTagsPageLastDiscussion', false)
+        ->default('fof-discussion-language.composerLocaleDefault', false)
         ->serializeToForum('fof-discussion-language.composerLocaleDefault', 'fof-discussion-language.composerLocaleDefault', 'boolVal')
         ->serializeToForum('fof-discussion-language.showAnyLangOpt', 'fof-discussion-language.showAnyLangOpt', 'boolVal')
         ->serializeToForum('fof-discussion-language.useLocaleForTagsPageLastDiscussion', 'fof-discussion-language.useLocaleForTagsPageLastDiscussion', 'boolVal'),

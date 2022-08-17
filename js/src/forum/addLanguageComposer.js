@@ -1,5 +1,5 @@
 import { extend, override } from 'flarum/common/extend';
-import app from 'flarum/common/app';
+import app from 'flarum/forum/app';
 import IndexPage from 'flarum/forum/components/IndexPage';
 import DiscussionComposer from 'flarum/forum/components/DiscussionComposer';
 
