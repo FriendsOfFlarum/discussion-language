@@ -24,6 +24,22 @@ use Psr\Http\Server\RequestHandlerInterface;
 class AddLanguageFilter implements MiddlewareInterface
 {
     /**
+     * @var SettingsRepositoryInterface
+     */
+    protected $settings;
+
+    /**
+     * @var LocaleManager
+     */
+    protected $locales;
+    
+    public function __construct(SettingsRepositoryInterface $settings, LocaleManager $locales)
+    {
+        $this->settings = $settings;
+        $this->locales = $locales;
+    }
+    
+    /**
      * {@inheritdoc}
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -41,10 +57,7 @@ class AddLanguageFilter implements MiddlewareInterface
             return $handler->handle($request);
         }
 
-        /** @var SettingsRepositoryInterface */
-        $settings = resolve(SettingsRepositoryInterface::class);
-
-        if ((bool) $settings->get('fof-discussion-language.filter_language_on_http_request')) {
+        if ((bool) $this->settings->get('fof-discussion-language.filter_language_on_http_request')) {
             /** @var \Flarum\User\User */
             $actor = RequestUtil::getActor($request);
 
@@ -61,7 +74,7 @@ class AddLanguageFilter implements MiddlewareInterface
             }
 
             if ($language) {
-                if ((bool) $settings->get('fof-discussion-language.showAnyLangOpt')) {
+                if ((bool) $this->settings->get('fof-discussion-language.showAnyLangOpt')) {
                     $uri = $request->getUri();
                     $uri = $uri->withQuery("language=$language");
 
@@ -89,9 +102,7 @@ class AddLanguageFilter implements MiddlewareInterface
         $path = $request->getAttribute('originalUri')->getPath();
 
         // Check for the 'index' route (showing all discussions)
-        /** @var SettingsRepositoryInterface */
-        $settings = resolve(SettingsRepositoryInterface::class);
-        $defaultRoute = $settings->get('default_route');
+        $defaultRoute = $this->settings->get('default_route');
         if ($defaultRoute === '/all') {
             if ($path === '/') {
                 return true;
@@ -110,9 +121,6 @@ class AddLanguageFilter implements MiddlewareInterface
 
     private function determineLanguageFromBrowserRequest(string $acceptLangs): string
     {
-        /** @var LocaleManager */
-        $locales = resolve(LocaleManager::class);
-
         $langs = [];
         // break up string into pieces (languages and q factors)
         preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i', $acceptLangs, $lang_parse);
@@ -134,7 +142,7 @@ class AddLanguageFilter implements MiddlewareInterface
 
         // look through sorted list and use first one that matches our installed languages
         foreach ($langs as $lang => $val) {
-            if ($locales->hasLocale($lang)) {
+            if ($this->locales->hasLocale($lang)) {
                 // Once we find a match, return it
                 return $lang;
                 break;
@@ -142,6 +150,6 @@ class AddLanguageFilter implements MiddlewareInterface
         }
 
         // No matches, so use the forum default language
-        return $locales->getLocale();
+        return $this->locales->getLocale();
     }
 }
