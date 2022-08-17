@@ -59,7 +59,7 @@ class AddLanguageFilter implements MiddlewareInterface
         }
 
         // Request has no language parameter, if we are set to force a language, determine the best language to apply
-        if ((bool) $this->settings->get('fof-discussion-language.filter_language_on_http_request')) {
+        if ((bool) $this->settings->get('fof-discussion-language.filter_language_on_http_request') || ! (bool) $this->settings->get('fof-discussion-language.showAnyLangOpt')) {
             /** @var \Flarum\User\User */
             $actor = RequestUtil::getActor($request);
 
