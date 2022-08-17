@@ -51,12 +51,14 @@ class AddLanguageFilter implements MiddlewareInterface
 
         $params = $request->getQueryParams();
 
+        // Request has a language parameter, so we handle the request with the language filter applied.
         if ($language = Arr::get($params, 'language')) {
             $request = $this->addQueryParams($request, $params, $language);
 
             return $handler->handle($request);
         }
 
+        // Request has no language parameter, if we are set to force a language, determine the best language to apply
         if ((bool) $this->settings->get('fof-discussion-language.filter_language_on_http_request')) {
             /** @var \Flarum\User\User */
             $actor = RequestUtil::getActor($request);
@@ -87,9 +89,18 @@ class AddLanguageFilter implements MiddlewareInterface
             }
         }
 
+        // If we get this far, we don't have a language parameter, so we can just continue with the request using the forum default language.
         return $handler->handle($request);
     }
 
+    /**
+     * Merge the language parameter into the existing params as a `filter` value.
+     * 
+     * @param ServerRequestInterface $request
+     * @param array $params
+     * @param string $language
+     * @return ServerRequestInterface
+     */
     private function addQueryParams(ServerRequestInterface $request, array $params, string $language): ServerRequestInterface
     {
         return $request->withQueryParams(
