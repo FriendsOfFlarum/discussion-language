@@ -95,10 +95,11 @@ class AddLanguageFilter implements MiddlewareInterface
 
     /**
      * Merge the language parameter into the existing params as a `filter` value.
-     * 
+     *
      * @param ServerRequestInterface $request
-     * @param array $params
-     * @param string $language
+     * @param array                  $params
+     * @param string                 $language
+     *
      * @return ServerRequestInterface
      */
     private function addQueryParams(ServerRequestInterface $request, array $params, string $language): ServerRequestInterface
