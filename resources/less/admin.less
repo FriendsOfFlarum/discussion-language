@@ -1,35 +1,17 @@
 .FofDiscussionLanguagesSettingsPage {
   margin-top: 25px;
-  .Form-group.flex, .Form-group > .flex {
-    display: flex;
-    justify-content: space-between;
+  .Form-group.flex,
+  .Form-group > .flex {
+    display: grid;
+    grid-template-columns: 1fr 1fr 36px;
+    gap: 4px;
 
-    .Select, .emoji {
-      flex-grow: 1;
-      margin-right: 5px;
-    }
-
-    .Select {
-      &:last-of-type {
-        margin-left: 5px;
-      }
-
-      .Select-input {
-        width: 100%
-      }
-    }
-
-    .emoji {
-      height: 36px;
-      flex-grow: 0;
-    }
-
-    button {
-      flex-shrink: 1;
+    .Select .Select-input {
+      width: 100%;
     }
 
     &:not(:first-of-type) {
-      margin-top: 5px;
+      margin-top: 4px;
     }
   }
 
