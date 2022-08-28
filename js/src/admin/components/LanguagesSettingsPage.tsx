@@ -148,8 +148,8 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
     return (
       <>
         <div className="Form-group flex" style={{ 'margin-bottom': 0, 'font-weight': 'bold' }}>
-          <span>Language</span>
-          <span>Country (for flag)</span>
+          <span>{app.translator.trans('fof-discussion-language.admin.settings.config.language_label')}</span>
+          <span>{app.translator.trans('fof-discussion-language.admin.settings.config.country_label')}</span>
           <span></span>
           <span></span>
         </div>
