@@ -1,3 +1,5 @@
+import app from 'flarum/admin/app';
+
 export default async function loadAsset<T>(name: string): Promise<T> {
   const URL = `${app.forum.attribute('baseUrl')}/assets/extensions/fof-discussion-language/${name}`;
 

@@ -12,6 +12,7 @@
 namespace FoF\DiscussionLanguage\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractShowController;
+use Flarum\Http\RequestUtil;
 use FoF\DiscussionLanguage\Api\Serializers\DiscussionLanguageSerializer;
 use FoF\DiscussionLanguage\Commands\UpdateLanguageCommand;
 use Illuminate\Contracts\Bus\Dispatcher;
@@ -42,7 +43,7 @@ class UpdateLanguageController extends AbstractShowController
     protected function data(ServerRequestInterface $request, Document $document)
     {
         return $this->bus->dispatch(
-            new UpdateLanguageCommand($request->getAttribute('actor'), Arr::get($request->getQueryParams(), 'id'), Arr::get($request->getParsedBody(), 'data.attributes', []))
+            new UpdateLanguageCommand(RequestUtil::getActor($request), Arr::get($request->getQueryParams(), 'id'), Arr::get($request->getParsedBody(), 'data.attributes', []))
         );
     }
 }

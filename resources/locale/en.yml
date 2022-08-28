@@ -27,6 +27,10 @@ fof-discussion-language:
       errors:
         missing_assets: We couldn't load the assets needed by this extension. Try running <code>php flarum assets:publish</code> and see if that fixes the issue.
 
+      config:
+        language_label: Language
+        country_label: Country (for display flag)
+
     permissions:
       allow_change_language_label: Allow language editing
 
