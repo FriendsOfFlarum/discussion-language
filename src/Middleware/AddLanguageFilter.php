@@ -109,7 +109,7 @@ class AddLanguageFilter implements MiddlewareInterface
 
         // If a search is in progress, add the search gambit
         if (Arr::get($params, 'q')) {
-            $newParams['q'] = Arr::get($params, 'q') . ' language:' . $language;
+            $newParams['q'] = Arr::get($params, 'q').' language:'.$language;
         }
 
         return $request->withQueryParams($newParams);
