@@ -104,9 +104,15 @@ class AddLanguageFilter implements MiddlewareInterface
      */
     private function addQueryParams(ServerRequestInterface $request, array $params, string $language): ServerRequestInterface
     {
-        return $request->withQueryParams(
-            array_merge($params, ['filter' => ['language' => $language]]),
-        );
+        // use recursive merge to preserve filters added by other extensions
+        $newParams = array_merge_recursive($params, ['filter' => ['language' => $language]]);
+
+        // If a search is in progress, add the search gambit
+        if (Arr::get($params, 'q')) {
+            $newParams['q'] = Arr::get($params, 'q') . ' language:' . $language;
+        }
+
+        return $request->withQueryParams($newParams);
     }
 
     private function isDiscussionListPath($request)
