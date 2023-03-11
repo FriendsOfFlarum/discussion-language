@@ -37,6 +37,7 @@ export default () => {
     const routeName = app.current.data.routeName;
 
     if (routeName === 'byobuPrivate') return;
+    if (routeName === 'byobuUserPrivate') return;
 
     params.include.push('language');
 
