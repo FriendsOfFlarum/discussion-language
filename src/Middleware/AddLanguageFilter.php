@@ -102,7 +102,7 @@ class AddLanguageFilter implements MiddlewareInterface
      *
      * @return ServerRequestInterface
      */
-    private function addQueryParams(ServerRequestInterface $request, array $params, string $language): ServerRequestInterface
+    protected function addQueryParams(ServerRequestInterface $request, array $params, string $language): ServerRequestInterface
     {
         // use recursive merge to preserve filters added by other extensions
         $newParams = array_merge_recursive($params, ['filter' => ['language' => $language]]);
@@ -115,7 +115,7 @@ class AddLanguageFilter implements MiddlewareInterface
         return $request->withQueryParams($newParams);
     }
 
-    private function isDiscussionListPath($request)
+    protected function isDiscussionListPath($request)
     {
         $path = $request->getAttribute('originalUri')->getPath();
 
@@ -137,7 +137,7 @@ class AddLanguageFilter implements MiddlewareInterface
         return false;
     }
 
-    private function determineLanguageFromBrowserRequest(string $acceptLangs): string
+    protected function determineLanguageFromBrowserRequest(string $acceptLangs): string
     {
         $langs = [];
         // break up string into pieces (languages and q factors)
