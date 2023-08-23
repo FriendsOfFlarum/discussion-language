@@ -34,8 +34,8 @@ app.initializers.add('fof/discussion-language', () => {
               : app.translator.trans('core.admin.permissions_controls.allow_indefinitely_button'),
             key: 'fof-discussion-language.allow_language_change',
             options: [
-              { value: "-1", label: app.translator.trans('core.admin.permissions_controls.allow_indefinitely_button') },
-              { value: "10", label: app.translator.trans('core.admin.permissions_controls.allow_ten_minutes_button') },
+              { value: '-1', label: app.translator.trans('core.admin.permissions_controls.allow_indefinitely_button') },
+              { value: '10', label: app.translator.trans('core.admin.permissions_controls.allow_ten_minutes_button') },
               { value: 'reply', label: app.translator.trans('core.admin.permissions_controls.allow_until_reply_button') },
             ],
           });

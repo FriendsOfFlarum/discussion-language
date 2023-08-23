@@ -13,11 +13,14 @@ export default function getCountries(useNativeName: boolean) {
 
   const key = useNativeName ? 'native' : 'name';
 
-  return Object.entries(countries).reduce((acc, [code, info]) => {
-    acc[code] = info[key];
+  return Object.entries(countries).reduce(
+    (acc, [code, info]) => {
+      acc[code] = info[key];
 
-    return acc;
-  }, {} as Record<string, string>);
+      return acc;
+    },
+    {} as Record<string, string>
+  );
 }
 
 export const getEmoji = (code: string) => countries?.[code]?.emoji;
