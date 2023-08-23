@@ -112,6 +112,6 @@ return [
         ])
         ->whenExtensionEnabled('fof-follow-tags', [
             (new Extend\Notification())
-                ->beforeSending(Listener\FilterNotificationsToLanguage::class)
+                ->beforeSending(Listener\FilterNotificationsToLanguage::class),
         ]),
 ];

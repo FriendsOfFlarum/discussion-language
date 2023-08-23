@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of fof/discussion-language.
+ *
+ * Copyright (c) FriendsOfFlarum.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FoF\DiscussionLanguage\Listener;
 
 use Flarum\Discussion\Discussion;
@@ -14,12 +23,12 @@ class FilterNotificationsToLanguage
      * @var SettingsRepositoryInterface
      */
     protected $settings;
-    
+
     public function __construct(SettingsRepositoryInterface $settings)
     {
         $this->settings = $settings;
     }
-    
+
     public function __invoke(BlueprintInterface $blueprint, array $recipients): array
     {
         if (!($blueprint instanceof FollowTags\NewDiscussionBlueprint || $blueprint instanceof FollowTags\NewDiscussionTagBlueprint || $blueprint instanceof FollowTags\NewPostBlueprint)) {
@@ -37,7 +46,6 @@ class FilterNotificationsToLanguage
             /** @var User $user */
             if ($user->getPreference('locale') !== $discussion->language()->code) {
                 // remove the user from the array
-                
             }
         }
 
