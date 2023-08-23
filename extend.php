@@ -105,6 +105,13 @@ return [
         ->serializeToForum('fof-discussion-language.showAnyLangOpt', 'fof-discussion-language.showAnyLangOpt', 'boolVal')
         ->serializeToForum('fof-discussion-language.useLocaleForTagsPageLastDiscussion', 'fof-discussion-language.useLocaleForTagsPageLastDiscussion', 'boolVal'),
 
-    (new Extend\ApiSerializer(TagSerializer::class))
-        ->attributes(TagLocalizedLastDiscussionSerializer::class),
+    (new Extend\Conditional())
+        ->whenExtensionEnabled('flarum-tags', [
+            (new Extend\ApiSerializer(TagSerializer::class))
+                ->attributes(TagLocalizedLastDiscussionSerializer::class),
+        ])
+        ->whenExtensionEnabled('fof-follow-tags', [
+            (new Extend\Notification())
+                ->beforeSending(Listener\FilterNotificationsToLanguage::class)
+        ]),
 ];

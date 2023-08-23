@@ -108,7 +108,7 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
             })}
           </div>
 
-          {this.submitButton(vnode)}
+          {this.submitButton()}
 
           <hr />
 
@@ -268,7 +268,7 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
       });
   }
 
-  remove(language) {
+  remove(language: Language) {
     this.recordsDeleting[language.id()] = true;
 
     language
