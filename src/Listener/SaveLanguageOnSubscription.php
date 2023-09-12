@@ -1,9 +1,18 @@
 <?php
 
+/*
+ * This file is part of fof/discussion-language.
+ *
+ * Copyright (c) FriendsOfFlarum.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FoF\DiscussionLanguage\Listener;
 
-use FoF\FollowTags\Event\SubscriptionChanging;
 use FoF\DiscussionLanguage\DiscussionLanguage;
+use FoF\FollowTags\Event\SubscriptionChanging;
 use Illuminate\Support\Arr;
 
 /**

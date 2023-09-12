@@ -26,7 +26,6 @@ use Flarum\Tags\Api\Serializer\TagSerializer;
 use Flarum\Tags\Event\Creating as TagCreating;
 use FoF\DiscussionLanguage\Api\Serializers\DiscussionLanguageSerializer;
 use FoF\DiscussionLanguage\Api\Serializers\TagLocalizedLastDiscussionSerializer;
-use FoF\FollowTags\Event\GatheringRecipients;
 use FoF\FollowTags\Event\SubscriptionChanging;
 
 return [
@@ -120,5 +119,5 @@ return [
 
             (new Extend\Notification())
                 ->beforeSending(CheckNotificationRecipients::class),
-        ])
+        ]),
 ];
