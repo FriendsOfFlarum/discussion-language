@@ -19,16 +19,21 @@
     }
   ],
   "require": {
-    "flarum/core": "^1.3.1",
-    "fof/extend": "^1.0.0",
+    "flarum/core": "^1.8.1",
     "rinvex/countries": "^6.1.2 || ^7.0.1 || ^8.1.0",
     "league/csv": "^9.7",
-    "ianm/iso-639": "^1.0"
+    "ianm/iso-639": "^1.0",
+    "flarum/tags": "*"
   },
   "authors": [
     {
       "name": "David Sevilla Martin",
       "email": "me+fof@datitisev.me",
+      "role": "Developer"
+    },
+    {
+      "name": "IanM",
+      "email": "ian@flarum.org",
       "role": "Developer"
     }
   ],
@@ -47,12 +52,16 @@
         "color": "#fff"
       },
       "optional-dependencies": [
-        "flarum/tags",
-        "fof/byobu"
+        "fof/byobu",
+        "fof/follow-tags"
       ]
     },
     "flagrow": {
       "discuss": "https://discuss.flarum.org/d/23702"
     }
+  },
+  "require-dev": {
+    "fof/byobu": "*",
+    "fof/follow-tags": "*"
   }
 }

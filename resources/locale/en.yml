@@ -15,6 +15,10 @@ fof-discussion-language:
     index_language:
       any: Any Language
 
+    sub_controls:
+      subscription_language_label: Discussion language
+      subscription_language_help: When you select a language here, you'll only be notified of new activity in that language.
+
   admin:
     settings:
       native_label: Use native language names

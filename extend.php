@@ -26,6 +26,8 @@ use Flarum\Tags\Api\Serializer\TagSerializer;
 use Flarum\Tags\Event\Creating as TagCreating;
 use FoF\DiscussionLanguage\Api\Serializers\DiscussionLanguageSerializer;
 use FoF\DiscussionLanguage\Api\Serializers\TagLocalizedLastDiscussionSerializer;
+use FoF\FollowTags\Event\GatheringRecipients;
+use FoF\FollowTags\Event\SubscriptionChanging;
 
 return [
     (new Extend\Frontend('forum'))
@@ -107,4 +109,16 @@ return [
 
     (new Extend\ApiSerializer(TagSerializer::class))
         ->attributes(TagLocalizedLastDiscussionSerializer::class),
+
+    (new Extend\Conditional())
+        ->whenExtensionEnabled('fof-follow-tags', [
+            (new Extend\ApiSerializer(TagSerializer::class))
+                ->attributes(AddTagSerializerAttributes::class),
+
+            (new Extend\Event())
+                ->listen(SubscriptionChanging::class, Listener\SaveLanguageOnSubscription::class),
+
+            (new Extend\Notification())
+                ->beforeSending(CheckNotificationRecipients::class),
+        ])
 ];
