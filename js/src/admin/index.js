@@ -16,7 +16,18 @@ app.initializers.add('fof/discussion-language', () => {
 
   Forum.prototype.discussionLanguages = Forum.hasMany('discussionLanguages');
 
-  app.extensionData.for('fof-discussion-language').registerPage(LanguagesSettingsPage);
+  app.extensionData
+    .for('fof-discussion-language')
+    .registerPage(LanguagesSettingsPage)
+    .registerPermission(
+      {
+        icon: 'fas fa-globe',
+        permission: 'discussion.changeLanguage',
+        label: app.translator.trans('fof-discussion-language.admin.permissions.allow_change_language_label'),
+      },
+      'moderate',
+      65
+    );
 
   // This extend must remain for now, as the new admin UI in beta 15 does not currently support the custom dropdown
   extend(PermissionGrid.prototype, 'startItems', (items) => {
