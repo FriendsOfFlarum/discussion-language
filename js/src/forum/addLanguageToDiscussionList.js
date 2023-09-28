@@ -51,7 +51,7 @@ export default () => {
     }
 
     const paramLang = app.search.params().language;
-    const locale = app.search.params().language ?? app.translator.formatter.locale;
+    const locale = app.search.params().language ?? app.translator.getLocale();
     const showAnyOpt = app.forum.attribute('fof-discussion-language.showAnyLangOpt');
 
     if (params.filter.q) {
@@ -75,29 +75,24 @@ export default () => {
     // Don't add language controls to /private (fof/byobu)
     if (app.current.data.routeName === 'byobuPrivate') return;
 
-    let extra, defaultSelected;
-    if (app.forum.attribute('fof-discussion-language.showAnyLangOpt')) {
-      extra = { any: app.translator.trans('fof-discussion-language.forum.index_language.any') };
-      defaultSelected = 'any';
-    } else {
-      defaultSelected = app.translator.formatter.locale;
-    }
+    const defaultSelected = app.forum.attribute('fof-discussion-language.showAnyLangOpt') ? 'any' : app.translator.getLocale();
 
     items.add(
       'language',
-      LanguageDropdown.component({
-        extra,
-        default: defaultSelected,
-        onclick: (key) => {
+      <LanguageDropdown
+        selected={app.search.params().language}
+        onclick={(key) => {
+          // if `key` is not a string, return early
+          if (typeof key !== 'string') return;
+
           const params = app.search.params();
 
           if (key === defaultSelected) delete params.language;
           else params.language = key;
 
           setRouteWithForcedRefresh(app.route(app.current.get('routeName'), params));
-        },
-        selected: app.search.params().language,
-      })
+        }}
+      />
     );
   });
 };

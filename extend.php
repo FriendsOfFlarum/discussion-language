@@ -76,14 +76,8 @@ return [
         }),
 
     (new Extend\ApiController(ShowForumController::class))
-        ->prepareDataForSerialization(function (ShowForumController $controller, &$data) {
-            // Expose the complete tag list to clients by adding it as a
-            // relationship to the /api endpoint. Since the Forum model
-            // doesn't actually have a tags relationship, we will manually load and
-            // assign the tags data to it using an event listener.
-            $data['discussionLanguages'] = DiscussionLanguage::get();
-        })
-        ->addInclude(['discussionLanguages']),
+        ->addInclude(['discussionLanguages'])
+        ->prepareDataForSerialization(LoadForumDiscussionLanguageRelationship::class),
 
     (new Extend\ApiController(ListDiscussionsController::class))
         ->addInclude(['language']),

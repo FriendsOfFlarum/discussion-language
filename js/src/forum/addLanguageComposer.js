@@ -4,7 +4,7 @@ import IndexPage from 'flarum/forum/components/IndexPage';
 import DiscussionComposer from 'flarum/forum/components/DiscussionComposer';
 
 import LanguageDiscussionModal from './components/LanguageDiscussionModal';
-import Language from './components/Language';
+import LanguageDisplay from './components/LanguageDisplay';
 
 const sort = (a, b) => a.code().toLowerCase() > b.code().toLowerCase();
 
@@ -16,7 +16,7 @@ export default () => {
       promise.then((composer) => (composer.fields.language = app.store.getBy('discussion-languages', 'code', dislang)));
     } else {
       const localeComposer = app.forum.attribute('fof-discussion-language.composerLocaleDefault');
-      app.composer.fields.language = localeComposer ? app.store.getBy('discussion-languages', 'code', app.translator.formatter.locale) : '';
+      app.composer.fields.language = localeComposer ? app.store.getBy('discussion-languages', 'code', app.translator.getLocale()) : '';
     }
   });
 
@@ -42,7 +42,7 @@ export default () => {
       <a className="DiscussionComposer-changeTags" onclick={this.chooseLanguage.bind(this, true, null)}>
         <span className={`LanguageLabel ${this.composer.fields.language ? '' : 'none'}`}>
           {this.composer.fields.language
-            ? Language.component({ language: this.composer.fields.language, uppercase: true })
+            ? LanguageDisplay.component({ language: this.composer.fields.language, uppercase: true })
             : app.translator.trans('fof-discussion-language.forum.composer_discussion.choose_language_link')}
         </span>
       </a>,

@@ -11,6 +11,7 @@
 
 namespace FoF\DiscussionLanguage\Api\Serializers;
 
+use Carbon\Translator;
 use Flarum\Api\Serializer\AbstractSerializer;
 use Flarum\Api\Serializer\DiscussionSerializer;
 use Flarum\Discussion\Discussion;
@@ -20,6 +21,7 @@ use League\Csv\Reader;
 use League\Csv\Statement;
 use League\Csv\TabularDataReader;
 use Rinvex\Country\CountryLoader;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DiscussionLanguageSerializer extends AbstractSerializer
 {
@@ -40,11 +42,16 @@ class DiscussionLanguageSerializer extends AbstractSerializer
      */
     protected $records;
 
-    public function __construct(SettingsRepositoryInterface $settings, ISO639 $iso)
+    /**
+     * @var TranslatorInterface
+     */
+    protected $translator;
+
+    public function __construct(SettingsRepositoryInterface $settings, ISO639 $iso, TranslatorInterface $translator)
     {
         $this->settings = $settings;
-
         $this->iso = $iso;
+        $this->translator = $translator;
     }
 
     /**
@@ -75,8 +82,17 @@ class DiscussionLanguageSerializer extends AbstractSerializer
         return $this->hasOne(Discussion::class, DiscussionSerializer::class);
     }
 
+    public function getId($model): string
+    {
+        return $model->code === 'any' ? 'any' : $model->id;
+    }
+
     protected function getLanguageName(string $code, bool $native)
     {
+        if ($code === 'any') {
+            return $this->translator->trans('fof-discussion-language.forum.index_language.any');
+        }
+        
         if (!$this->records) {
             $csv = Reader::createFromPath(__DIR__.'/../../../resources/wikipedia-iso-639-2-codes.csv');
             $csv->setHeaderOffset(0);
