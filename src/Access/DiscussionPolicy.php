@@ -45,6 +45,8 @@ class DiscussionPolicy extends AbstractPolicy
             ) {
                 return $this->allow();
             }
+        } elseif ($actor->can('changeLanguageModerate', $discussion)) {
+            return $this->allow();
         }
     }
 }

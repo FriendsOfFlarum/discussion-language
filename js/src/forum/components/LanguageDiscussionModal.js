@@ -3,7 +3,7 @@ import Modal from 'flarum/common/components/Modal';
 import Button from 'flarum/common/components/Button';
 import DiscussionPage from 'flarum/forum/components/DiscussionPage';
 
-import Language from './Language';
+import LanguageDisplay from './LanguageDisplay';
 
 export default class LanguageDiscussionModal extends Modal {
   oninit(vnode) {
@@ -31,7 +31,7 @@ export default class LanguageDiscussionModal extends Modal {
         <div className="Form-group">
           {this.languages.map((language) => (
             <Button onclick={this.select.bind(this, language)} className={`Button Button--block ${this.selected === language ? 'active' : ''}`}>
-              <Language language={language} uppercase={true} />
+              <LanguageDisplay language={language} uppercase={true} />
             </Button>
           ))}
         </div>

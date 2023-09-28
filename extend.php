@@ -26,6 +26,7 @@ use Flarum\Tags\Api\Serializer\TagSerializer;
 use Flarum\Tags\Event\Creating as TagCreating;
 use FoF\DiscussionLanguage\Api\Serializers\DiscussionLanguageSerializer;
 use FoF\DiscussionLanguage\Api\Serializers\TagLocalizedLastDiscussionSerializer;
+use FoF\FollowTags\Event\SubscriptionChanging;
 
 return [
     (new Extend\Frontend('forum'))
@@ -75,14 +76,8 @@ return [
         }),
 
     (new Extend\ApiController(ShowForumController::class))
-        ->prepareDataForSerialization(function (ShowForumController $controller, &$data) {
-            // Expose the complete tag list to clients by adding it as a
-            // relationship to the /api endpoint. Since the Forum model
-            // doesn't actually have a tags relationship, we will manually load and
-            // assign the tags data to it using an event listener.
-            $data['discussionLanguages'] = DiscussionLanguage::get();
-        })
-        ->addInclude(['discussionLanguages']),
+        ->addInclude(['discussionLanguages'])
+        ->prepareDataForSerialization(LoadForumDiscussionLanguageRelationship::class),
 
     (new Extend\ApiController(ListDiscussionsController::class))
         ->addInclude(['language']),
@@ -107,4 +102,16 @@ return [
 
     (new Extend\ApiSerializer(TagSerializer::class))
         ->attributes(TagLocalizedLastDiscussionSerializer::class),
+
+    (new Extend\Conditional())
+        ->whenExtensionEnabled('fof-follow-tags', [
+            (new Extend\ApiSerializer(TagSerializer::class))
+                ->attributes(AddTagSerializerAttributes::class),
+
+            (new Extend\Event())
+                ->listen(SubscriptionChanging::class, Listener\SaveLanguageOnSubscription::class),
+
+            (new Extend\Notification())
+                ->beforeSending(CheckNotificationRecipients::class),
+        ]),
 ];

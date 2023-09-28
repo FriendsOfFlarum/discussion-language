@@ -1,9 +1,9 @@
-import Language from './Language';
+import LanguageDisplay from './LanguageDisplay';
 import LanguageDiscussionModal from './LanguageDiscussionModal';
 import LanguageDropdown from './LanguageDropdown';
 
 export const components = {
-  Language,
+  LanguageDisplay,
   LanguageDiscussionModal,
   LanguageDropdown,
 };

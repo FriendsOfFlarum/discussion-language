@@ -1,38 +1,27 @@
 import app from 'flarum/admin/app';
-import { extend } from 'flarum/common/extend';
-import Forum from 'flarum/common/models/Forum';
-import PermissionGrid from 'flarum/admin/components/PermissionGrid';
 import SettingDropdown from 'flarum/admin/components/SettingDropdown';
 
 import LanguagesSettingsPage from './components/LanguagesSettingsPage';
-import Language from '../common/models/Language';
 
 export * from './components';
 export * from './utils';
 export * from '../common/models';
+export { default as extend } from './extend';
 
 app.initializers.add('fof/discussion-language', () => {
-  app.store.models['discussion-languages'] = Language;
-
-  Forum.prototype.discussionLanguages = Forum.hasMany('discussionLanguages');
-
   app.extensionData
     .for('fof-discussion-language')
     .registerPage(LanguagesSettingsPage)
     .registerPermission(
       {
+        permission: 'discussion.changeLanguageModerate',
         icon: 'fas fa-globe',
-        permission: 'discussion.changeLanguage',
         label: app.translator.trans('fof-discussion-language.admin.permissions.allow_change_language_label'),
       },
       'moderate',
       65
-    );
-
-  // This extend must remain for now, as the new admin UI in beta 15 does not currently support the custom dropdown
-  extend(PermissionGrid.prototype, 'startItems', (items) => {
-    items.add(
-      'allowLanguageChange',
+    )
+    .registerPermission(
       {
         icon: 'fas fa-globe',
         label: app.translator.trans('fof-discussion-language.admin.permissions.allow_change_language_label'),
@@ -52,7 +41,7 @@ app.initializers.add('fof/discussion-language', () => {
           });
         },
       },
-      90
+      'start',
+      65
     );
-  });
 });
