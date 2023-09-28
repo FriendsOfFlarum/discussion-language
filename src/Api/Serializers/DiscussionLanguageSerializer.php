@@ -11,7 +11,6 @@
 
 namespace FoF\DiscussionLanguage\Api\Serializers;
 
-use Carbon\Translator;
 use Flarum\Api\Serializer\AbstractSerializer;
 use Flarum\Api\Serializer\DiscussionSerializer;
 use Flarum\Discussion\Discussion;
@@ -92,7 +91,7 @@ class DiscussionLanguageSerializer extends AbstractSerializer
         if ($code === 'any') {
             return $this->translator->trans('fof-discussion-language.forum.index_language.any');
         }
-        
+
         if (!$this->records) {
             $csv = Reader::createFromPath(__DIR__.'/../../../resources/wikipedia-iso-639-2-codes.csv');
             $csv->setHeaderOffset(0);
