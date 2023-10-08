@@ -9,7 +9,7 @@ export default class LanguageDiscussionModal extends Modal {
   oninit(vnode) {
     super.oninit(vnode);
 
-    this.languages = app.store.all('discussion-languages');
+    this.languages = app.store.all('discussion-languages').filter((language) => language.code() !== 'any');
 
     this.current = this.attrs.selected || (this.attrs.discussion && this.attrs.discussion.language());
     this.selected = this.current;
