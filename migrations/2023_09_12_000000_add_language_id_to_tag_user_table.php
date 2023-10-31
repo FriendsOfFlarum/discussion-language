@@ -21,8 +21,6 @@ return [
                 $table->foreign('dl_language_id')->references('id')->on('discussion_languages')->onDelete('set null');
             }
 
-
-
             $table->index(['user_id', 'dl_language_id']);
             $table->index(['dl_language_id']);
         });

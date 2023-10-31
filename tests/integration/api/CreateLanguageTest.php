@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of fof/discussion-language.
+ *
+ * Copyright (c) FriendsOfFlarum.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FoF\DiscussionLanguage\tests\integration\api;
 
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
@@ -19,7 +28,7 @@ class CreateLanguageTest extends TestCase
         $this->prepareDatabase([
             'users' => [
                 $this->normalUser(),
-            ]
+            ],
         ]);
     }
 
@@ -34,7 +43,7 @@ class CreateLanguageTest extends TestCase
                     'data' => [
                         'attributes' => [
                             'country' => 'Test Country',
-                            'code' => 'test',
+                            'code'    => 'test',
                         ],
                     ],
                 ],
@@ -56,7 +65,7 @@ class CreateLanguageTest extends TestCase
                     'data' => [
                         'attributes' => [
                             'country' => 'Test Country',
-                            'code' => 'test',
+                            'code'    => 'test',
                         ],
                     ],
                 ],
