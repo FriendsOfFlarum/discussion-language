@@ -19,7 +19,7 @@
         }
     ],
     "require": {
-        "flarum/core": "^1.8.1",
+        "flarum/core": "^1.8.3",
         "rinvex/countries": "^6.1.2 || ^7.0.1 || ^8.1.0",
         "league/csv": "^9.7",
         "ianm/iso-639": "^1.0",
@@ -69,7 +69,8 @@
     "require-dev": {
         "fof/byobu": "*",
         "fof/follow-tags": "*",
-        "flarum/testing": "^1.0.0"
+        "flarum/testing": "^1.0.0",
+        "flarum/phpstan": "*"
     },
     "autoload-dev": {
         "psr-4": {
@@ -83,12 +84,15 @@
         ],
         "test:unit": "phpunit -c tests/phpunit.unit.xml",
         "test:integration": "phpunit -c tests/phpunit.integration.xml",
-        "test:setup": "@php tests/integration/setup.php"
+        "test:setup": "@php tests/integration/setup.php",
+        "analyse:phpstan": "phpstan analyse",
+        "clear-cache:phpstan": "phpstan clear-result-cache"
     },
     "scripts-descriptions": {
         "test": "Runs all tests.",
         "test:unit": "Runs all unit tests.",
         "test:integration": "Runs all integration tests.",
-        "test:setup": "Sets up a database for use with integration tests. Execute this only once."
+        "test:setup": "Sets up a database for use with integration tests. Execute this only once.",
+        "analyse:phpstan": "Run static analysis"
     }
 }
