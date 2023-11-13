@@ -113,14 +113,16 @@ return [
         ->attributes(TagLocalizedLastDiscussionSerializer::class),
 
     (new Extend\Conditional())
-        ->whenExtensionEnabled('fof-follow-tags', fn () => [
-            (new Extend\ApiSerializer(TagSerializer::class))
-                ->attributes(AddTagSerializerAttributes::class),
-
-            (new Extend\Event())
-                ->listen(SubscriptionChanging::class, Listener\SaveLanguageOnSubscription::class),
-
-            (new Extend\Notification())
-                ->beforeSending(CheckNotificationRecipients::class),
-        ]),
+        ->whenExtensionEnabled('fof-follow-tags', function () {
+            return [
+                (new Extend\ApiSerializer(TagSerializer::class))
+                    ->attributes(AddTagSerializerAttributes::class),
+    
+                (new Extend\Event())
+                    ->listen(SubscriptionChanging::class, Listener\SaveLanguageOnSubscription::class),
+    
+                (new Extend\Notification())
+                    ->beforeSending(CheckNotificationRecipients::class),
+            ];
+        }),
 ];
