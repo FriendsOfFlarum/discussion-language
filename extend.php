@@ -117,10 +117,10 @@ return [
             return [
                 (new Extend\ApiSerializer(TagSerializer::class))
                     ->attributes(AddTagSerializerAttributes::class),
-    
+
                 (new Extend\Event())
                     ->listen(SubscriptionChanging::class, Listener\SaveLanguageOnSubscription::class),
-    
+
                 (new Extend\Notification())
                     ->beforeSending(CheckNotificationRecipients::class),
             ];
