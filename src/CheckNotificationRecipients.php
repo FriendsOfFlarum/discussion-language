@@ -73,6 +73,6 @@ class CheckNotificationRecipients
      */
     protected function isFollowTagsBlueprint(BlueprintInterface $blueprint): bool
     {
-        return strpos($blueprint::class, 'FoF\FollowTags\Notification') === 0;
+        return strpos(get_class($blueprint), 'FoF\FollowTags\Notification') === 0;
     }
 }
