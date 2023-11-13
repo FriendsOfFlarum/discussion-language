@@ -36,7 +36,11 @@ class CheckNotificationRecipients
             return $users;
         }
 
-        /** @var Tag[] */
+        /**
+         * @var Tag[] $tags
+         *
+         * @phpstan-ignore-next-line
+         */
         $tags = $discussion->tags()->get();
 
         // Build a map of users and an array of their respective dl_language_id values
@@ -69,6 +73,6 @@ class CheckNotificationRecipients
      */
     protected function isFollowTagsBlueprint(BlueprintInterface $blueprint): bool
     {
-        return strpos($blueprint::class, 'FoF\FollowTags\Notification') === 0;
+        return strpos(get_class($blueprint), 'FoF\FollowTags\Notification') === 0;
     }
 }

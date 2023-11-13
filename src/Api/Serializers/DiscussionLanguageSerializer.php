@@ -54,7 +54,7 @@ class DiscussionLanguageSerializer extends AbstractSerializer
     }
 
     /**
-     * {@inheritdoc}
+     * @param \FoF\DiscussionLanguage\DiscussionLanguage $model
      */
     protected function getDefaultAttributes($model)
     {
@@ -92,7 +92,7 @@ class DiscussionLanguageSerializer extends AbstractSerializer
             return $this->translator->trans('fof-discussion-language.forum.index_language.any');
         }
 
-        if (!$this->records) {
+        if ($this->records === null) {
             $csv = Reader::createFromPath(__DIR__.'/../../../resources/wikipedia-iso-639-2-codes.csv');
             $csv->setHeaderOffset(0);
 

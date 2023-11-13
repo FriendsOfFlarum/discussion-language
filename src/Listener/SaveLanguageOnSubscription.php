@@ -29,7 +29,9 @@ class SaveLanguageOnSubscription
         }
 
         // Fetch the language ID using the provided language string
-        $languageId = DiscussionLanguage::where('code', $language)->pluck('id')->first();
+        $languageId = DiscussionLanguage::query()
+                                        ->where('code', $language)
+                                        ->value('id');
 
         $event->state->dl_language_id = $languageId;
     }

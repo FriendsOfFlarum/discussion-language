@@ -163,7 +163,6 @@ class AddLanguageFilter implements MiddlewareInterface
             if ($this->locales->hasLocale($lang)) {
                 // Once we find a match, return it
                 return $lang;
-                break;
             }
         }
 

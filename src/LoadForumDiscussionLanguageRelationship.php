@@ -12,8 +12,8 @@
 namespace FoF\DiscussionLanguage;
 
 use Flarum\Api\Controller\ShowForumController;
-use Flarum\Database\Eloquent\Collection;
 use Flarum\Settings\SettingsRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
