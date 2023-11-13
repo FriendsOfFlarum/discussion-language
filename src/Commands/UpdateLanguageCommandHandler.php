@@ -13,24 +13,17 @@ namespace FoF\DiscussionLanguage\Commands;
 
 use FoF\DiscussionLanguage\DiscussionLanguage;
 use FoF\DiscussionLanguage\Validators\DiscussionLanguageValidator;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
 
 class UpdateLanguageCommandHandler
 {
     /**
-     * @var Dispatcher
-     */
-    private $events;
-
-    /**
      * @var DiscussionLanguageValidator
      */
     private $validator;
 
-    public function __construct(Dispatcher $events, DiscussionLanguageValidator $validator)
+    public function __construct(DiscussionLanguageValidator $validator)
     {
-        $this->events = $events;
         $this->validator = $validator;
     }
 

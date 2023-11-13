@@ -23,6 +23,7 @@ use Flarum\Post\Event\Restored as PostRestored;
 use Flarum\Tags\Event\DiscussionWasTagged;
 use Flarum\Tags\Tag;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 
 class UpdateTagMetadata
@@ -70,6 +71,7 @@ class UpdateTagMetadata
     {
         $this->updateTags($event->discussion, -1);
 
+        /** @phpstan-ignore-next-line */
         $event->discussion->tags()->detach();
     }
 
@@ -124,12 +126,13 @@ class UpdateTagMetadata
     /**
      * @param \Flarum\Discussion\Discussion $discussion
      * @param int                           $delta
-     * @param Tag[]|null                    $tags
-     * @param Post                          $post:      This is only used when a post has been hidden
+     * @param Collection<Tag>|null                    $tags
+     * @param \Flarum\Post\Post             $post:      This is only used when a post has been hidden
      */
     protected function updateTags(Discussion $discussion, $delta = 0, $tags = null, $post = null)
     {
         if (!$tags) {
+            /** @phpstan-ignore-next-line */
             $tags = $discussion->tags;
         }
 

@@ -36,7 +36,10 @@ class CheckNotificationRecipients
             return $users;
         }
 
-        /** @var Tag[] */
+        /** 
+         * @var Tag[] $tags
+         * @phpstan-ignore-next-line
+         */
         $tags = $discussion->tags()->get();
 
         // Build a map of users and an array of their respective dl_language_id values

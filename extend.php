@@ -24,6 +24,8 @@ use Flarum\Discussion\Search\DiscussionSearcher;
 use Flarum\Extend;
 use Flarum\Tags\Api\Serializer\TagSerializer;
 use Flarum\Tags\Event\Creating as TagCreating;
+use Flarum\Tags\Tag;
+use Flarum\Tags\TagState;
 use FoF\DiscussionLanguage\Api\Serializers\DiscussionLanguageSerializer;
 use FoF\DiscussionLanguage\Api\Serializers\TagLocalizedLastDiscussionSerializer;
 use FoF\FollowTags\Event\SubscriptionChanging;
@@ -48,7 +50,14 @@ return [
         ->add(Middleware\AddLanguageFilter::class),
 
     (new Extend\Model(Discussion::class))
+        ->cast('language_id', 'int')
         ->hasOne('language', DiscussionLanguage::class, 'id', 'language_id'),
+
+    (new Extend\Model(Tag::class))
+        ->cast('localised_last_discussion', 'string'),
+
+    (new Extend\Model(TagState::class))
+        ->cast('dl_language_id', 'int'),
 
     (new Extend\Event())
         ->listen(Saving::class, Listener\AddDiscussionLanguage::class)
@@ -104,7 +113,7 @@ return [
         ->attributes(TagLocalizedLastDiscussionSerializer::class),
 
     (new Extend\Conditional())
-        ->whenExtensionEnabled('fof-follow-tags', [
+        ->whenExtensionEnabled('fof-follow-tags', fn () => [
             (new Extend\ApiSerializer(TagSerializer::class))
                 ->attributes(AddTagSerializerAttributes::class),
 
