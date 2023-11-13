@@ -36,8 +36,9 @@ class CheckNotificationRecipients
             return $users;
         }
 
-        /** 
+        /**
          * @var Tag[] $tags
+         *
          * @phpstan-ignore-next-line
          */
         $tags = $discussion->tags()->get();

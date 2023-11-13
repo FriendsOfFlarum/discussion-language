@@ -126,7 +126,7 @@ class UpdateTagMetadata
     /**
      * @param \Flarum\Discussion\Discussion $discussion
      * @param int                           $delta
-     * @param Collection<Tag>|null                    $tags
+     * @param Collection<Tag>|null          $tags
      * @param \Flarum\Post\Post             $post:      This is only used when a post has been hidden
      */
     protected function updateTags(Discussion $discussion, $delta = 0, $tags = null, $post = null)
