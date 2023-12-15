@@ -46,6 +46,9 @@ return [
         ->patch('/fof/discussion-language/{id}', 'fof.discussion-language.update', Api\Controllers\UpdateLanguageController::class)
         ->delete('/fof/discussion-language/{id}', 'fof.discussion-language.delete', Api\Controllers\DeleteLanguageController::class),
 
+    (new Extend\ServiceProvider())
+        ->register(Provider\LanguageFilterProvider::class),
+
     (new Extend\Middleware('forum'))
         ->add(Middleware\AddLanguageFilter::class),
 
