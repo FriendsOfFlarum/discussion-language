@@ -1,10 +1,12 @@
 <?php
 
 /*
- * This file is part of Flarum.
+ * This file is part of fof/discussion-language.
  *
- * For detailed copyright and license information, please view the
- * LICENSE file that was distributed with this source code.
+ * Copyright (c) FriendsOfFlarum.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace FoF\DiscussionLanguage\Sticky;
@@ -26,19 +28,19 @@ class PinStickiedDiscussionsToTop
 
             if (count($filters) > 0) {
                 // Use array_filter to check if any of the filters is an instance of TagFilterGambit
-                $tagFilterGambits = array_filter($filters, function($filter) {
+                $tagFilterGambits = array_filter($filters, function ($filter) {
                     return $filter instanceof TagFilterGambit;
                 });
-            
+
                 // Check if there is at least one TagFilterGambit instance
                 if (count($tagFilterGambits) > 0) {
                     if (!is_array($query->orders)) {
                         $query->orders = [];
                     }
-            
+
                     array_unshift($query->orders, ['column' => 'is_sticky', 'direction' => 'desc']);
                 }
-            
+
                 return;
             }
 
