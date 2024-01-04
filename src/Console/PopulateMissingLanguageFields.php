@@ -16,7 +16,7 @@ class PopulateMissingLanguageFields extends AbstractCommand
 
     protected function fire()
     {
-        $requiredTables = ['tag_user', 'users', 'discussion_languages', 'test'];
+        $requiredTables = ['tag_user', 'users', 'discussion_languages'];
 
         $schemaBuilder = $this->getSchemaBuilder();
 
