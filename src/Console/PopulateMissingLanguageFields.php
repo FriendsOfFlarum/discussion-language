@@ -35,7 +35,9 @@ class PopulateMissingLanguageFields extends AbstractCommand
 
         $updatedRows = 0;
 
-        DB::transaction(function () use (&$updatedRows, $languageMapping) {
+        $connection = DB::connection();
+
+        $connection->transaction(function () use (&$updatedRows, $languageMapping) {
             TagState::whereNull('dl_language_id')
                 ->orderBy('user_id')
                 ->orderBy('tag_id')
