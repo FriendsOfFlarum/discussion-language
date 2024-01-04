@@ -128,4 +128,7 @@ return [
                     ->beforeSending(CheckNotificationRecipients::class),
             ];
         }),
+
+    (new Extend\Console())
+        ->command(Console\PopulateMissingLanguageFields::class)
 ];
