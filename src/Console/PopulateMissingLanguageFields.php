@@ -3,6 +3,8 @@
 namespace FoF\DiscussionLanguage\Console;
 
 use Flarum\Console\AbstractCommand;
+use Flarum\Tags\TagState;
+use FoF\DiscussionLanguage\DiscussionLanguage;
 use Illuminate\Database\Capsule\Manager as DB;
 
 class PopulateMissingLanguageFields extends AbstractCommand
@@ -29,12 +31,12 @@ class PopulateMissingLanguageFields extends AbstractCommand
 
         $this->info('Starting to populate missing language fields...');
 
-        $languageMapping = DB::table('discussion_languages')->pluck('id', 'code')->toArray();
+        $languageMapping = DiscussionLanguage::pluck('id', 'code')->toArray();
 
         $updatedRows = 0;
 
         DB::transaction(function () use (&$updatedRows, $languageMapping) {
-            DB::table('tag_user')->whereNull('dl_language_id')
+            TagState::whereNull('dl_language_id')
                 ->orderBy('user_id')
                 ->orderBy('tag_id')
                 ->chunk(100, function ($tagUsers) use (&$updatedRows, $languageMapping) {
@@ -44,8 +46,7 @@ class PopulateMissingLanguageFields extends AbstractCommand
                             ->value('preferences->locale');
 
                         if ($locale && isset($languageMapping[$locale])) {
-                            DB::table('tag_user')
-                                ->where('user_id', $tagUser->user_id)
+                            TagState::where('user_id', $tagUser->user_id)
                                 ->where('tag_id', $tagUser->tag_id)
                                 ->update(['dl_language_id' => $languageMapping[$locale]]);
 
