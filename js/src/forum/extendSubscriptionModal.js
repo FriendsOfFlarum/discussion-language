@@ -35,7 +35,7 @@ export default function extendSubscriptionModal() {
   });
 
   extend(components.SubscriptionModal.prototype, 'requestData', function (data) {
-    data.language = this.language();
+    data.language = this.language() || app.translator.getLocale();
 
     return data;
   });
