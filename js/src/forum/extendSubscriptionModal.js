@@ -11,7 +11,12 @@ export default function extendSubscriptionModal() {
 
   extend(components.SubscriptionModal.prototype, 'oninit', function () {
     const tag = this.attrs.model;
-    const subscriptionLanguage = tag.subscriptionLanguage();
+    let subscriptionLanguage = tag.subscriptionLanguage();
+
+    if (!app.forum.attribute('fof-discussion-language.showAnyLangOpt') && subscriptionLanguage === null) {
+      subscriptionLanguage = app.translator.getLocale();
+    }
+
     this.language = Stream(subscriptionLanguage);
   });
 
