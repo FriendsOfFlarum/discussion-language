@@ -199,7 +199,7 @@ class MiddlewareLanguageFilterTest extends TestCase
 
         foreach ($languages as $code => $expectedTitle) {
             $response = $this->send(
-                $this->request('GET', "/api/discussions?filter[language]=$code")
+                $this->request('GET', "/api/discussions")->withQueryParams(['filter' => ['language' => $code]])
             );
 
             $this->assertEquals(200, $response->getStatusCode(), "Unexpected status code for language $code");
