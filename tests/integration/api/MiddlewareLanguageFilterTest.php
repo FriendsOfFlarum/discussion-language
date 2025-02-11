@@ -30,7 +30,7 @@ class MiddlewareLanguageFilterTest extends TestCase
             'discussions' => [
                 ['id' => 1, 'title' => 'English discussion', 'created_at' => Carbon::now(), 'user_id' => 2, 'first_post_id' => 1, 'language_id' => 1],
                 ['id' => 2, 'title' => 'German discussion', 'created_at' => Carbon::now(), 'user_id' => 2, 'first_post_id' => 2, 'language_id' => 2],
-                ['id' => 3, 'title' => 'French discussion', 'created_at' => Carbon::now(), 'user_id' => 2, 'first_post_id' => 2, 'language_id' => 3],
+                ['id' => 3, 'title' => 'French discussion', 'created_at' => Carbon::now(), 'user_id' => 2, 'first_post_id' => 3, 'language_id' => 3],
             ],
             'discussion_languages' => [
                 ['id' => 1, 'code' => 'en', 'country' => 'GB'],
