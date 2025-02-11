@@ -23,6 +23,8 @@ class MiddlewareLanguageFilterTest extends TestCase
     {
         parent::setUp();
 
+        $this->setting('default_route', '/all');
+
         $this->extension('flarum-tags');
         $this->extension('fof-discussion-language');
 
@@ -95,6 +97,7 @@ class MiddlewareLanguageFilterTest extends TestCase
         return [
             [''],
             ['all'],
+            ['t/tag-1'],
 
         ];
     }

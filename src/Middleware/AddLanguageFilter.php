@@ -104,36 +104,47 @@ class AddLanguageFilter implements MiddlewareInterface
      */
     protected function addQueryParams(ServerRequestInterface $request, array $params, string $language): ServerRequestInterface
     {
-        // use recursive merge to preserve filters added by other extensions
-        $newParams = array_merge_recursive($params, ['filter' => ['language' => $language]]);
+        // Remove the top-level 'language' parameter so it isn’t passed along.
+        unset($params['language']);
 
-        // If a search is in progress, add the search gambit
-        if (Arr::get($params, 'q')) {
-            $newParams['q'] = Arr::get($params, 'q').' language:'.$language;
+        // Ensure the 'filter' key exists as an array.
+        if (!isset($params['filter']) || !is_array($params['filter'])) {
+            $params['filter'] = [];
         }
 
-        return $request->withQueryParams($newParams);
+        // Set or overwrite the language filter.
+        $params['filter']['language'] = $language;
+
+        // If a search query is present, append the language filter to it.
+        if (isset($params['q']) && $params['q'] !== '') {
+            $params['q'] = $params['q'] . ' language:' . $language;
+        }
+
+        return $request->withQueryParams($params);
     }
 
     protected function isDiscussionListPath(ServerRequestInterface $request)
     {
         $path = $request->getAttribute('originalUri')->getPath();
-
-        // Check for the 'index' route (showing all discussions)
         $defaultRoute = $this->settings->get('default_route');
+    
         if ($defaultRoute === '/all') {
-            if ($path === '/') {
+            // If the default route is '/all', treat both '/' and '/all' as the discussion list.
+            if ($path === '/' || $path === '/all') {
                 return true;
             }
-        } elseif ($path === '/all') {
-            return true;
+        } else {
+            // Otherwise, if the default route is not '/all', then '/all' is the discussion list.
+            if ($path === '/all') {
+                return true;
+            }
         }
-
-        // Check for the 'tag' route (tag page)
+    
+        // Also apply for tag pages.
         if (substr($path, 0, 2) === '/t') {
             return true;
         }
-
+    
         return false;
     }
 
