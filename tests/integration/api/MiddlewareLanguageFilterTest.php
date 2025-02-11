@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of fof/discussion-language.
+ *
+ * Copyright (c) FriendsOfFlarum.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FoF\DiscussionLanguage\Tests\integration\api;
 
 use Carbon\Carbon;
@@ -9,7 +18,7 @@ use Flarum\Testing\integration\TestCase;
 class MiddlewareLanguageFilterTest extends TestCase
 {
     use RetrievesAuthorizedUsers;
-    
+
     public function setUp(): void
     {
         parent::setUp();
@@ -45,7 +54,6 @@ class MiddlewareLanguageFilterTest extends TestCase
                 $this->normalUser(),
             ],
         ]);
-        
     }
 
     /**
@@ -55,6 +63,7 @@ class MiddlewareLanguageFilterTest extends TestCase
      * and returns its decoded JSON content.
      *
      * @param string $html
+     *
      * @return array
      */
     protected function extractJsonPayload(string $html): array
@@ -64,8 +73,9 @@ class MiddlewareLanguageFilterTest extends TestCase
             $json = trim($matches[1]);
             $data = json_decode($json, true);
             if (json_last_error() !== JSON_ERROR_NONE) {
-                $this->fail('Invalid JSON in flarum-json-payload: ' . json_last_error_msg());
+                $this->fail('Invalid JSON in flarum-json-payload: '.json_last_error_msg());
             }
+
             return $data;
         }
         $this->fail('Could not extract JSON payload from HTML');
@@ -91,7 +101,7 @@ class MiddlewareLanguageFilterTest extends TestCase
 
     /**
      * @test
-     * 
+     *
      * @dataProvider routesProvider
      */
     public function all_discussions_are_returned_when_no_query_is_included_frontend(string $route)
@@ -149,7 +159,7 @@ class MiddlewareLanguageFilterTest extends TestCase
 
     /**
      * @test
-     * 
+     *
      * @dataProvider routesProvider
      *
      * Validate that supplying a language parameter filters the discussions to return only the expected discussion.
