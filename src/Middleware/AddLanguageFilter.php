@@ -117,7 +117,7 @@ class AddLanguageFilter implements MiddlewareInterface
 
         // If a search query is present, append the language filter to it.
         if (isset($params['q']) && $params['q'] !== '') {
-            $params['q'] = $params['q'] . ' language:' . $language;
+            $params['q'] = $params['q'].' language:'.$language;
         }
 
         return $request->withQueryParams($params);
@@ -127,7 +127,7 @@ class AddLanguageFilter implements MiddlewareInterface
     {
         $path = $request->getAttribute('originalUri')->getPath();
         $defaultRoute = $this->settings->get('default_route');
-    
+
         if ($defaultRoute === '/all') {
             // If the default route is '/all', treat both '/' and '/all' as the discussion list.
             if ($path === '/' || $path === '/all') {
@@ -139,12 +139,12 @@ class AddLanguageFilter implements MiddlewareInterface
                 return true;
             }
         }
-    
+
         // Also apply for tag pages.
         if (substr($path, 0, 2) === '/t') {
             return true;
         }
-    
+
         return false;
     }
 
