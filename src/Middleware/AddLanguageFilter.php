@@ -104,9 +104,6 @@ class AddLanguageFilter implements MiddlewareInterface
      */
     protected function addQueryParams(ServerRequestInterface $request, array $params, string $language): ServerRequestInterface
     {
-        // Remove the top-level 'language' parameter so it isn’t passed along.
-        unset($params['language']);
-
         // Ensure the 'filter' key exists as an array.
         if (!isset($params['filter']) || !is_array($params['filter'])) {
             $params['filter'] = [];
