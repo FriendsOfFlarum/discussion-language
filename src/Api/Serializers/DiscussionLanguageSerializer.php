@@ -93,10 +93,10 @@ class DiscussionLanguageSerializer extends AbstractSerializer
         }
 
         if ($this->records === null) {
-            $csv = Reader::createFromPath(__DIR__.'/../../../resources/wikipedia-iso-639-2-codes.csv');
+            $csv = Reader::from(__DIR__.'/../../../resources/wikipedia-iso-639-2-codes.csv');
             $csv->setHeaderOffset(0);
 
-            $stmt = Statement::create();
+            $stmt = new Statement();
 
             $this->records = $stmt->process($csv);
         }
