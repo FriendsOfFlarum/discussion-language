@@ -8,6 +8,5 @@ jobs:
     with:
       enable_backend_testing: true
       enable_phpstan: true
-      php_ini_values: E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED
 
       backend_directory: .
