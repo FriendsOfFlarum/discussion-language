@@ -7,7 +7,7 @@
     "flarum-webpack-config": "^2.0.0",
     "twemoji": "^14.0.2",
     "twemoji-basename": "^1.0.0",
-    "webpack": "^5.94.0",
+    "webpack": "^5.104.1",
     "webpack-cli": "^5.1.4",
     "webpack-merge": "^5.8.0"
   },
