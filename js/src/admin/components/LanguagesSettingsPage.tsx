@@ -108,7 +108,7 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
             })}
           </div>
 
-          {this.submitButton(vnode)}
+          {this.submitButton()}
 
           <hr />
 
@@ -178,7 +178,7 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
 
         <div className="Form-group">
           {app.store.all<Language>('discussion-languages').map((language) => {
-            const id = language.id();
+            const id = language.id()!;
 
             const updating = this.recordsUpdating[id];
             const deleting = this.recordsDeleting[id];
@@ -189,14 +189,14 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
               <div className="flex">
                 {Select.component({
                   onchange: (val: string) => {
-                    this.recordsUpdating[id!] = true;
+                    this.recordsUpdating[id] = true;
 
                     language
                       .save({
                         code: val,
                       })
                       .then(() => {
-                        this.recordsUpdating[id!] = false;
+                        this.recordsUpdating[id] = false;
                         m.redraw();
                       });
                   },
@@ -207,14 +207,14 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
 
                 {Select.component({
                   onchange: (val: string) => {
-                    this.recordsUpdating[id!] = true;
+                    this.recordsUpdating[id] = true;
 
                     language
                       .save({
                         country: val,
                       })
                       .then(() => {
-                        this.recordsUpdating[id!] = false;
+                        this.recordsUpdating[id] = false;
                         m.redraw();
                       });
                   },
@@ -239,7 +239,7 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
     );
   }
 
-  onkeydown(e) {
+  onkeydown(e: KeyboardEvent) {
     if (e.key === 'Enter') {
       this.add();
       e.preventDefault();
@@ -268,8 +268,9 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
       });
   }
 
-  remove(language) {
-    this.recordsDeleting[language.id()] = true;
+  remove(language: Language) {
+    const id = language.id()!;
+    this.recordsDeleting[id] = true;
 
     language
       .delete()
@@ -278,7 +279,7 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
         () => {}
       )
       .then(() => {
-        delete this.recordsDeleting[language.id()];
+        delete this.recordsDeleting[id];
         m.redraw();
       });
   }

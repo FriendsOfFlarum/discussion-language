@@ -2,11 +2,14 @@ import app from 'flarum/forum/app';
 import { extend } from 'flarum/common/extend';
 import DiscussionControls from 'flarum/forum/utils/DiscussionControls';
 import Button from 'flarum/common/components/Button';
+import type Discussion from 'flarum/common/models/Discussion';
+import type ItemList from 'flarum/common/utils/ItemList';
+import type Mithril from 'mithril';
 
 import LanguageDiscussionModal from './components/LanguageDiscussionModal';
 
 export default () => {
-  extend(DiscussionControls, 'moderationControls', function (items, discussion) {
+  extend(DiscussionControls, 'moderationControls', function (items: ItemList<Mithril.Children>, discussion: Discussion) {
     if (discussion.canChangeLanguage()) {
       items.add(
         'language',

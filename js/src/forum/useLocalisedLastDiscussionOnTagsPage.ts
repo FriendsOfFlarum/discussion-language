@@ -9,7 +9,7 @@ export default function useLocalisedLastDiscussionOnTagsPage() {
   if (!('flarum-tags' in flarum.extensions)) return;
 
   Tag.prototype.lastPostedDiscussion = function (this: Tag) {
-    const original = Model.hasOne('lastPostedDiscussion').bind(this);
+    const original = Model.hasOne('lastPostedDiscussion').bind(this) as () => false | Discussion | null;
 
     if (!app.forum.attribute('fof-discussion-language.useLocaleForTagsPageLastDiscussion')) {
       return original();

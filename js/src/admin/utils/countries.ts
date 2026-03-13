@@ -15,7 +15,7 @@ export default function getCountries(useNativeName: boolean) {
 
   return Object.entries(countries).reduce(
     (acc, [code, info]) => {
-      acc[code] = info[key];
+      acc[code] = info[key] as string;
 
       return acc;
     },

@@ -85,7 +85,6 @@ export default class LanguageDropdown extends Dropdown<LanguageDropdownAttrs> {
         aria-haspopup="menu"
         aria-label={this.attrs.accessibleToggleLabel}
         data-toggle="dropdown"
-        onclick={this.attrs.onclick}
       >
         {this.getButtonContent(children)}
       </button>

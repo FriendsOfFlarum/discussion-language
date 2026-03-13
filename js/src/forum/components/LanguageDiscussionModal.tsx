@@ -1,17 +1,31 @@
 import app from 'flarum/forum/app';
-import Modal from 'flarum/common/components/Modal';
+import Modal, { IInternalModalAttrs } from 'flarum/common/components/Modal';
 import Button from 'flarum/common/components/Button';
 import DiscussionPage from 'flarum/forum/components/DiscussionPage';
+import type Discussion from 'flarum/common/models/Discussion';
+import type Mithril from 'mithril';
 
+import Language from '../../common/models/Language';
 import LanguageDisplay from './LanguageDisplay';
 
-export default class LanguageDiscussionModal extends Modal {
-  oninit(vnode) {
+export interface LanguageDiscussionModalAttrs extends IInternalModalAttrs {
+  discussion?: Discussion;
+  selected?: Language;
+  hideSubmitButton?: boolean;
+  onsubmit?: (language: Language) => void;
+}
+
+export default class LanguageDiscussionModal extends Modal<LanguageDiscussionModalAttrs> {
+  languages!: Language[];
+  current!: Language | undefined;
+  selected!: Language | undefined;
+
+  oninit(vnode: Mithril.Vnode<LanguageDiscussionModalAttrs, this>) {
     super.oninit(vnode);
 
-    this.languages = app.store.all('discussion-languages').filter((language) => language.code() !== 'any');
+    this.languages = app.store.all<Language>('discussion-languages').filter((language) => language.code() !== 'any');
 
-    this.current = this.attrs.selected || (this.attrs.discussion && this.attrs.discussion.language());
+    this.current = this.attrs.selected || (this.attrs.discussion && this.attrs.discussion.language?.()) || undefined;
     this.selected = this.current;
   }
 
@@ -19,13 +33,13 @@ export default class LanguageDiscussionModal extends Modal {
     return 'FoFLanguageDiscussionModal';
   }
 
-  title() {
+  title(): Mithril.Children {
     return this.attrs.discussion
       ? app.translator.trans('fof-discussion-language.forum.change_language.edit_title', { title: <em>{this.attrs.discussion.title()}</em> })
       : app.translator.trans('fof-discussion-language.forum.change_language.title');
   }
 
-  content() {
+  content(): Mithril.Children {
     return [
       <div className="Modal-body">
         <div className="Form-group">
@@ -54,7 +68,7 @@ export default class LanguageDiscussionModal extends Modal {
     ];
   }
 
-  select(language) {
+  select(language: Language) {
     this.selected = language;
 
     if (this.attrs.hideSubmitButton) return this.onsubmit();
@@ -62,7 +76,7 @@ export default class LanguageDiscussionModal extends Modal {
     m.redraw();
   }
 
-  onsubmit(e) {
+  onsubmit(e?: SubmitEvent) {
     if (e) e.preventDefault();
 
     const { discussion, onsubmit } = this.attrs;
@@ -72,18 +86,18 @@ export default class LanguageDiscussionModal extends Modal {
     if (!discussion) {
       this.hide();
 
-      if (onsubmit) onsubmit(this.selected);
+      if (onsubmit && this.selected) onsubmit(this.selected);
 
       return;
     }
 
-    const language = this.selected;
+    const language = this.selected ?? null;
 
     discussion
       .save({ relationships: { language } })
       .then(() => {
         if (app.current instanceof DiscussionPage) {
-          app.current.stream.update();
+          (app.current as any).stream.update();
         }
 
         return this.hide();
