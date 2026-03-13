@@ -17,7 +17,7 @@ use Flarum\Tags\Tag;
 
 class TagLocalizedLastDiscussionSerializer
 {
-    public function __invoke(TagSerializer $serializer, Tag $tag, array $attributes)
+    public function __invoke(TagSerializer $serializer, Tag $tag, array $attributes): array
     {
         $json = json_decode($tag->localised_last_discussion, true);
 

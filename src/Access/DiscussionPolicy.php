@@ -19,7 +19,7 @@ use Flarum\User\User;
 
 class DiscussionPolicy extends AbstractPolicy
 {
-    protected $model = Discussion::class;
+    protected string $model = Discussion::class;
 
     /**
      * @var SettingsRepositoryInterface
@@ -34,7 +34,7 @@ class DiscussionPolicy extends AbstractPolicy
         $this->settings = $settings;
     }
 
-    public function changeLanguage(User $actor, Discussion $discussion)
+    public function changeLanguage(User $actor, Discussion $discussion): ?string
     {
         if ($discussion->user_id == $actor->id && $actor->can('reply', $discussion)) {
             $allowEditLanguage = $this->settings->get('fof-discussion-language.allow_language_change');
@@ -48,5 +48,7 @@ class DiscussionPolicy extends AbstractPolicy
         } elseif ($actor->can('changeLanguageModerate', $discussion)) {
             return $this->allow();
         }
+
+        return null;
     }
 }

@@ -120,7 +120,7 @@ class AddLanguageFilter implements MiddlewareInterface
         return $request->withQueryParams($params);
     }
 
-    protected function isDiscussionListPath(ServerRequestInterface $request)
+    protected function isDiscussionListPath(ServerRequestInterface $request): bool
     {
         $path = $request->getAttribute('originalUri')->getPath();
         $defaultRoute = $this->settings->get('default_route');

@@ -15,7 +15,7 @@ use FoF\DiscussionLanguage\DiscussionLanguage;
 
 class DeleteLanguageCommandHandler
 {
-    public function handle(DeleteLanguageCommand $command)
+    public function handle(DeleteLanguageCommand $command): void
     {
         $command->actor->assertAdmin();
 

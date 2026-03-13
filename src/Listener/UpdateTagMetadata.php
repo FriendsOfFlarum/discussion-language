@@ -31,7 +31,7 @@ class UpdateTagMetadata
     /**
      * @param Dispatcher $events
      */
-    public function subscribe(Dispatcher $events)
+    public function subscribe(Dispatcher $events): void
     {
         $events->listen(Started::class, [$this, 'whenDiscussionIsStarted']);
         $events->listen(DiscussionWasTagged::class, [$this, 'whenDiscussionWasTagged']);
@@ -48,7 +48,7 @@ class UpdateTagMetadata
     /**
      * @param Started $event
      */
-    public function whenDiscussionIsStarted(Started $event)
+    public function whenDiscussionIsStarted(Started $event): void
     {
         $this->updateTags($event->discussion, 1);
     }
@@ -56,7 +56,7 @@ class UpdateTagMetadata
     /**
      * @param DiscussionWasTagged $event
      */
-    public function whenDiscussionWasTagged(DiscussionWasTagged $event)
+    public function whenDiscussionWasTagged(DiscussionWasTagged $event): void
     {
         $oldTags = Tag::whereIn('id', Arr::pluck($event->oldTags, 'id'))->get();
 
@@ -67,7 +67,7 @@ class UpdateTagMetadata
     /**
      * @param Deleted $event
      */
-    public function whenDiscussionIsDeleted(Deleted $event)
+    public function whenDiscussionIsDeleted(Deleted $event): void
     {
         $this->updateTags($event->discussion, -1);
 
@@ -78,7 +78,7 @@ class UpdateTagMetadata
     /**
      * @param Hidden $event
      */
-    public function whenDiscussionIsHidden(Hidden $event)
+    public function whenDiscussionIsHidden(Hidden $event): void
     {
         $this->updateTags($event->discussion, -1);
     }
@@ -86,7 +86,7 @@ class UpdateTagMetadata
     /**
      * @param Restored $event
      */
-    public function whenDiscussionIsRestored(Restored $event)
+    public function whenDiscussionIsRestored(Restored $event): void
     {
         $this->updateTags($event->discussion, 1);
     }
@@ -94,7 +94,7 @@ class UpdateTagMetadata
     /**
      * @param Posted $event
      */
-    public function whenPostIsPosted(Posted $event)
+    public function whenPostIsPosted(Posted $event): void
     {
         $this->updateTags($event->post->discussion);
     }
@@ -102,7 +102,7 @@ class UpdateTagMetadata
     /**
      * @param PostDeleted $event
      */
-    public function whenPostIsDeleted(PostDeleted $event)
+    public function whenPostIsDeleted(PostDeleted $event): void
     {
         $this->updateTags($event->post->discussion);
     }
@@ -110,7 +110,7 @@ class UpdateTagMetadata
     /**
      * @param PostHidden $event
      */
-    public function whenPostIsHidden(PostHidden $event)
+    public function whenPostIsHidden(PostHidden $event): void
     {
         $this->updateTags($event->post->discussion, 0, null, $event->post);
     }
@@ -118,7 +118,7 @@ class UpdateTagMetadata
     /**
      * @param PostRestored $event
      */
-    public function whenPostIsRestored(PostRestored $event)
+    public function whenPostIsRestored(PostRestored $event): void
     {
         $this->updateTags($event->post->discussion, 0, null, $event->post);
     }
@@ -129,7 +129,7 @@ class UpdateTagMetadata
      * @param Collection<Tag>|null          $tags
      * @param \Flarum\Post\Post             $post:      This is only used when a post has been hidden
      */
-    protected function updateTags(Discussion $discussion, $delta = 0, $tags = null, $post = null)
+    protected function updateTags(Discussion $discussion, int $delta = 0, ?Collection $tags = null, ?\Flarum\Post\Post $post = null): void
     {
         if (!$tags) {
             /** @phpstan-ignore-next-line */
@@ -181,7 +181,7 @@ class UpdateTagMetadata
         }
     }
 
-    private function setLocalisedLastDiscussion(Tag $tag, Discussion $discussion)
+    private function setLocalisedLastDiscussion(Tag $tag, Discussion $discussion): void
     {
         $localisedLastPost = json_decode($tag->localised_last_discussion, true);
         $lang = $discussion->language_id;
@@ -195,7 +195,7 @@ class UpdateTagMetadata
         $tag->localised_last_discussion = json_encode($localisedLastPost);
     }
 
-    private function removeLocalisedLastDiscussion(Tag $tag, $lang)
+    private function removeLocalisedLastDiscussion(Tag $tag, int|string|null $lang): void
     {
         $localisedLastPost = json_decode($tag->localised_last_discussion, true);
 

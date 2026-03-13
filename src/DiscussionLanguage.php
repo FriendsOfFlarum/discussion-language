@@ -23,7 +23,7 @@ class DiscussionLanguage extends AbstractModel
 {
     public $fillable = ['code', 'country'];
 
-    public function discussion()
+    public function discussion(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Discussion::class, 'language_id');
     }
