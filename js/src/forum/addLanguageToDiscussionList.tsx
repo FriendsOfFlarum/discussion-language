@@ -4,7 +4,6 @@ import IndexPage from 'flarum/forum/components/IndexPage';
 import DiscussionHero from 'flarum/forum/components/DiscussionHero';
 import DiscussionListState from 'flarum/forum/states/DiscussionListState';
 import DiscussionListItem from 'flarum/forum/components/DiscussionListItem';
-import GlobalSearchState from 'flarum/forum/states/GlobalSearchState';
 import setRouteWithForcedRefresh from 'flarum/common/utils/setRouteWithForcedRefresh';
 import type ItemList from 'flarum/common/utils/ItemList';
 import type { PaginatedListRequestParams } from 'flarum/common/states/PaginatedListState';
@@ -33,6 +32,16 @@ const addLanguage = function (this: any, items: ItemList<Mithril.Children>) {
   );
 };
 
+/**
+ * Read the currently selected language from the URL's filter param.
+ * Falls back to the legacy top-level ?language param for backwards compat
+ * with URLs produced by the PHP middleware redirect.
+ */
+function currentLanguage(): string | undefined {
+  const filter = m.route.param('filter') as Record<string, string> | undefined;
+  return filter?.language ?? m.route.param('language');
+}
+
 export default () => {
   extend(DiscussionListItem.prototype, 'infoItems', addLanguage);
   extend(DiscussionHero.prototype, 'items', addLanguage);
@@ -55,28 +64,33 @@ export default () => {
       delete filter.subscription;
     }
 
-    const paramLang = app.search.params().language;
-    const locale = app.search.params().language ?? app.translator.getLocale();
+    const selectedLang = currentLanguage();
     const showAnyOpt = app.forum.attribute('fof-discussion-language.showAnyLangOpt');
+
+    // 'any' means no filter — show all languages.
+    if (selectedLang === 'any') {
+      params.filter = filter;
+      return;
+    }
+
+    const locale = selectedLang ?? app.translator.getLocale();
 
     if (filter.q) {
       if (showAnyOpt) {
-        if (paramLang) {
-          filter.q += ' language:' + paramLang;
+        if (selectedLang) {
+          filter.q += ' language:' + selectedLang;
         }
       } else {
         filter.q += ' language:' + locale;
       }
     } else {
-      if (!showAnyOpt || paramLang) {
+      if (!showAnyOpt || selectedLang) {
         filter.language = locale;
       }
     }
 
     params.filter = filter;
   });
-
-  extend(GlobalSearchState.prototype, 'stickyParams', (params: Record<string, string>) => (params.language = m.route.param('language')));
 
   extend(IndexPage.prototype, 'viewItems', function (items: ItemList<Mithril.Children>) {
     // Don't add language controls to /private (fof/byobu)
@@ -87,12 +101,18 @@ export default () => {
     items.add(
       'language',
       <LanguageDropdown
-        selected={app.search.params().language}
+        selected={currentLanguage() ?? defaultSelected}
         onclick={(key: string) => {
           const params = app.search.params();
+          const filter = ((params.filter as Record<string, string>) ?? {});
 
-          if (key === defaultSelected) delete params.language;
-          else params.language = key;
+          if (key === defaultSelected) {
+            delete filter.language;
+          } else {
+            filter.language = key;
+          }
+
+          params.filter = filter;
 
           setRouteWithForcedRefresh(app.route(app.current.get('routeName'), params));
         }}

@@ -78,7 +78,7 @@ class AddLanguageFilter implements MiddlewareInterface
             if ($language) {
                 if ((bool) $this->settings->get('fof-discussion-language.showAnyLangOpt')) {
                     $uri = $request->getUri();
-                    $uri = $uri->withQuery("language=$language");
+                    $uri = $uri->withQuery(http_build_query(['filter' => ['language' => $language]]));
 
                     return new RedirectResponse($uri, 303);
                 } else {
