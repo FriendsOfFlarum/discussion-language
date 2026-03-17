@@ -177,7 +177,7 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
         </div>
 
         <div className="Form-group">
-          {app.store.all<Language>('discussion-languages').map((language) => {
+          {app.store.all<Language>('discussion-languages').filter((l) => l.id() !== 'any').map((language) => {
             const id = language.id()!;
 
             const updating = this.recordsUpdating[id];
