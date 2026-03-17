@@ -39,6 +39,12 @@ class LanguageFilterGambit extends AbstractRegexGambit implements FilterInterfac
 
     protected function constrain(Builder $query, bool $negate, array $codes): void
     {
+        $codes = array_filter($codes, fn ($c) => $c !== 'any');
+
+        if (empty($codes)) {
+            return;
+        }
+
         $sub = DiscussionLanguage::whereIn('code', $codes)->select('id');
 
         if ($negate) {
