@@ -177,63 +177,66 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
         </div>
 
         <div className="Form-group">
-          {app.store.all<Language>('discussion-languages').filter((l) => l.id() !== 'any').map((language) => {
-            const id = language.id()!;
+          {app.store
+            .all<Language>('discussion-languages')
+            .filter((l) => l.id() !== 'any')
+            .map((language) => {
+              const id = language.id()!;
 
-            const updating = this.recordsUpdating[id];
-            const deleting = this.recordsDeleting[id];
+              const updating = this.recordsUpdating[id];
+              const deleting = this.recordsDeleting[id];
 
-            const country = language.country();
+              const country = language.country();
 
-            return (
-              <div className="flex">
-                {Select.component({
-                  onchange: (val: string) => {
-                    this.recordsUpdating[id] = true;
+              return (
+                <div className="flex">
+                  {Select.component({
+                    onchange: (val: string) => {
+                      this.recordsUpdating[id] = true;
 
-                    language
-                      .save({
-                        code: val,
-                      })
-                      .then(() => {
-                        this.recordsUpdating[id] = false;
-                        m.redraw();
-                      });
-                  },
-                  value: language.code(),
-                  options: locales,
-                  disabled: updating || deleting,
-                })}
+                      language
+                        .save({
+                          code: val,
+                        })
+                        .then(() => {
+                          this.recordsUpdating[id] = false;
+                          m.redraw();
+                        });
+                    },
+                    value: language.code(),
+                    options: locales,
+                    disabled: updating || deleting,
+                  })}
 
-                {Select.component({
-                  onchange: (val: string) => {
-                    this.recordsUpdating[id] = true;
+                  {Select.component({
+                    onchange: (val: string) => {
+                      this.recordsUpdating[id] = true;
 
-                    language
-                      .save({
-                        country: val,
-                      })
-                      .then(() => {
-                        this.recordsUpdating[id] = false;
-                        m.redraw();
-                      });
-                  },
-                  value: country,
-                  options: countryData,
-                  disabled: updating || deleting,
-                })}
+                      language
+                        .save({
+                          country: val,
+                        })
+                        .then(() => {
+                          this.recordsUpdating[id] = false;
+                          m.redraw();
+                        });
+                    },
+                    value: country,
+                    options: countryData,
+                    disabled: updating || deleting,
+                  })}
 
-                {Button.component(
-                  {
-                    className: `Button Button--danger`,
-                    disabled: deleting,
-                    onclick: this.remove.bind(this, language),
-                  },
-                  icon(deleting ? 'fas fa-spinner fa-spin' : 'fas fa-times')
-                )}
-              </div>
-            );
-          })}
+                  {Button.component(
+                    {
+                      className: `Button Button--danger`,
+                      disabled: deleting,
+                      onclick: this.remove.bind(this, language),
+                    },
+                    icon(deleting ? 'fas fa-spinner fa-spin' : 'fas fa-times')
+                  )}
+                </div>
+              );
+            })}
         </div>
       </>
     );

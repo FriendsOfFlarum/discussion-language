@@ -104,7 +104,7 @@ export default () => {
         selected={currentLanguage() ?? defaultSelected}
         onclick={(key: string) => {
           const params = app.search.params();
-          const filter = ((params.filter as unknown as Record<string, string>) ?? {});
+          const filter = (params.filter as unknown as Record<string, string>) ?? {};
 
           if (key === defaultSelected) {
             delete filter.language;
