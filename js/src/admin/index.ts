@@ -1,5 +1,6 @@
 import app from 'flarum/admin/app';
 import SettingDropdown from 'flarum/admin/components/SettingDropdown';
+import type { PermissionConfig } from 'flarum/admin/components/PermissionGrid';
 
 import LanguagesSettingsPage from './components/LanguagesSettingsPage';
 
@@ -40,7 +41,7 @@ app.initializers.add('fof/discussion-language', () => {
             ],
           });
         },
-      },
+      } as unknown as PermissionConfig,
       'start',
       65
     );

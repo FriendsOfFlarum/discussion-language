@@ -1,10 +1,6 @@
 import Model from 'flarum/common/Model';
 
 export default class Language extends Model {
-  id() {
-    return Model.attribute<string>('id').call(this);
-  }
-
   code() {
     return Model.attribute<string>('code').call(this);
   }
@@ -22,6 +18,6 @@ export default class Language extends Model {
   }
 
   apiEndpoint() {
-    return `/fof/discussion-language${this.exists ? `/${this.data.id}` : ''}`;
+    return `/fof/discussion-language${this.exists ? `/${this.id()}` : ''}`;
   }
 }

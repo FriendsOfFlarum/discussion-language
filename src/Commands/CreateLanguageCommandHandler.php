@@ -27,7 +27,7 @@ class CreateLanguageCommandHandler
         $this->validator = $validator;
     }
 
-    public function handle(CreateLanguageCommand $command)
+    public function handle(CreateLanguageCommand $command): DiscussionLanguage
     {
         $command->actor->assertAdmin();
         $data = $command->data;

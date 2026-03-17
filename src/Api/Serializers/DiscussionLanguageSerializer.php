@@ -76,7 +76,7 @@ class DiscussionLanguageSerializer extends AbstractSerializer
         ];
     }
 
-    public function discussion()
+    public function discussion(): \Tobscure\JsonApi\Relationship
     {
         return $this->hasOne(Discussion::class, DiscussionSerializer::class);
     }
@@ -86,7 +86,7 @@ class DiscussionLanguageSerializer extends AbstractSerializer
         return $model->code === 'any' ? 'any' : $model->id;
     }
 
-    protected function getLanguageName(string $code, bool $native)
+    protected function getLanguageName(string $code, bool $native): ?string
     {
         if ($code === 'any') {
             return $this->translator->trans('fof-discussion-language.forum.index_language.any');
@@ -137,5 +137,7 @@ class DiscussionLanguageSerializer extends AbstractSerializer
                 return $native ? $nativeName : $englishName;
             }
         }
+
+        return null;
     }
 }

@@ -27,7 +27,7 @@ class AddDiscussionLanguage
         $this->validator = $validator;
     }
 
-    public function handle(Saving $event)
+    public function handle(Saving $event): void
     {
         // Check to see if we should skip adding the language if this is a private discussion created by fof/byobu
         if (Arr::get($event->data, 'relationships.recipientUsers') || Arr::get($event->data, 'relationships.recipientGroups')) {

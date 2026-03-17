@@ -20,7 +20,7 @@ use Illuminate\Database\Query\Builder;
 
 class LanguageFilterGambit extends AbstractRegexGambit implements FilterInterface
 {
-    public function getGambitPattern()
+    public function getGambitPattern(): string
     {
         return 'language:(.+)';
     }
@@ -30,26 +30,31 @@ class LanguageFilterGambit extends AbstractRegexGambit implements FilterInterfac
         return 'language';
     }
 
-    public function filter(FilterState $filterState, string $filterValue, bool $negate)
+    public function filter(FilterState $filterState, string $filterValue, bool $negate): void
     {
         $codes = explode(',', trim($filterValue, '"'));
 
         $this->constrain($filterState->getQuery(), $negate, $codes);
     }
 
-    protected function constrain(Builder $query, bool $negate, array $codes)
+    protected function constrain(Builder $query, bool $negate, array $codes): void
     {
-        $query->where(function ($query) use ($codes, $negate) {
-            foreach ($codes as $code) {
-                $id = DiscussionLanguage::where('code', $code)->value('id');
+        $codes = array_filter($codes, fn ($c) => $c !== 'any');
 
-                $query->orWhereIn('discussions.id', function ($query) use ($id) {
-                    $query->select('discussion_id')
-                        ->from('discussion_tag')
-                        ->where('language_id', $id);
-                }, $negate);
-            }
-        });
+        if (empty($codes)) {
+            return;
+        }
+
+        $sub = DiscussionLanguage::whereIn('code', $codes)->select('id');
+
+        if ($negate) {
+            $query->where(function ($query) use ($sub) {
+                $query->whereNotIn('discussions.language_id', $sub)
+                    ->orWhereNull('discussions.language_id');
+            });
+        } else {
+            $query->whereIn('discussions.language_id', $sub);
+        }
     }
 
     /**

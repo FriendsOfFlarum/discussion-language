@@ -36,9 +36,9 @@ class DeleteLanguageController extends AbstractDeleteController
     /**
      * {@inheritdoc}
      */
-    protected function delete(ServerRequestInterface $request)
+    protected function delete(ServerRequestInterface $request): void
     {
-        return $this->bus->dispatch(
+        $this->bus->dispatch(
             new DeleteLanguageCommand(RequestUtil::getActor($request), Arr::get($request->getQueryParams(), 'id'))
         );
     }

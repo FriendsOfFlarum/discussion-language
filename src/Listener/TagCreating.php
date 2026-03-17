@@ -15,7 +15,7 @@ use Flarum\Tags\Event\Creating;
 
 class TagCreating
 {
-    public function handle(Creating $event)
+    public function handle(Creating $event): Creating
     {
         $event->tag->localised_last_discussion = '{}';
 
