@@ -85,7 +85,7 @@ export default () => {
       }
     } else {
       if (!showAnyOpt || selectedLang) {
-        filter.language = locale;
+        filter.language = locale ?? app.translator.getLocale() ?? '';
       }
     }
 
@@ -104,7 +104,7 @@ export default () => {
         selected={currentLanguage() ?? defaultSelected}
         onclick={(key: string) => {
           const params = app.search.params();
-          const filter = ((params.filter as Record<string, string>) ?? {});
+          const filter = ((params.filter as unknown as Record<string, string>) ?? {});
 
           if (key === defaultSelected) {
             delete filter.language;
@@ -112,7 +112,7 @@ export default () => {
             filter.language = key;
           }
 
-          params.filter = filter;
+          params.filter = filter as unknown as string;
 
           setRouteWithForcedRefresh(app.route(app.current.get('routeName'), params));
         }}
