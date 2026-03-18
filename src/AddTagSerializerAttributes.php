@@ -20,7 +20,7 @@ use Illuminate\Contracts\Cache\Repository as Cache;
  */
 class AddTagSerializerAttributes
 {
-    const CACHE_KEY = 'fof-discussion-language.languages';
+    public const CACHE_KEY = 'fof-discussion-language.languages';
 
     private Cache $cache;
 

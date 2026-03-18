@@ -46,18 +46,18 @@ class TagLocalizedLastDiscussionSerializerTest extends TestCase
                 ['id' => 3, 'discussion_id' => 3, 'number' => 1, 'type' => 'comment', 'content' => '<t><p>French post</p></t>',  'user_id' => 1, 'created_at' => Carbon::now()],
             ],
             'tags' => [
-                ['id' => 1, 'name' => 'Multi-lang Tag', 'slug' => 'multi-lang-tag', 'position' => 0, 'parent_id' => null, 'discussion_count' => 3, 'is_restricted' => 0, 'is_hidden' => 0,
-                 'localised_last_discussion' => json_encode([
-                     '1' => ['id' => 1, 'at' => Carbon::now()->timestamp, 'user_id' => 1],
-                     '2' => ['id' => 2, 'at' => Carbon::now()->timestamp, 'user_id' => 1],
-                     '3' => ['id' => 3, 'at' => Carbon::now()->timestamp, 'user_id' => 1],
-                 ])],
-                ['id' => 2, 'name' => 'Empty Tag', 'slug' => 'empty-tag', 'position' => 1, 'parent_id' => null, 'discussion_count' => 0, 'is_restricted' => 0, 'is_hidden' => 0,
-                 'localised_last_discussion' => '{}'],
-                ['id' => 3, 'name' => 'Stale Tag', 'slug' => 'stale-tag', 'position' => 2, 'parent_id' => null, 'discussion_count' => 0, 'is_restricted' => 0, 'is_hidden' => 0,
-                 'localised_last_discussion' => json_encode([
-                     '1' => ['id' => 999, 'at' => Carbon::now()->timestamp, 'user_id' => 1],
-                 ])],
+                ['id'                           => 1, 'name' => 'Multi-lang Tag', 'slug' => 'multi-lang-tag', 'position' => 0, 'parent_id' => null, 'discussion_count' => 3, 'is_restricted' => 0, 'is_hidden' => 0,
+                    'localised_last_discussion' => json_encode([
+                        '1' => ['id' => 1, 'at' => Carbon::now()->timestamp, 'user_id' => 1],
+                        '2' => ['id' => 2, 'at' => Carbon::now()->timestamp, 'user_id' => 1],
+                        '3' => ['id' => 3, 'at' => Carbon::now()->timestamp, 'user_id' => 1],
+                    ])],
+                ['id'                           => 2, 'name' => 'Empty Tag', 'slug' => 'empty-tag', 'position' => 1, 'parent_id' => null, 'discussion_count' => 0, 'is_restricted' => 0, 'is_hidden' => 0,
+                    'localised_last_discussion' => '{}'],
+                ['id'                           => 3, 'name' => 'Stale Tag', 'slug' => 'stale-tag', 'position' => 2, 'parent_id' => null, 'discussion_count' => 0, 'is_restricted' => 0, 'is_hidden' => 0,
+                    'localised_last_discussion' => json_encode([
+                        '1' => ['id' => 999, 'at' => Carbon::now()->timestamp, 'user_id' => 1],
+                    ])],
             ],
             'discussion_tag' => [
                 ['discussion_id' => 1, 'tag_id' => 1],
@@ -97,8 +97,8 @@ class TagLocalizedLastDiscussionSerializerTest extends TestCase
         $localised = $tags['multi-lang-tag']['localisedLastDiscussion'];
 
         $this->assertEquals('English discussion', $localised['1']['title']);
-        $this->assertEquals('German discussion',  $localised['2']['title']);
-        $this->assertEquals('French discussion',  $localised['3']['title']);
+        $this->assertEquals('German discussion', $localised['2']['title']);
+        $this->assertEquals('French discussion', $localised['3']['title']);
     }
 
     /**

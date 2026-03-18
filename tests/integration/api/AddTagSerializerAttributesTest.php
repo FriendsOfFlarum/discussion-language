@@ -128,7 +128,7 @@ class AddTagSerializerAttributesTest extends TestCase
         $response = $this->send(
             $this->request('PATCH', '/api/fof/discussion-language/1', [
                 'authenticatedAs' => 1,
-                'json' => [
+                'json'            => [
                     'data' => [
                         'attributes' => [
                             'code' => 'en-updated',
@@ -143,5 +143,4 @@ class AddTagSerializerAttributesTest extends TestCase
         $tags = $this->getTagAttributes(2);
         $this->assertEquals('en-updated', $tags['english-tag']['subscriptionLanguage']);
     }
-
 }

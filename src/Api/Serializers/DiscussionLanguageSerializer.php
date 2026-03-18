@@ -26,7 +26,7 @@ class DiscussionLanguageSerializer extends AbstractSerializer
 {
     protected $type = 'discussion-languages';
 
-    const CSV_CACHE_KEY = 'fof-discussion-language.csv-index';
+    public const CSV_CACHE_KEY = 'fof-discussion-language.csv-index';
 
     /** @var array<string, array{english: string, native: string}>|null */
     private static ?array $csvIndex = null;
