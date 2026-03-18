@@ -11,10 +11,19 @@
 
 namespace FoF\DiscussionLanguage\Commands;
 
+use FoF\DiscussionLanguage\AddTagSerializerAttributes;
 use FoF\DiscussionLanguage\DiscussionLanguage;
+use Illuminate\Contracts\Cache\Repository as Cache;
 
 class DeleteLanguageCommandHandler
 {
+    private Cache $cache;
+
+    public function __construct(Cache $cache)
+    {
+        $this->cache = $cache;
+    }
+
     public function handle(DeleteLanguageCommand $command): void
     {
         $command->actor->assertAdmin();
@@ -22,5 +31,7 @@ class DeleteLanguageCommandHandler
         $language = DiscussionLanguage::findOrFail($command->id);
 
         $language->delete();
+
+        $this->cache->forget(AddTagSerializerAttributes::CACHE_KEY);
     }
 }
