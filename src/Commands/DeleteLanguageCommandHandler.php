@@ -12,6 +12,7 @@
 namespace FoF\DiscussionLanguage\Commands;
 
 use FoF\DiscussionLanguage\AddTagSerializerAttributes;
+use FoF\DiscussionLanguage\Api\Serializers\DiscussionLanguageSerializer;
 use FoF\DiscussionLanguage\DiscussionLanguage;
 use Illuminate\Contracts\Cache\Repository as Cache;
 
@@ -33,5 +34,6 @@ class DeleteLanguageCommandHandler
         $language->delete();
 
         $this->cache->forget(AddTagSerializerAttributes::CACHE_KEY);
+        $this->cache->forget(DiscussionLanguageSerializer::CSV_CACHE_KEY);
     }
 }
