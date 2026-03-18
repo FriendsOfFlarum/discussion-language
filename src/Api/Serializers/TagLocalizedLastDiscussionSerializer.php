@@ -23,10 +23,11 @@ class TagLocalizedLastDiscussionSerializer
 
         // Attach discussion title as this is needed for the tags page
         if ($json) {
-            foreach ($json as $languageId => $data) {
-                $discussion = optional(Discussion::find($data['id']));
+            $ids = collect($json)->pluck('id')->filter()->unique()->values()->all();
+            $discussions = Discussion::whereIn('id', $ids)->get()->keyBy('id');
 
-                $data['title'] = $discussion->title ?: '';
+            foreach ($json as $languageId => $data) {
+                $data['title'] = optional($discussions->get($data['id']))->title ?: '';
                 $json[$languageId] = $data;
             }
         }

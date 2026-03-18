@@ -11,20 +11,22 @@
 
 namespace FoF\DiscussionLanguage\Commands;
 
+use FoF\DiscussionLanguage\AddTagSerializerAttributes;
+use FoF\DiscussionLanguage\Api\Serializers\DiscussionLanguageSerializer;
 use FoF\DiscussionLanguage\DiscussionLanguage;
 use FoF\DiscussionLanguage\Validators\DiscussionLanguageValidator;
+use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Support\Arr;
 
 class CreateLanguageCommandHandler
 {
-    /**
-     * @var DiscussionLanguageValidator
-     */
-    private $validator;
+    private DiscussionLanguageValidator $validator;
+    private Cache $cache;
 
-    public function __construct(DiscussionLanguageValidator $validator)
+    public function __construct(DiscussionLanguageValidator $validator, Cache $cache)
     {
         $this->validator = $validator;
+        $this->cache = $cache;
     }
 
     public function handle(CreateLanguageCommand $command): DiscussionLanguage
@@ -39,6 +41,9 @@ class CreateLanguageCommandHandler
         $this->validator->assertValid($discussionLanguage->getAttributes());
 
         $discussionLanguage->save();
+
+        $this->cache->forget(AddTagSerializerAttributes::CACHE_KEY);
+        $this->cache->forget(DiscussionLanguageSerializer::CSV_CACHE_KEY);
 
         return $discussionLanguage;
     }
