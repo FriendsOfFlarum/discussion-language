@@ -14,6 +14,7 @@ namespace FoF\DiscussionLanguage\Sticky;
 use Flarum\Filter\FilterState;
 use Flarum\Query\QueryCriteria;
 use Flarum\Tags\Query\TagFilterGambit;
+use FoF\DiscussionLanguage\Search\LanguageFilterGambit;
 
 class PinStickiedDiscussionsToTop
 {
@@ -27,12 +28,12 @@ class PinStickiedDiscussionsToTop
             $filters = $filterState->getActiveFilters();
 
             if (count($filters) > 0) {
-                // Use array_filter to check if any of the filters is an instance of TagFilterGambit
+                // Use array_filter to check if any of the filters is an instance of TagFilterGambit or LanguageFilterGambit
                 $tagFilterGambits = array_filter($filters, function ($filter) {
-                    return $filter instanceof TagFilterGambit;
+                    return $filter instanceof TagFilterGambit || $filter instanceof LanguageFilterGambit;
                 });
 
-                // Check if there is at least one TagFilterGambit instance
+                // Check if there is at least one TagFilterGambit or LanguageFilterGambit instance
                 if (count($tagFilterGambits) > 0) {
                     if (!is_array($query->orders)) {
                         $query->orders = [];
