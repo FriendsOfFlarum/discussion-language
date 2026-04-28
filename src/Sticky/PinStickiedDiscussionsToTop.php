@@ -28,21 +28,32 @@ class PinStickiedDiscussionsToTop
             $filters = $filterState->getActiveFilters();
 
             if (count($filters) > 0) {
-                // Use array_filter to check if any of the filters is an instance of TagFilterGambit or LanguageFilterGambit
                 $tagFilterGambits = array_filter($filters, function ($filter) {
-                    return $filter instanceof TagFilterGambit || $filter instanceof LanguageFilterGambit;
+                    return $filter instanceof TagFilterGambit;
                 });
 
-                // Check if there is at least one TagFilterGambit or LanguageFilterGambit instance
+                // Tag pages (with or without a language filter) pin all stickied
+                // discussions to the top, matching core sticky's tag-page behavior.
                 if (count($tagFilterGambits) > 0) {
                     if (!is_array($query->orders)) {
                         $query->orders = [];
                     }
 
                     array_unshift($query->orders, ['column' => 'is_sticky', 'direction' => 'desc']);
+
+                    return;
                 }
 
-                return;
+                // A language-only filter is conceptually still "/all in the user's
+                // language", so fall through to the unread-only UNION path below.
+                // Any other unknown filter: don't interfere.
+                $languageFilterGambits = array_filter($filters, function ($filter) {
+                    return $filter instanceof LanguageFilterGambit;
+                });
+
+                if (count($languageFilterGambits) !== count($filters)) {
+                    return;
+                }
             }
 
             // Otherwise, if we are viewing "all discussions", only pin stickied
