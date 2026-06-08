@@ -195,6 +195,37 @@ class MiddlewareLanguageFilterTest extends TestCase
 
     /**
      * @test
+     *
+     * @dataProvider routesProvider
+     *
+     * Regression: security scanners (e.g. Intigriti / bug-bounty probes) send payloads like
+     * `?language[$ne]=10` which made `Arr::get($params, 'language')` return an array, and that
+     * array was then passed to `addQueryParams(..., string $language)` causing a TypeError /
+     * HTTP 500. The middleware must ignore non-string language values and fall through.
+     */
+    public function non_string_language_parameter_is_ignored_frontend(string $route)
+    {
+        $payloads = [
+            ['language' => ['$ne' => '10']],
+            ['language' => ['de']],
+            ['language' => ''],
+        ];
+
+        foreach ($payloads as $query) {
+            $response = $this->send(
+                $this->request('GET', "/$route")->withQueryParams($query)
+            );
+
+            $this->assertEquals(
+                200,
+                $response->getStatusCode(),
+                'Malformed language query should not cause a server error: '.json_encode($query)
+            );
+        }
+    }
+
+    /**
+     * @test
      */
     public function discussions_are_filtered_by_language_parameter_api()
     {

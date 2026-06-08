@@ -52,7 +52,10 @@ class AddLanguageFilter implements MiddlewareInterface
         $params = $request->getQueryParams();
 
         // Request has a language parameter, so we handle the request with the language filter applied.
-        if ($language = Arr::get($params, 'language')) {
+        // The `is_string` guard ignores malformed input like `?language[]=foo` or `?language[$ne]=10`
+        // (commonly seen from security scanners) instead of letting an array reach the string-typed
+        // `addQueryParams()` and crash with a TypeError.
+        if (($language = Arr::get($params, 'language')) && is_string($language)) {
             $request = $this->addQueryParams($request, $params, $language);
 
             return $handler->handle($request);
