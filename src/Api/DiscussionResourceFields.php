@@ -35,14 +35,14 @@ class DiscussionResourceFields
                 ->type('discussion-languages')
                 ->includable()
                 ->writable()
-                ->required(fn (Context $context) => $context->creating() && ! $this->isPrivate($context))
+                ->required(fn (Context $context) => $context->creating() && !$this->isPrivate($context))
                 ->validationMessages([
                     'language.required' => $this->translator->trans('fof-discussion-language.api.discussion.validation_error'),
                 ])
                 ->set(function (Discussion $discussion, ?DiscussionLanguage $language, Context $context) {
                     // fof/byobu's private discussions have no language, and an
                     // update without one leaves the language as it is.
-                    if ($this->isPrivate($context) || ! $language) {
+                    if ($this->isPrivate($context) || !$language) {
                         return;
                     }
 

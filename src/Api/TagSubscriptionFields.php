@@ -44,10 +44,10 @@ class TagSubscriptionFields
                     return $languageId ? ($this->languages->codes()[$languageId] ?? null) : null;
                 })
                 // fof/follow-tags lets it be saved with a subscription by whoever subscribes.
-                ->writable(fn (Tag $tag, Context $context) => $context->updating() && ! $context->getActor()->isGuest())
+                ->writable(fn (Tag $tag, Context $context) => $context->updating() && !$context->getActor()->isGuest())
                 ->set(function (Tag $tag, ?string $code, Context $context) {
                     // As in 1.x, no language leaves the one chosen before.
-                    if (! $code) {
+                    if (!$code) {
                         return;
                     }
 

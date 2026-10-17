@@ -46,7 +46,7 @@ class NotificationRecipientsTest extends TestCase
         }
 
         $this->prepareDatabase([
-            User::class => $users,
+            User::class               => $users,
             DiscussionLanguage::class => [
                 ['id' => 1, 'code' => 'en', 'country' => 'GB'],
                 ['id' => 2, 'code' => 'de', 'country' => 'DE'],

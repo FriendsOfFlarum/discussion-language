@@ -41,7 +41,7 @@ class DiscussionPolicy extends AbstractPolicy
      */
     protected function authorMayChange(User $actor, Discussion $discussion): bool
     {
-        if ($actor->isGuest() || (int) $discussion->user_id !== (int) $actor->id || ! $actor->can('reply', $discussion)) {
+        if ($actor->isGuest() || (int) $discussion->user_id !== (int) $actor->id || !$actor->can('reply', $discussion)) {
             return false;
         }
 

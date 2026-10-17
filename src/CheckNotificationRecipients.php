@@ -37,16 +37,16 @@ class CheckNotificationRecipients
         $subscriptions = match (true) {
             $blueprint instanceof NewDiscussionBlueprint, $blueprint instanceof NewDiscussionTagBlueprint => ['follow', 'lurk'],
             $blueprint instanceof NewPostBlueprint => ['lurk'],
-            default => null,
+            default                                => null,
         };
 
-        if (! $subscriptions) {
+        if (!$subscriptions) {
             return $users;
         }
 
         $discussion = $blueprint->getSubject();
 
-        if (! $discussion instanceof Discussion || ! $discussion->language_id || ! $users) {
+        if (!$discussion instanceof Discussion || !$discussion->language_id || !$users) {
             return $users;
         }
 
@@ -56,7 +56,7 @@ class CheckNotificationRecipients
             ->pluck('tag_id')
             ->all();
 
-        if (! $tagIds) {
+        if (!$tagIds) {
             return $users;
         }
 
@@ -74,7 +74,7 @@ class CheckNotificationRecipients
             $states = $languages->get($user->id);
 
             // They follow none of its tags, so there are no languages to judge by.
-            if (! $states) {
+            if (!$states) {
                 return true;
             }
 

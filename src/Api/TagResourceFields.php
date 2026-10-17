@@ -42,7 +42,7 @@ class TagResourceFields
                     // Pre-1.x tags, and those created while the extension was off, have none.
                     $discussions = json_decode($tag->localised_last_discussion ?? '{}', true);
 
-                    if (! is_array($discussions) || ! $discussions) {
+                    if (!is_array($discussions) || !$discussions) {
                         return [];
                     }
 

@@ -38,7 +38,7 @@ class AddLanguageFilterTest extends TestCase
             ['fof-discussion-language.showAnyLangOpt', null, true],
         ]);
 
-        $handler = new class implements RequestHandlerInterface {
+        $handler = new class() implements RequestHandlerInterface {
             public ?ServerRequestInterface $request = null;
 
             public function handle(ServerRequestInterface $request): ResponseInterface

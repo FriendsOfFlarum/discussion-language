@@ -110,7 +110,7 @@ class UpdateTagMetadataTest extends TestCase
                 ['id' => 3, 'discussion_id' => 3, 'number' => 1, 'user_id' => 1, 'created_at' => $threeDaysAgo],
             ],
             Tag::class => [
-                ['id' => 1, 'name' => 'General', 'slug' => 'general', 'position' => 0, 'discussion_count' => 3, 'last_posted_discussion_id' => 2, 'last_posted_at' => $anHourAgo,
+                ['id'                           => 1, 'name' => 'General', 'slug' => 'general', 'position' => 0, 'discussion_count' => 3, 'last_posted_discussion_id' => 2, 'last_posted_at' => $anHourAgo,
                     'localised_last_discussion' => json_encode([
                         '1' => ['id' => 1, 'at' => $at($twoDaysAgo), 'user_id' => 1],
                         '2' => ['id' => 2, 'at' => $at($anHourAgo), 'user_id' => 1],

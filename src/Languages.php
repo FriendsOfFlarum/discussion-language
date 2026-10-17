@@ -63,7 +63,7 @@ class Languages
 
     public function flag(?string $country): ?string
     {
-        if (! $country || ! $this->settings->get('fof-discussion-language.showFlags')) {
+        if (!$country || !$this->settings->get('fof-discussion-language.showFlags')) {
             return null;
         }
 
@@ -108,7 +108,7 @@ class Languages
             ];
 
             foreach (['639-1', '639-2', '639-3'] as $column) {
-                if (! empty($record[$column])) {
+                if (!empty($record[$column])) {
                     $index[$record[$column]] = $entry;
                 }
             }

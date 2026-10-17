@@ -74,11 +74,11 @@ class DiscussionLanguageResourceTest extends TestCase
     public static function invalidLanguages(): array
     {
         return [
-            'no code'        => [['country' => 'DE']],
-            'no country'     => [['code' => 'de']],
+            'no code'         => [['country' => 'DE']],
+            'no country'      => [['code' => 'de']],
             'one-letter code' => [['code' => 'd', 'country' => 'DE']],
-            'existing code'  => [['code' => 'en', 'country' => 'US']],
-            'country name'   => [['code' => 'de', 'country' => 'Germany']],
+            'existing code'   => [['code' => 'en', 'country' => 'US']],
+            'country name'    => [['code' => 'de', 'country' => 'Germany']],
         ];
     }
 

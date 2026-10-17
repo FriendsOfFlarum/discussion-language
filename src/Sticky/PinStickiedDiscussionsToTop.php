@@ -31,7 +31,7 @@ class PinStickiedDiscussionsToTop
 
     public function __invoke(DatabaseSearchState $state, SearchCriteria $criteria): void
     {
-        $filters = array_filter($state->getActiveFilters(), fn ($filter) => ! $filter instanceof LanguageFilter);
+        $filters = array_filter($state->getActiveFilters(), fn ($filter) => !$filter instanceof LanguageFilter);
 
         if (count($filters) === count($state->getActiveFilters())) {
             ($this->sticky)($state, $criteria);
