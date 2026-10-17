@@ -11,8 +11,12 @@
 
 namespace FoF\DiscussionLanguage\Tests\integration\api;
 
+use Flarum\Tags\Tag;
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
+use Flarum\User\User;
+use FoF\DiscussionLanguage\DiscussionLanguage;
+use PHPUnit\Framework\Attributes\Test;
 
 class AddTagSerializerAttributesTest extends TestCase
 {
@@ -27,15 +31,15 @@ class AddTagSerializerAttributesTest extends TestCase
         $this->extension('fof-discussion-language');
 
         $this->prepareDatabase([
-            'users' => [
+            User::class => [
                 $this->normalUser(),
             ],
-            'discussion_languages' => [
+            DiscussionLanguage::class => [
                 ['id' => 1, 'code' => 'en', 'country' => 'GB'],
                 ['id' => 2, 'code' => 'de', 'country' => 'DE'],
                 ['id' => 3, 'code' => 'fr', 'country' => 'FR'],
             ],
-            'tags' => [
+            Tag::class => [
                 ['id' => 1, 'name' => 'English Tag', 'slug' => 'english-tag', 'position' => 0, 'parent_id' => null, 'discussion_count' => 0, 'is_restricted' => 0, 'is_hidden' => 0],
                 ['id' => 2, 'name' => 'German Tag',  'slug' => 'german-tag',  'position' => 1, 'parent_id' => null, 'discussion_count' => 0, 'is_restricted' => 0, 'is_hidden' => 0],
                 ['id' => 3, 'name' => 'French Tag',  'slug' => 'french-tag',  'position' => 2, 'parent_id' => null, 'discussion_count' => 0, 'is_restricted' => 0, 'is_hidden' => 0],
@@ -71,9 +75,7 @@ class AddTagSerializerAttributesTest extends TestCase
         return $tags;
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function subscriptionLanguage_is_returned_for_subscribed_tags(): void
     {
         $tags = $this->getTagAttributes(2);
@@ -83,9 +85,7 @@ class AddTagSerializerAttributesTest extends TestCase
         $this->assertEquals('fr', $tags['french-tag']['subscriptionLanguage']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function subscriptionLanguage_is_null_when_no_language_preference(): void
     {
         $this->prepareDatabase([
@@ -99,9 +99,7 @@ class AddTagSerializerAttributesTest extends TestCase
         $this->assertNull($tags['null-lang-tag']['subscriptionLanguage']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function subscriptionLanguage_is_null_for_nonexistent_language_id(): void
     {
         $this->prepareDatabase([
@@ -115,9 +113,7 @@ class AddTagSerializerAttributesTest extends TestCase
         $this->assertNull($tags['bad-lang-tag']['subscriptionLanguage']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function cache_is_invalidated_when_language_is_updated(): void
     {
         // 1. Populate the cache by fetching tags

@@ -12,8 +12,14 @@
 namespace FoF\DiscussionLanguage\Tests\integration\api;
 
 use Carbon\Carbon;
+use Flarum\Discussion\Discussion;
+use Flarum\Post\Post;
+use Flarum\Tags\Tag;
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
+use Flarum\User\User;
+use FoF\DiscussionLanguage\DiscussionLanguage;
+use PHPUnit\Framework\Attributes\Test;
 
 class TagLocalizedLastDiscussionSerializerTest extends TestCase
 {
@@ -27,25 +33,25 @@ class TagLocalizedLastDiscussionSerializerTest extends TestCase
         $this->extension('fof-discussion-language');
 
         $this->prepareDatabase([
-            'users' => [
+            User::class => [
                 $this->normalUser(),
             ],
-            'discussion_languages' => [
+            DiscussionLanguage::class => [
                 ['id' => 1, 'code' => 'en', 'country' => 'GB'],
                 ['id' => 2, 'code' => 'de', 'country' => 'DE'],
                 ['id' => 3, 'code' => 'fr', 'country' => 'FR'],
             ],
-            'discussions' => [
+            Discussion::class => [
                 ['id' => 1, 'title' => 'English discussion', 'created_at' => Carbon::now(), 'last_posted_at' => Carbon::now(), 'user_id' => 1, 'first_post_id' => 1, 'comment_count' => 1, 'language_id' => 1],
                 ['id' => 2, 'title' => 'German discussion',  'created_at' => Carbon::now(), 'last_posted_at' => Carbon::now(), 'user_id' => 1, 'first_post_id' => 2, 'comment_count' => 1, 'language_id' => 2],
                 ['id' => 3, 'title' => 'French discussion',  'created_at' => Carbon::now(), 'last_posted_at' => Carbon::now(), 'user_id' => 1, 'first_post_id' => 3, 'comment_count' => 1, 'language_id' => 3],
             ],
-            'posts' => [
+            Post::class => [
                 ['id' => 1, 'discussion_id' => 1, 'number' => 1, 'type' => 'comment', 'content' => '<t><p>English post</p></t>', 'user_id' => 1, 'created_at' => Carbon::now()],
                 ['id' => 2, 'discussion_id' => 2, 'number' => 1, 'type' => 'comment', 'content' => '<t><p>German post</p></t>',  'user_id' => 1, 'created_at' => Carbon::now()],
                 ['id' => 3, 'discussion_id' => 3, 'number' => 1, 'type' => 'comment', 'content' => '<t><p>French post</p></t>',  'user_id' => 1, 'created_at' => Carbon::now()],
             ],
-            'tags' => [
+            Tag::class => [
                 ['id'                           => 1, 'name' => 'Multi-lang Tag', 'slug' => 'multi-lang-tag', 'position' => 0, 'parent_id' => null, 'discussion_count' => 3, 'is_restricted' => 0, 'is_hidden' => 0,
                     'localised_last_discussion' => json_encode([
                         '1' => ['id' => 1, 'at' => Carbon::now()->timestamp, 'user_id' => 1],
@@ -88,9 +94,7 @@ class TagLocalizedLastDiscussionSerializerTest extends TestCase
         return $tags;
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function localisedLastDiscussion_includes_discussion_titles(): void
     {
         $tags = $this->getTagAttributes();
@@ -101,9 +105,7 @@ class TagLocalizedLastDiscussionSerializerTest extends TestCase
         $this->assertEquals('French discussion', $localised['3']['title']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function localisedLastDiscussion_handles_empty_json(): void
     {
         $tags = $this->getTagAttributes();
@@ -113,9 +115,7 @@ class TagLocalizedLastDiscussionSerializerTest extends TestCase
         $this->assertEmpty($localised);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function localisedLastDiscussion_handles_deleted_discussion(): void
     {
         $tags = $this->getTagAttributes();

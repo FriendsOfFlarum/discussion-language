@@ -13,6 +13,9 @@ namespace FoF\DiscussionLanguage\Tests\integration\api;
 
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
+use Flarum\User\User;
+use FoF\DiscussionLanguage\DiscussionLanguage;
+use PHPUnit\Framework\Attributes\Test;
 
 class DiscussionLanguageSerializerTest extends TestCase
 {
@@ -25,10 +28,10 @@ class DiscussionLanguageSerializerTest extends TestCase
         $this->extension('fof-discussion-language');
 
         $this->prepareDatabase([
-            'users' => [
+            User::class => [
                 $this->normalUser(),
             ],
-            'discussion_languages' => [
+            DiscussionLanguage::class => [
                 ['id' => 1, 'code' => 'en', 'country' => 'GB'],
                 ['id' => 2, 'code' => 'de', 'country' => 'DE'],
                 ['id' => 3, 'code' => 'fr', 'country' => 'FR'],
@@ -59,9 +62,7 @@ class DiscussionLanguageSerializerTest extends TestCase
         return $languages;
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function forum_api_includes_language_names(): void
     {
         $languages = $this->getForumLanguages();
@@ -74,9 +75,7 @@ class DiscussionLanguageSerializerTest extends TestCase
         }
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function language_name_resolves_for_standard_codes(): void
     {
         $languages = $this->getForumLanguages();
@@ -86,13 +85,11 @@ class DiscussionLanguageSerializerTest extends TestCase
         $this->assertEquals('French', $languages['fr']['name']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function language_name_resolves_any_code(): void
     {
         $this->prepareDatabase([
-            'discussion_languages' => [
+            DiscussionLanguage::class => [
                 ['id' => 10, 'code' => 'any', 'country' => null],
             ],
         ]);
@@ -105,13 +102,11 @@ class DiscussionLanguageSerializerTest extends TestCase
         $this->assertNotEmpty($languages['any']['name']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function language_name_returns_null_for_unknown_code(): void
     {
         $this->prepareDatabase([
-            'discussion_languages' => [
+            DiscussionLanguage::class => [
                 ['id' => 20, 'code' => 'zzz', 'country' => null],
             ],
         ]);
@@ -122,15 +117,13 @@ class DiscussionLanguageSerializerTest extends TestCase
         $this->assertNull($languages['zzz']['name']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function language_name_resolves_csv_fallback_codes(): void
     {
         // 'vo' (Volapük) is in the CSV but the ISO 639 library may not resolve it
         // 'aar' is a 639-2/639-3 code for Afar — only in CSV
         $this->prepareDatabase([
-            'discussion_languages' => [
+            DiscussionLanguage::class => [
                 ['id' => 30, 'code' => 'aar', 'country' => null],
             ],
         ]);

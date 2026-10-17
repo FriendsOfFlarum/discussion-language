@@ -12,8 +12,13 @@
 namespace FoF\DiscussionLanguage\Tests\integration\api;
 
 use Carbon\Carbon;
+use Flarum\Discussion\Discussion;
+use Flarum\Post\Post;
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
+use Flarum\User\User;
+use FoF\DiscussionLanguage\DiscussionLanguage;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Ensures that stickied discussions appear at the top of the list when the
@@ -38,13 +43,13 @@ class StickyOrderingTest extends TestCase
         $this->extension('fof-discussion-language');
 
         $this->prepareDatabase([
-            'users' => [
+            User::class => [
                 $this->normalUser(),
             ],
-            'discussion_languages' => [
+            DiscussionLanguage::class => [
                 ['id' => 1, 'code' => 'en', 'country' => 'GB'],
             ],
-            'discussions' => [
+            Discussion::class => [
                 // Older, stickied discussion — should appear first despite lower last_posted_at.
                 ['id' => 1, 'title' => 'Sticky English discussion', 'created_at' => Carbon::now()->subDays(2), 'last_posted_at' => Carbon::now()->subDays(2), 'user_id' => 1, 'first_post_id' => 1, 'comment_count' => 1, 'language_id' => 1, 'is_sticky' => 1],
                 // Newer, non-sticky discussion — should appear after the sticky.
@@ -52,7 +57,7 @@ class StickyOrderingTest extends TestCase
                 // Newest, non-sticky discussion — also after the sticky.
                 ['id' => 3, 'title' => 'Another English discussion', 'created_at' => Carbon::now(), 'last_posted_at' => Carbon::now(), 'user_id' => 1, 'first_post_id' => 3, 'comment_count' => 1, 'language_id' => 1, 'is_sticky' => 0],
             ],
-            'posts' => [
+            Post::class => [
                 ['id' => 1, 'discussion_id' => 1, 'number' => 1, 'type' => 'comment', 'content' => '<t><p>Sticky post</p></t>', 'user_id' => 1, 'created_at' => Carbon::now()->subDays(2)],
                 ['id' => 2, 'discussion_id' => 2, 'number' => 1, 'type' => 'comment', 'content' => '<t><p>Regular post</p></t>', 'user_id' => 1, 'created_at' => Carbon::now()->subDay()],
                 ['id' => 3, 'discussion_id' => 3, 'number' => 1, 'type' => 'comment', 'content' => '<t><p>Another post</p></t>', 'user_id' => 1, 'created_at' => Carbon::now()],
@@ -80,9 +85,7 @@ class StickyOrderingTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function sticky_discussion_is_first_when_filtered_by_language(): void
     {
         $titles = $this->apiTitles(['filter' => ['language' => 'en']]);
@@ -91,9 +94,7 @@ class StickyOrderingTest extends TestCase
         $this->assertEquals('Sticky English discussion', $titles[0], 'Stickied discussion should be pinned to the top of a language-filtered list');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function sticky_discussion_is_first_without_language_filter(): void
     {
         $titles = $this->apiTitles();

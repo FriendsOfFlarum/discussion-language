@@ -12,8 +12,13 @@
 namespace FoF\DiscussionLanguage\Tests\integration\api;
 
 use Carbon\Carbon;
+use Flarum\Discussion\Discussion;
+use Flarum\Post\Post;
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
+use Flarum\User\User;
+use FoF\DiscussionLanguage\DiscussionLanguage;
+use PHPUnit\Framework\Attributes\Test;
 
 class LanguageGambitTest extends TestCase
 {
@@ -27,21 +32,21 @@ class LanguageGambitTest extends TestCase
         $this->extension('fof-discussion-language');
 
         $this->prepareDatabase([
-            'users' => [
+            User::class => [
                 $this->normalUser(),
             ],
-            'discussion_languages' => [
+            DiscussionLanguage::class => [
                 ['id' => 1, 'code' => 'en', 'country' => 'GB'],
                 ['id' => 2, 'code' => 'de', 'country' => 'DE'],
                 ['id' => 3, 'code' => 'fr', 'country' => 'FR'],
             ],
-            'discussions' => [
+            Discussion::class => [
                 ['id' => 1, 'title' => 'English discussion', 'created_at' => Carbon::now(), 'last_posted_at' => Carbon::now(), 'user_id' => 1, 'first_post_id' => 1, 'comment_count' => 1, 'language_id' => 1],
                 ['id' => 2, 'title' => 'German discussion',  'created_at' => Carbon::now(), 'last_posted_at' => Carbon::now(), 'user_id' => 1, 'first_post_id' => 2, 'comment_count' => 1, 'language_id' => 2],
                 ['id' => 3, 'title' => 'French discussion',  'created_at' => Carbon::now(), 'last_posted_at' => Carbon::now(), 'user_id' => 1, 'first_post_id' => 3, 'comment_count' => 1, 'language_id' => 3],
                 ['id' => 4, 'title' => 'No language discussion', 'created_at' => Carbon::now(), 'last_posted_at' => Carbon::now(), 'user_id' => 1, 'first_post_id' => 4, 'comment_count' => 1, 'language_id' => null],
             ],
-            'posts' => [
+            Post::class => [
                 ['id' => 1, 'discussion_id' => 1, 'number' => 1, 'type' => 'comment', 'content' => '<t><p>English post</p></t>', 'user_id' => 1, 'created_at' => Carbon::now()],
                 ['id' => 2, 'discussion_id' => 2, 'number' => 1, 'type' => 'comment', 'content' => '<t><p>German post</p></t>',  'user_id' => 1, 'created_at' => Carbon::now()],
                 ['id' => 3, 'discussion_id' => 3, 'number' => 1, 'type' => 'comment', 'content' => '<t><p>French post</p></t>',  'user_id' => 1, 'created_at' => Carbon::now()],
@@ -73,10 +78,7 @@ class LanguageGambitTest extends TestCase
     // -------------------------------------------------------------------------
     // Filter API (filter[language]=<code>)
     // -------------------------------------------------------------------------
-
-    /**
-     * @test
-     */
+    #[Test]
     public function filter_returns_only_matching_language(): void
     {
         $titles = $this->apiTitles('/api/discussions', ['filter' => ['language' => 'en']]);
@@ -87,9 +89,7 @@ class LanguageGambitTest extends TestCase
         $this->assertNotContains('No language discussion', $titles);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function filter_returns_correct_discussion_for_each_language(): void
     {
         $cases = [
@@ -106,9 +106,7 @@ class LanguageGambitTest extends TestCase
         }
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function filter_with_unknown_language_returns_no_discussions(): void
     {
         $titles = $this->apiTitles('/api/discussions', ['filter' => ['language' => 'xx']]);
@@ -116,9 +114,7 @@ class LanguageGambitTest extends TestCase
         $this->assertEmpty($titles);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function filter_negation_excludes_matching_language(): void
     {
         // Negation uses a leading '-' on the filter key: filter[-language]=en
@@ -132,10 +128,7 @@ class LanguageGambitTest extends TestCase
     // -------------------------------------------------------------------------
     // Search gambit (filter[q]=language:<code>)
     // -------------------------------------------------------------------------
-
-    /**
-     * @test
-     */
+    #[Test]
     public function search_gambit_returns_only_matching_language(): void
     {
         $titles = $this->apiTitles('/api/discussions', ['filter' => ['q' => 'language:en']]);
@@ -145,9 +138,7 @@ class LanguageGambitTest extends TestCase
         $this->assertNotContains('French discussion', $titles);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function search_gambit_returns_correct_discussion_for_each_language(): void
     {
         $cases = [
@@ -164,9 +155,7 @@ class LanguageGambitTest extends TestCase
         }
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function search_gambit_with_unknown_language_returns_no_discussions(): void
     {
         $titles = $this->apiTitles('/api/discussions', ['filter' => ['q' => 'language:xx']]);
@@ -174,9 +163,7 @@ class LanguageGambitTest extends TestCase
         $this->assertEmpty($titles);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function search_gambit_negation_excludes_matching_language(): void
     {
         $titles = $this->apiTitles('/api/discussions', ['filter' => ['q' => '-language:en']]);
@@ -186,9 +173,7 @@ class LanguageGambitTest extends TestCase
         $this->assertContains('French discussion', $titles);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function search_gambit_comma_separated_codes_match_multiple_languages(): void
     {
         $titles = $this->apiTitles('/api/discussions', ['filter' => ['q' => 'language:en,de']]);
@@ -198,9 +183,7 @@ class LanguageGambitTest extends TestCase
         $this->assertNotContains('French discussion', $titles);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function filter_comma_separated_codes_match_multiple_languages(): void
     {
         $titles = $this->apiTitles('/api/discussions', ['filter' => ['language' => 'en,de']]);

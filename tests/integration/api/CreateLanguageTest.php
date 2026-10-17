@@ -13,6 +13,8 @@ namespace FoF\DiscussionLanguage\tests\integration\api;
 
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
+use Flarum\User\User;
+use PHPUnit\Framework\Attributes\Test;
 
 class CreateLanguageTest extends TestCase
 {
@@ -26,15 +28,13 @@ class CreateLanguageTest extends TestCase
         $this->extension('fof-discussion-language');
 
         $this->prepareDatabase([
-            'users' => [
+            User::class => [
                 $this->normalUser(),
             ],
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function non_admin_cannot_create_language()
     {
         $response = $this->send(
@@ -54,9 +54,7 @@ class CreateLanguageTest extends TestCase
         $this->assertEquals(403, $response->getStatusCode());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function admin_can_create_language()
     {
         $response = $this->send(
