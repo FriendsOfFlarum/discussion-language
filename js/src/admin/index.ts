@@ -10,7 +10,7 @@ export * from '../common/models';
 export { default as extend } from './extend';
 
 app.initializers.add('fof/discussion-language', () => {
-  app.extensionData
+  app.registry
     .for('fof-discussion-language')
     .registerPage(LanguagesSettingsPage)
     .registerPermission(

@@ -3,7 +3,7 @@ import ExtensionPage from 'flarum/admin/components/ExtensionPage';
 import Button from 'flarum/common/components/Button';
 import Select from 'flarum/common/components/Select';
 import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
-import icon from 'flarum/common/helpers/icon';
+import Icon from 'flarum/common/components/Icon';
 import Stream from 'flarum/common/utils/Stream';
 import Alert from 'flarum/common/components/Alert';
 import getLocales, * as locales from '../utils/locales';
@@ -172,10 +172,9 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
               onclick: this.add.bind(this),
               disabled: !this.newLocaleValue() || !this.newCountryValue() || this.isAddingNewRecord,
             },
-            icon(this.isAddingNewRecord ? 'fas fa-spinner fa-spin' : 'fas fa-plus')
+            <Icon name={this.isAddingNewRecord ? 'fas fa-spinner fa-spin' : 'fas fa-plus'} />
           )}
         </div>
-
         <div className="Form-group">
           {app.store
             .all<Language>('discussion-languages')
@@ -207,7 +206,6 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
                     options: locales,
                     disabled: updating || deleting,
                   })}
-
                   {Select.component({
                     onchange: (val: string) => {
                       this.recordsUpdating[id] = true;
@@ -225,14 +223,13 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
                     options: countryData,
                     disabled: updating || deleting,
                   })}
-
                   {Button.component(
                     {
                       className: `Button Button--danger`,
                       disabled: deleting,
                       onclick: this.remove.bind(this, language),
                     },
-                    icon(deleting ? 'fas fa-spinner fa-spin' : 'fas fa-times')
+                    <Icon name={deleting ? 'fas fa-spinner fa-spin' : 'fas fa-times'} />
                   )}
                 </div>
               );

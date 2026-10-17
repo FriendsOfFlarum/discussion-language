@@ -1,5 +1,6 @@
 import app from 'flarum/forum/app';
-import Modal, { IInternalModalAttrs } from 'flarum/common/components/Modal';
+import { IFormModalAttrs } from 'flarum/common/components/FormModal';
+import FormModal from 'flarum/common/components/FormModal';
 import Button from 'flarum/common/components/Button';
 import DiscussionPage from 'flarum/forum/components/DiscussionPage';
 import type Discussion from 'flarum/common/models/Discussion';
@@ -8,14 +9,14 @@ import type Mithril from 'mithril';
 import Language from '../../common/models/Language';
 import LanguageDisplay from './LanguageDisplay';
 
-export interface LanguageDiscussionModalAttrs extends IInternalModalAttrs {
+export interface LanguageDiscussionModalAttrs extends IFormModalAttrs {
   discussion?: Discussion;
   selected?: Language;
   hideSubmitButton?: boolean;
   onsubmit?: (language: Language) => void;
 }
 
-export default class LanguageDiscussionModal extends Modal<LanguageDiscussionModalAttrs> {
+export default class LanguageDiscussionModal extends FormModal<LanguageDiscussionModalAttrs> {
   languages!: Language[];
   current!: Language | undefined;
   selected!: Language | undefined;

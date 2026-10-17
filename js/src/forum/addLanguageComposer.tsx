@@ -14,7 +14,7 @@ const sort = (a: Language, b: Language) => (a.code()!.toLowerCase() > b.code()!.
 
 export default () => {
   extend(IndexPage.prototype, 'newDiscussionAction', function (promise: Promise<unknown>) {
-    const dislang = app.search.params().language;
+    const dislang = app.search.state.params().language;
 
     if (dislang) {
       promise.then((composer) => ((composer as any).fields.language = app.store.getBy('discussion-languages', 'code', dislang)));

@@ -2,7 +2,7 @@ import app from 'flarum/forum/app';
 import Button from 'flarum/common/components/Button';
 import Dropdown, { IDropdownAttrs } from 'flarum/common/components/Dropdown';
 import type Mithril from 'mithril';
-import icon from 'flarum/common/helpers/icon';
+import Icon from 'flarum/common/components/Icon';
 import classList from 'flarum/common/utils/classList';
 import generateLanguageOptions from '../utils/generateLanguageOptions';
 import Stream from 'flarum/common/utils/Stream';
@@ -94,7 +94,7 @@ export default class LanguageDropdown extends Dropdown<LanguageDropdownAttrs> {
   getButtonContent(children: Mithril.ChildArray): Mithril.ChildArray {
     return [
       <span className="Button-label">{this.options[this.selected()]}</span>,
-      this.attrs.caretIcon ? icon(this.attrs.caretIcon, { className: 'Button-caret' }) : null,
+      this.attrs.caretIcon ? <Icon name={this.attrs.caretIcon} className="Button-caret" /> : null,
     ];
   }
 

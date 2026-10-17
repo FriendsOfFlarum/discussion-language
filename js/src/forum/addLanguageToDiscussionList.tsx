@@ -103,7 +103,7 @@ export default () => {
       <LanguageDropdown
         selected={currentLanguage() ?? defaultSelected}
         onclick={(key: string) => {
-          const params = app.search.params();
+          const params = app.search.state.params();
           const filter = (params.filter as unknown as Record<string, string>) ?? {};
 
           if (key === defaultSelected) {
