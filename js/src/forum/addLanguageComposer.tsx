@@ -1,6 +1,7 @@
 import { extend, override } from 'flarum/common/extend';
 import app from 'flarum/forum/app';
 import IndexPage from 'flarum/forum/components/IndexPage';
+// @TODO: DiscussionComposer is lazy loaded in 2.0, so this import is undefined until its chunk has loaded. Load it with `await import('flarum/forum/components/DiscussionComposer')` before using it. https://docs.flarum.org/2.x/extend/code-splitting
 import DiscussionComposer from 'flarum/forum/components/DiscussionComposer';
 import type ItemList from 'flarum/common/utils/ItemList';
 import type Mithril from 'mithril';
@@ -23,20 +24,25 @@ export default () => {
     }
   });
 
-  DiscussionComposer.prototype.chooseLanguage = function (this: DiscussionComposer, hide: boolean, callback: (() => void) | null) {
-    app.modal.show(LanguageDiscussionModal, {
-      selected: (this as any).composer.fields.language,
-      hideSubmitButton: hide,
-      onsubmit: (language: Language) => {
-        (this as any).composer.fields.language = language;
-        (this as any).$('textarea').focus();
+  override(
+    'flarum/forum/components/DiscussionComposer',
+    'chooseLanguage',
+    function (this: DiscussionComposer, original, hide: boolean, callback: (() => void) | null) {
+      app.modal.show(LanguageDiscussionModal, {
+        selected: (this as any).composer.fields.language,
+        hideSubmitButton: hide,
 
-        if (callback) callback();
-      },
-    });
-  };
+        onsubmit: (language: Language) => {
+          (this as any).composer.fields.language = language;
+          (this as any).$('textarea').focus();
 
-  extend(DiscussionComposer.prototype, 'headerItems', function (this: DiscussionComposer, items: ItemList<Mithril.Children>) {
+          if (callback) callback();
+        },
+      });
+    }
+  );
+
+  extend('flarum/forum/components/DiscussionComposer', 'headerItems', function (this: DiscussionComposer, items: ItemList<Mithril.Children>) {
     // Don't add lang item to byobu composers
     if ((this as any)._isByobuComposer) return;
 
@@ -53,7 +59,7 @@ export default () => {
     );
   });
 
-  override(DiscussionComposer.prototype, 'onsubmit', function (this: DiscussionComposer, original: () => void) {
+  override('flarum/forum/components/DiscussionComposer', 'onsubmit', function (this: DiscussionComposer, original: () => void) {
     // Don't add lang stuff to byobu composers
     if ((this as any)._isByobuComposer) return original();
 
@@ -62,7 +68,7 @@ export default () => {
     original();
   });
 
-  extend(DiscussionComposer.prototype, 'data', function (this: DiscussionComposer, data: Record<string, unknown>) {
+  extend('flarum/forum/components/DiscussionComposer', 'data', function (this: DiscussionComposer, data: Record<string, unknown>) {
     // Don't add lang stuff to byobu composers
     if ((this as any)._isByobuComposer) return;
 
