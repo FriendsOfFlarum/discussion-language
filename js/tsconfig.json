@@ -4,7 +4,7 @@
   // This will match all .ts, .tsx, .d.ts, .js, .jsx files in your `src` folder
   // and also tells your Typescript server to read core's global typings for
   // access to `dayjs` and `$` in the global namespace.
-  "include": ["src/**/*", "../vendor/flarum/core/js/dist-typings/@types/**/*", "../vendor/flarum/**/js/dist-typings/@types/**/*"],
+  "include": ["src/**/*", "../vendor/*/*/js/dist-typings/@types/**/*", "../vendor/flarum/**/js/dist-typings/@types/**/*"],
   "compilerOptions": {
     // Only load the type packages the code imports. Others, such as the
     // @types/node webpack brings along, use syntax TypeScript 4.9 can't read.

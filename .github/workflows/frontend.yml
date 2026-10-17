@@ -4,7 +4,7 @@ on: [workflow_dispatch, push, pull_request]
 
 jobs:
   run:
-    uses: flarum/framework/.github/workflows/REUSABLE_frontend.yml@1.x
+    uses: flarum/framework/.github/workflows/REUSABLE_frontend.yml@2.x
     with:
       enable_bundlewatch: false
       enable_prettier: true
@@ -13,6 +13,7 @@ jobs:
       frontend_directory: ./js
       backend_directory: .
       js_package_manager: yarn
+      # @TODO: Set main_git_branch to the branch your Flarum 2.x code is on. The built JS is committed to it.
       main_git_branch: 1.x
 
     secrets:
