@@ -87,11 +87,11 @@ return [
         ->serializeToForum('fof-discussion-language.showAnyLangOpt', 'fof-discussion-language.showAnyLangOpt', 'boolVal')
         ->serializeToForum('fof-discussion-language.useLocaleForTagsPageLastDiscussion', 'fof-discussion-language.useLocaleForTagsPageLastDiscussion', 'boolVal'),
 
+    // flarum/tags' and flarum/sticky's search mutators, seeing a list filtered by language as the list it is.
+    (new Extend\ServiceProvider())
+        ->register(Provider\LanguageFilterProvider::class),
+
     (new Extend\Conditional())
-        ->whenExtensionEnabled('flarum-sticky', fn () => [
-            (new Extend\ServiceProvider())
-                ->register(Provider\LanguageFilterProvider::class),
-        ])
         ->whenExtensionEnabled('fof-follow-tags', fn () => array_filter([
             (new Extend\ApiResource(TagResource::class))
                 ->fields(Api\TagSubscriptionFields::class),
