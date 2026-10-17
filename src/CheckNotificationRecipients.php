@@ -13,66 +13,75 @@ namespace FoF\DiscussionLanguage;
 
 use Flarum\Discussion\Discussion;
 use Flarum\Notification\Blueprint\BlueprintInterface;
-use Flarum\Tags\Tag;
+use Flarum\Tags\TagState;
 use Flarum\User\User;
+use FoF\FollowTags\Notifications\NewDiscussionBlueprint;
+use FoF\FollowTags\Notifications\NewDiscussionTagBlueprint;
+use FoF\FollowTags\Notifications\NewPostBlueprint;
 
+/**
+ * Leaves out of a fof/follow-tags notification about a discussion those who
+ * follow it, by the tags it has, only in other languages.
+ */
 class CheckNotificationRecipients
 {
     /**
-     * @param BlueprintInterface $blueprint
-     * @param User[]             $users
+     * @param User[] $users
      *
      * @return User[]
      */
     public function __invoke(BlueprintInterface $blueprint, array $users): array
     {
-        if (!$this->isFollowTagsBlueprint($blueprint)) {
+        // The subscriptions fof/follow-tags chose the recipients by. A tag they
+        // don't follow says nothing about the languages they want.
+        $subscriptions = match (true) {
+            $blueprint instanceof NewDiscussionBlueprint, $blueprint instanceof NewDiscussionTagBlueprint => ['follow', 'lurk'],
+            $blueprint instanceof NewPostBlueprint => ['lurk'],
+            default => null,
+        };
+
+        if (! $subscriptions) {
             return $users;
         }
 
         $discussion = $blueprint->getSubject();
 
-        if (!$discussion || !$discussion instanceof Discussion || !$discussion->language_id) {
+        if (! $discussion instanceof Discussion || ! $discussion->language_id || ! $users) {
             return $users;
         }
 
-        /**
-         * @var Tag[] $tags
-         *
-         * @phpstan-ignore-next-line
-         */
-        $tags = $discussion->tags()->get();
+        $tagIds = $discussion->getConnection()
+            ->table('discussion_tag')
+            ->where('discussion_id', $discussion->id)
+            ->pluck('tag_id')
+            ->all();
 
-        // Build a map of users and an array of their respective dl_language_id values
-        $userLanguageMap = [];
-        foreach ($users as $user) {
-            $userLanguageMap[$user->id] = $userLanguageMap[$user->id] ?? [];
-            foreach ($tags as $tag) {
-                $stateLanguageId = $tag->stateFor($user)->dl_language_id;
-                if (!in_array($stateLanguageId, $userLanguageMap[$user->id], true)) {
-                    $userLanguageMap[$user->id][] = $stateLanguageId;
-                }
-            }
+        if (! $tagIds) {
+            return $users;
         }
 
-        // Filter users based on the map
-        return array_filter($users, function ($user) use ($userLanguageMap, $discussion) {
-            // User's language preferences must contain the discussion's language_id or be null
-            return in_array(null, $userLanguageMap[$user->id], true) || in_array($discussion->language_id, $userLanguageMap[$user->id], true);
-        });
-    }
+        $userIds = array_map(fn (User $user) => $user->id, $users);
 
-    /**
-     * Determines if the provided blueprint belongs to `fof/follow-tags`.
-     *
-     * Checks the class name of the blueprint to see if it starts with `FoF\FollowTags\Notification`.
-     *
-     * @param BlueprintInterface $blueprint The blueprint to check.
-     *
-     * @return bool True if the blueprint is a FollowTags notification, false otherwise.
-     */
-    protected function isFollowTagsBlueprint(BlueprintInterface $blueprint): bool
-    {
-        return strpos(get_class($blueprint), 'FoF\FollowTags\Notification') === 0;
+        // The languages each user follows the discussion's tags in, from one query.
+        $languages = TagState::query()
+            ->whereIn('tag_id', $tagIds)
+            ->whereIn('user_id', $userIds)
+            ->whereIn('subscription', $subscriptions)
+            ->get(['user_id', 'dl_language_id'])
+            ->groupBy('user_id');
+
+        return array_values(array_filter($users, function (User $user) use ($languages, $discussion) {
+            $states = $languages->get($user->id);
+
+            // They follow none of its tags, so there are no languages to judge by.
+            if (! $states) {
+                return true;
+            }
+
+            // One tag followed in every language, or in the discussion's, is enough.
+            return $states->contains(
+                fn (TagState $state) => $state->dl_language_id === null || (int) $state->dl_language_id === (int) $discussion->language_id
+            );
+        }));
     }
 }

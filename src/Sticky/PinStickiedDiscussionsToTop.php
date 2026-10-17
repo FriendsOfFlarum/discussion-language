@@ -11,81 +11,42 @@
 
 namespace FoF\DiscussionLanguage\Sticky;
 
-use Flarum\Search\SearchState;
+use Flarum\Search\Database\DatabaseSearchState;
 use Flarum\Search\SearchCriteria;
-use Flarum\Tags\Query\TagFilterGambit;
+use Flarum\Sticky\PinStickiedDiscussionsToTop as StickyPinStickiedDiscussionsToTop;
 use FoF\DiscussionLanguage\Search\LanguageFilter;
 
+/**
+ * Stands in for flarum/sticky's mutator, which leaves a list alone once any
+ * filter but a tag's narrows it. A list filtered by language is still the list
+ * it was, in the reader's language, so sticky sees it without that filter and
+ * decides as it would for the list itself.
+ */
 class PinStickiedDiscussionsToTop
 {
-    public function __invoke(SearchState $filterState, SearchCriteria $criteria): void
+    public function __construct(
+        protected StickyPinStickiedDiscussionsToTop $sticky
+    ) {
+    }
+
+    public function __invoke(DatabaseSearchState $state, SearchCriteria $criteria): void
     {
-        if ($criteria->sortIsDefault) {
-            $query = $filterState->getQuery();
+        $filters = array_filter($state->getActiveFilters(), fn ($filter) => ! $filter instanceof LanguageFilter);
 
-            // If we are viewing a specific tag, then pin all stickied
-            // discussions to the top no matter what.
-            $filters = $filterState->getActiveFilters();
+        if (count($filters) === count($state->getActiveFilters())) {
+            ($this->sticky)($state, $criteria);
 
-            if (count($filters) > 0) {
-                $tagFilterGambits = array_filter($filters, function ($filter) {
-                    return $filter instanceof TagFilterGambit;
-                });
-
-                // Tag pages (with or without a language filter) pin all stickied
-                // discussions to the top, matching core sticky's tag-page behavior.
-                if (count($tagFilterGambits) > 0) {
-                    if (!is_array($query->orders)) {
-                        $query->orders = [];
-                    }
-
-                    array_unshift($query->orders, ['column' => 'is_sticky', 'direction' => 'desc']);
-
-                    return;
-                }
-
-                // A language-only filter is conceptually still "/all in the user's
-                // language", so fall through to the unread-only UNION path below.
-                // Any other unknown filter: don't interfere.
-                $languageFilterGambits = array_filter($filters, function ($filter) {
-                    return $filter instanceof LanguageFilter;
-                });
-
-                if (count($languageFilterGambits) !== count($filters)) {
-                    return;
-                }
-            }
-
-            // Otherwise, if we are viewing "all discussions", only pin stickied
-            // discussions to the top if they are unread. To do this in a
-            // performant way we create another query which will select all
-            // stickied discussions, marry them into the main query, and then
-            // reorder the unread ones up to the top.
-            $sticky = clone $query;
-            $sticky->where('is_sticky', true);
-            unset($sticky->orders);
-
-            $query->union($sticky);
-
-            $read = $query->newQuery()
-                ->selectRaw('1')
-                ->from('discussion_user as sticky')
-                ->whereColumn('sticky.discussion_id', 'id')
-                ->where('sticky.user_id', '=', $filterState->getActor()->id)
-                ->whereColumn('sticky.last_read_post_number', '>=', 'last_post_number');
-
-            // Add the bindings manually (rather than as the second
-            // argument in orderByRaw) for now due to a bug in Laravel which
-            // would add the bindings in the wrong order.
-            $query->orderByRaw('is_sticky and not exists ('.$read->toSql().') and last_posted_at > ? desc')
-                ->addBinding(array_merge($read->getBindings(), [$filterState->getActor()->marked_all_as_read_at ?: 0]), 'union');
-
-            $query->unionOrders = array_merge($query->unionOrders, $query->orders);
-            $query->unionLimit = $query->limit;
-            $query->unionOffset = $query->offset;
-
-            $query->limit = $sticky->limit = $query->offset + $query->limit;
-            unset($query->offset, $sticky->offset);
+            return;
         }
+
+        // The same query, so what sticky does to it is done to the list.
+        $withoutLanguage = new DatabaseSearchState($state->getActor(), $state->isFulltextSearch(), $state->getDefaultSort());
+        $withoutLanguage->setQuery($state->getQuery());
+
+        foreach ($filters as $filter) {
+            $withoutLanguage->addActiveFilter($filter);
+        }
+
+        ($this->sticky)($withoutLanguage, $criteria);
     }
 }

@@ -19,27 +19,36 @@ use Flarum\User\User;
 
 class DiscussionPolicy extends AbstractPolicy
 {
-    protected string $model = Discussion::class;
-
-    public function __construct(protected SettingsRepositoryInterface $settings)
-    {
+    public function __construct(
+        protected SettingsRepositoryInterface $settings
+    ) {
     }
 
     public function changeLanguage(User $actor, Discussion $discussion): ?string
     {
-        if ($discussion->user_id == $actor->id && $actor->can('reply', $discussion)) {
-            $allowEditLanguage = $this->settings->get('fof-discussion-language.allow_language_change');
-
-            if ($allowEditLanguage === '-1'
-                || ($allowEditLanguage === 'reply' && $discussion->participant_count <= 1)
-                || (is_numeric($allowEditLanguage) && $discussion->created_at->diffInMinutes(new Carbon(), true) < $allowEditLanguage)
-            ) {
-                return $this->allow();
-            }
-        } elseif ($actor->can('changeLanguageModerate', $discussion)) {
-            return $this->allow();
+        // Forced: in a restricted tag, flarum/tags denies any ability without a
+        // permission of its own there, and none can be granted for this one.
+        // Both checks below already respect the tag's own permissions.
+        if ($this->authorMayChange($actor, $discussion) || $actor->can('changeLanguageModerate', $discussion)) {
+            return $this->forceAllow();
         }
 
         return null;
+    }
+
+    /**
+     * An author may change the language for as long as the setting allows.
+     */
+    protected function authorMayChange(User $actor, Discussion $discussion): bool
+    {
+        if ($actor->isGuest() || (int) $discussion->user_id !== (int) $actor->id || ! $actor->can('reply', $discussion)) {
+            return false;
+        }
+
+        $allowEditLanguage = $this->settings->get('fof-discussion-language.allow_language_change');
+
+        return $allowEditLanguage === '-1'
+            || ($allowEditLanguage === 'reply' && $discussion->participant_count <= 1)
+            || (is_numeric($allowEditLanguage) && $discussion->created_at->diffInMinutes(new Carbon(), true) < $allowEditLanguage);
     }
 }

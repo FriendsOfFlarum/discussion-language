@@ -13,13 +13,16 @@ namespace FoF\DiscussionLanguage;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends Factory<DiscussionLanguage>
+ */
 class DiscussionLanguageFactory extends Factory
 {
     public function definition(): array
     {
         return [
-            'code' => $this->faker->word,
-            'country' => null,
+            'code'    => $this->faker->unique()->languageCode(),
+            'country' => $this->faker->countryCode(),
         ];
     }
 }

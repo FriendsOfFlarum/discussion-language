@@ -11,47 +11,53 @@
 
 namespace FoF\DiscussionLanguage\Search;
 
+use Flarum\Search\Database\DatabaseSearchState;
 use Flarum\Search\Filter\FilterInterface;
 use Flarum\Search\SearchState;
+use Flarum\Search\ValidateFilterTrait;
 use FoF\DiscussionLanguage\DiscussionLanguage;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * @implements FilterInterface<DatabaseSearchState>
+ */
 class LanguageFilter implements FilterInterface
 {
+    use ValidateFilterTrait;
 
     public function getFilterKey(): string
     {
         return 'language';
     }
 
-    public function filter(SearchState $state, array|string $value, bool $negate): void
+    /**
+     * @param DatabaseSearchState $state
+     */
+    public function filter(SearchState $state, string|array $value, bool $negate): void
     {
-        $codes = explode(',', trim($value, '"'));
-
-        $this->constrain($state->getQuery(), $negate, $codes);
+        $this->constrain($state->getQuery(), $this->asStringArray($value), $negate);
     }
 
-    protected function constrain(\Illuminate\Database\Eloquent\Builder $query, bool $negate, array $codes): void
+    /**
+     * @param string[] $codes
+     */
+    protected function constrain(Builder $query, array $codes, bool $negate): void
     {
-        $codes = array_filter($codes, fn ($c) => $c !== 'any');
+        $codes = array_filter($codes, fn (string $code) => $code !== DiscussionLanguage::ANY);
 
         if (empty($codes)) {
             return;
         }
 
-        $sub = DiscussionLanguage::whereIn('code', $codes)->select('id');
+        $languageIds = DiscussionLanguage::query()->whereIn('code', $codes)->select('id');
 
         if ($negate) {
-            $query->where(function ($query) use ($sub) {
-                $query->whereNotIn('discussions.language_id', $sub)
+            $query->where(function (Builder $query) use ($languageIds) {
+                $query->whereNotIn('discussions.language_id', $languageIds)
                     ->orWhereNull('discussions.language_id');
             });
         } else {
-            $query->whereIn('discussions.language_id', $sub);
+            $query->whereIn('discussions.language_id', $languageIds);
         }
     }
-
-    /**
-     * {@inheritdoc}
-     */
 }
