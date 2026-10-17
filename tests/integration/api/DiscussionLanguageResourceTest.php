@@ -134,4 +134,22 @@ class DiscussionLanguageResourceTest extends TestCase
         $this->assertEquals(403, $response->getStatusCode());
         $this->assertNotNull(DiscussionLanguage::query()->find(1));
     }
+
+    /**
+     * Keys are integers; PostgreSQL rejects comparing one with anything else.
+     */
+    #[Test]
+    public function a_language_that_is_no_number_is_not_found(): void
+    {
+        foreach (['any', 'de'] as $id) {
+            $response = $this->send(
+                $this->request('PATCH', "/api/discussion-languages/$id", [
+                    'authenticatedAs' => 1,
+                    'json'            => ['data' => ['type' => 'discussion-languages', 'id' => $id, 'attributes' => ['country' => 'DE']]],
+                ])
+            );
+
+            $this->assertEquals(404, $response->getStatusCode(), "$id: ".$response->getBody());
+        }
+    }
 }

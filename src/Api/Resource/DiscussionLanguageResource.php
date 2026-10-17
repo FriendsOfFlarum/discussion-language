@@ -53,6 +53,17 @@ class DiscussionLanguageResource extends AbstractDatabaseResource
         return $model->code === DiscussionLanguage::ANY ? DiscussionLanguage::ANY : (string) $model->getKey();
     }
 
+    public function find(string $id, Context $context): ?object
+    {
+        // Keys are integers: anything else, `any` among them, is no language.
+        // PostgreSQL rejects comparing it with the key rather than finding none.
+        if (!ctype_digit($id)) {
+            return null;
+        }
+
+        return parent::find($id, $context);
+    }
+
     public function endpoints(): array
     {
         return [
