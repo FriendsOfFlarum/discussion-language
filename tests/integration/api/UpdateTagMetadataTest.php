@@ -98,6 +98,11 @@ class UpdateTagMetadataTest extends TestCase
         $twoDaysAgo = Carbon::now()->subDays(2);
         $threeDaysAgo = Carbon::now()->subDays(3);
 
+        $localised = json_encode([
+            '1' => ['id' => 1, 'at' => $at($twoDaysAgo), 'user_id' => 1],
+            '2' => ['id' => 2, 'at' => $at($anHourAgo), 'user_id' => 1],
+        ]);
+
         $this->prepareDatabase([
             Discussion::class => [
                 ['id' => 1, 'title' => 'Latest English', 'user_id' => 1, 'first_post_id' => 1, 'last_post_id' => 1, 'last_post_number' => 1, 'language_id' => 1, 'last_posted_at' => $twoDaysAgo, 'last_posted_user_id' => 1],
@@ -110,11 +115,7 @@ class UpdateTagMetadataTest extends TestCase
                 ['id' => 3, 'discussion_id' => 3, 'number' => 1, 'user_id' => 1, 'created_at' => $threeDaysAgo],
             ],
             Tag::class => [
-                ['id'                           => 1, 'name' => 'General', 'slug' => 'general', 'position' => 0, 'discussion_count' => 3, 'last_posted_discussion_id' => 2, 'last_posted_at' => $anHourAgo,
-                    'localised_last_discussion' => json_encode([
-                        '1' => ['id' => 1, 'at' => $at($twoDaysAgo), 'user_id' => 1],
-                        '2' => ['id' => 2, 'at' => $at($anHourAgo), 'user_id' => 1],
-                    ])],
+                ['id' => 1, 'name' => 'General', 'slug' => 'general', 'position' => 0, 'discussion_count' => 3, 'last_posted_discussion_id' => 2, 'last_posted_at' => $anHourAgo, 'localised_last_discussion' => $localised],
             ],
             'discussion_tag' => [
                 ['discussion_id' => 1, 'tag_id' => 1],

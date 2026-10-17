@@ -35,6 +35,9 @@ class ApprovalTagMetadataTest extends TestCase
         $yesterday = Carbon::now()->subDay();
         $anHourAgo = Carbon::now()->subHour();
 
+        // English's last is the more recent of the two approved discussions.
+        $localised = json_encode(['1' => ['id' => 3, 'at' => $yesterday->timestamp, 'user_id' => 1]]);
+
         $this->prepareDatabase([
             DiscussionLanguage::class => [
                 ['id' => 1, 'code' => 'en', 'country' => 'GB'],
@@ -52,8 +55,7 @@ class ApprovalTagMetadataTest extends TestCase
                 ['id' => 4, 'discussion_id' => 1, 'number' => 2, 'user_id' => 1, 'created_at' => $anHourAgo, 'is_approved' => false, 'is_private' => true],
             ],
             Tag::class => [
-                ['id'                           => 1, 'name' => 'General', 'slug' => 'general', 'position' => 0,
-                    'localised_last_discussion' => json_encode(['1' => ['id' => 3, 'at' => $yesterday->timestamp, 'user_id' => 1]])],
+                ['id' => 1, 'name' => 'General', 'slug' => 'general', 'position' => 0, 'localised_last_discussion' => $localised],
             ],
             'discussion_tag' => [
                 ['discussion_id' => 1, 'tag_id' => 1],

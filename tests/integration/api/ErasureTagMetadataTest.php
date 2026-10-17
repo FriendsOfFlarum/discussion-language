@@ -44,6 +44,9 @@ class ErasureTagMetadataTest extends TestCase
         $twoDaysAgo = Carbon::now()->subDays(2);
         $anHourAgo = Carbon::now()->subHour();
 
+        // English's last is the discussion the erased user replied to.
+        $localised = json_encode(['1' => ['id' => 1, 'at' => $anHourAgo->timestamp, 'user_id' => 2]]);
+
         $this->prepareDatabase([
             User::class => [
                 $this->normalUser(),
@@ -62,8 +65,7 @@ class ErasureTagMetadataTest extends TestCase
                 ['id' => 3, 'discussion_id' => 2, 'number' => 1, 'user_id' => 1, 'created_at' => $twoDaysAgo],
             ],
             Tag::class => [
-                ['id'                           => 1, 'name' => 'General', 'slug' => 'general', 'position' => 0,
-                    'localised_last_discussion' => json_encode(['1' => ['id' => 1, 'at' => $anHourAgo->timestamp, 'user_id' => 2]])],
+                ['id' => 1, 'name' => 'General', 'slug' => 'general', 'position' => 0, 'localised_last_discussion' => $localised],
             ],
             'discussion_tag' => [
                 ['discussion_id' => 1, 'tag_id' => 1],
