@@ -1,9 +1,9 @@
 import app from 'flarum/forum/app';
 import { extend } from 'flarum/common/extend';
-import { components } from '@fof-follow-tags';
+import { components } from '@fof-follow-tags'; // @TODO: import from `ext:vendor/extension/module-path` format.
 import LanguageDropdown from './components/LanguageDropdown';
 import Stream from 'flarum/common/utils/Stream';
-import type Tag from 'flarum/tags/common/models/Tag';
+import type Tag from 'ext:flarum/tags/common/models/Tag';
 import type ItemList from 'flarum/common/utils/ItemList';
 import type Mithril from 'mithril';
 

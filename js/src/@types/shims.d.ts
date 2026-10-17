@@ -1,8 +1,8 @@
-import Tag from 'flarum/tags/common/models/Tag';
+import Tag from 'ext:flarum/tags/common/models/Tag';
 import Discussion from 'flarum/common/models/Discussion';
 import Language from '../common/models/Language';
 
-declare module 'flarum/tags/common/models/Tag' {
+declare module 'ext:flarum/tags/common/models/Tag' {
   export default interface Tag {
     localisedLastDiscussion(): Record<string, { title: string; id: string; at: number }>;
     subscriptionLanguage(): string | null;

@@ -4,6 +4,7 @@ declare module 'twemoji-basename' {
 }
 
 declare module '@fof-follow-tags' {
+  // @TODO: import from `ext:vendor/extension/module-path` format.
   import type Component from 'flarum/common/Component';
   const components: {
     SubscriptionModal: typeof Component & { prototype: any };

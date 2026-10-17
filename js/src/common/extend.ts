@@ -2,7 +2,7 @@ import Extend from 'flarum/common/extenders';
 import Language from '../common/models/Language';
 import Discussion from 'flarum/common/models/Discussion';
 import Forum from 'flarum/common/models/Forum';
-import Tag from 'flarum/tags/common/models/Tag';
+import Tag from 'ext:flarum/tags/common/models/Tag';
 
 export default [
   new Extend.Store() //

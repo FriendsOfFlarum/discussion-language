@@ -1,6 +1,6 @@
 import app from 'flarum/forum/app';
 
-import Tag from 'flarum/tags/common/models/Tag';
+import Tag from 'ext:flarum/tags/common/models/Tag';
 
 import Discussion from 'flarum/common/models/Discussion';
 import Model from 'flarum/common/Model';
