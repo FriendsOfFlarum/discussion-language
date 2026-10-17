@@ -15,7 +15,7 @@ A [Flarum](http://flarum.org) extension. Tag discussions with the language they 
 - **Country flags** — Display emoji flags alongside language names (backed by [twemoji](https://twemoji.twitter.com/)). Uses ISO 639-2 language codes and country data.
 - **Native language names** — Optionally display language names in their own script (e.g. "Deutsch" instead of "German").
 - **Tags page integration** — Optionally show only the most recent discussion in the user's locale on the tags page instead of the overall most recent discussion.
-- **fof/follow-tags integration** — When [fof/follow-tags](https://github.com/FriendsOfFlarum/follow-tags) is enabled, users can choose which discussion language they want to receive tag subscription notifications for.
+- **fof/follow-tags integration** — When [fof/follow-tags](https://github.com/FriendsOfFlarum/follow-tags) is enabled, users can choose, for each tag they follow, which discussion language they want to be notified about. Choosing it needs fof/follow-tags 2.0.0 or later; with an earlier version, the language chosen before still applies.
 
 ### Installation
 
@@ -48,8 +48,8 @@ Languages and their associated countries (for flag display) are managed from the
 
 #### Permissions
 
-- **Allow language editing** — Controls which user groups can change the language of their own discussions, and for how long after posting (immediately, within 10 minutes, or until someone else replies).
-- **Allow moderate language editing** — Controls which groups can change the language on any discussion at any time.
+- **Allow language editing** — How long authors can change the language of their own discussions: indefinitely, for 10 minutes after posting, or until someone else replies.
+- **Change discussion language** — Which groups can change the language of any discussion at any time.
 
 ### Links
 
