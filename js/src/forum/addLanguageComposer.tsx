@@ -1,80 +1,68 @@
-import { extend, override } from 'flarum/common/extend';
 import app from 'flarum/forum/app';
-import IndexPage from 'flarum/forum/components/IndexPage';
-// @TODO: DiscussionComposer is lazy loaded in 2.0, so this import is undefined until its chunk has loaded. Load it with `await import('flarum/forum/components/DiscussionComposer')` before using it. https://docs.flarum.org/2.x/extend/code-splitting
-import DiscussionComposer from 'flarum/forum/components/DiscussionComposer';
+import { extend, override } from 'flarum/common/extend';
+import Button from 'flarum/common/components/Button';
+import classList from 'flarum/common/utils/classList';
+import type DiscussionComposer from 'flarum/forum/components/DiscussionComposer';
 import type ItemList from 'flarum/common/utils/ItemList';
 import type Mithril from 'mithril';
 
-import LanguageDiscussionModal from './components/LanguageDiscussionModal';
 import LanguageDisplay from './components/LanguageDisplay';
 import type Language from '../common/models/Language';
-
-const sort = (a: Language, b: Language) => (a.code()!.toLowerCase() > b.code()!.toLowerCase() ? 1 : -1);
+import chooseLanguage from './utils/chooseLanguage';
+import { composerFields, isPrivateComposer, startingLanguage } from './utils/composerLanguage';
+import { selectedLanguage } from './utils/languageFilter';
 
 export default () => {
-  extend(IndexPage.prototype, 'newDiscussionAction', function (promise: Promise<unknown>) {
-    const dislang = app.search.state.params().language;
+  // Here rather than where the composer is opened: loading the composer's chunk
+  // clears its fields, and it can be opened from anywhere.
+  extend('flarum/forum/components/DiscussionComposer', 'oninit', function (this: DiscussionComposer) {
+    if (isPrivateComposer(this) || composerFields(this).language) return;
 
-    if (dislang) {
-      promise.then((composer) => ((composer as any).fields.language = app.store.getBy('discussion-languages', 'code', dislang)));
-    } else {
-      const localeComposer = app.forum.attribute('fof-discussion-language.composerLocaleDefault');
-      (app.composer as any).fields.language = localeComposer ? app.store.getBy('discussion-languages', 'code', app.translator.getLocale()) : '';
-    }
+    const code = startingLanguage(
+      selectedLanguage(),
+      !!app.forum.attribute<boolean>('fof-discussion-language.composerLocaleDefault'),
+      app.translator.getLocale()
+    );
+
+    composerFields(this).language = (code && app.store.getBy<Language>('discussion-languages', 'code', code)) || null;
   });
 
-  override(
-    'flarum/forum/components/DiscussionComposer',
-    'chooseLanguage',
-    function (this: DiscussionComposer, original, hide: boolean, callback: (() => void) | null) {
-      app.modal.show(LanguageDiscussionModal, {
-        selected: (this as any).composer.fields.language,
-        hideSubmitButton: hide,
-
-        onsubmit: (language: Language) => {
-          (this as any).composer.fields.language = language;
-          (this as any).$('textarea').focus();
-
-          if (callback) callback();
-        },
-      });
-    }
-  );
-
   extend('flarum/forum/components/DiscussionComposer', 'headerItems', function (this: DiscussionComposer, items: ItemList<Mithril.Children>) {
-    // Don't add lang item to byobu composers
-    if ((this as any)._isByobuComposer) return;
+    if (isPrivateComposer(this)) return;
+
+    const language = composerFields(this).language;
 
     items.add(
       'language',
-      <a className="DiscussionComposer-changeTags" onclick={this.chooseLanguage.bind(this, true, null)}>
-        <span className={`LanguageLabel ${(this as any).composer.fields.language ? '' : 'none'}`}>
-          {(this as any).composer.fields.language
-            ? LanguageDisplay.component({ language: (this as any).composer.fields.language, uppercase: true })
-            : app.translator.trans('fof-discussion-language.forum.composer_discussion.choose_language_link')}
+      <Button
+        className="DiscussionComposer-changeTags Button Button--ua-reset"
+        onclick={() => chooseLanguage(this, true)}
+        // The language is shown by a component, which the button can't read a name from.
+        aria-label={language?.name()}
+      >
+        <span className={classList('LanguageLabel', !language && 'none')}>
+          {language ? (
+            <LanguageDisplay language={language} uppercase={true} />
+          ) : (
+            app.translator.trans('fof-discussion-language.forum.composer_discussion.choose_language_link')
+          )}
         </span>
-      </a>,
+      </Button>,
       20
     );
   });
 
   override('flarum/forum/components/DiscussionComposer', 'onsubmit', function (this: DiscussionComposer, original: () => void) {
-    // Don't add lang stuff to byobu composers
-    if ((this as any)._isByobuComposer) return original();
+    if (isPrivateComposer(this) || composerFields(this).language) return original();
 
-    if (!(this as any).composer.fields.language) return this.chooseLanguage(true, original);
-
-    original();
+    chooseLanguage(this, true, original);
   });
 
   extend('flarum/forum/components/DiscussionComposer', 'data', function (this: DiscussionComposer, data: Record<string, unknown>) {
-    // Don't add lang stuff to byobu composers
-    if ((this as any)._isByobuComposer) return;
+    const language = composerFields(this).language;
 
-    data.relationships = (data.relationships as Record<string, unknown>) || {};
+    if (isPrivateComposer(this) || !language) return;
 
-    (data.relationships as Record<string, unknown>).language =
-      (this as any).composer.fields.language || app.store.all<Language>('discussion-languages').sort(sort)[0];
+    data.relationships = { ...(data.relationships as Record<string, unknown> | undefined), language };
   });
 };

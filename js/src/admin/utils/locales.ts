@@ -1,8 +1,9 @@
 import loadAsset from './loadAsset';
 
-interface ISO6392Entry {
+export interface ISO6392Entry {
   '639-1': string;
   '639-2': string;
+  '639-3': string;
   'Language name(s)': string;
   'Native name(s)': string;
 }
@@ -15,23 +16,42 @@ export const load = async () => {
   return ISO6392;
 };
 
+/**
+ * The code a language is stored with: its shortest. Some are only in ISO 639-3,
+ * such as Venetian (vec), so without it they all shared the code ''.
+ */
+export const codeOf = (data: ISO6392Entry): string => data['639-1'] || data['639-2'] || data['639-3'];
+
 export const getNameColumn = (data: ISO6392Entry | undefined, native: boolean): string | undefined =>
   (native && data?.['Native name(s)']) || data?.['Language name(s)'];
 
-export default (native: boolean): Record<string, string | undefined> =>
-  Array.from(Object.values(ISO6392 || {}))
-    ?.sort((a, b) => ((getNameColumn(a, native)?.toLowerCase() ?? '') > (getNameColumn(b, native)?.toLowerCase() ?? '') ? 1 : -1))
-    .reduce(
-      (o, data) => {
-        o[data['639-1'] || data['639-2']] = getNameColumn(data, native);
+/**
+ * The languages to choose from, by code, in the order of their names.
+ */
+export function localeOptions(entries: ISO6392Entry[], native: boolean): Record<string, string | undefined> {
+  const name = (data: ISO6392Entry) => getNameColumn(data, native)?.toLowerCase() ?? '';
 
-        return o;
+  return entries
+    .filter((data) => codeOf(data))
+    .sort((a, b) => name(a).localeCompare(name(b)))
+    .reduce(
+      (options, data) => {
+        options[codeOf(data)] = getNameColumn(data, native);
+
+        return options;
       },
       {} as Record<string, string | undefined>
     );
+}
+
+// Named: flarum-webpack-config 3.0.6 registers a one-parameter arrow default
+// export under its parameter's name, which is undefined at runtime.
+export default function getLocales(native: boolean): Record<string, string | undefined> {
+  return localeOptions(ISO6392 || [], native);
+}
 
 export const getName = (code: string, native: boolean): string | undefined =>
   getNameColumn(
-    ISO6392?.find((data) => [data['639-1'] || data['639-2']].includes(code)),
+    ISO6392?.find((data) => codeOf(data) === code),
     native
   );

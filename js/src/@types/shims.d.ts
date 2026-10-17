@@ -1,10 +1,12 @@
 import Tag from 'ext:flarum/tags/common/models/Tag';
 import Discussion from 'flarum/common/models/Discussion';
-import Language from '../common/models/Language';
+import Forum from 'flarum/common/models/Forum';
+import type Language from '../common/models/Language';
+import type { LocalisedLastDiscussions } from '../common/models/LocalisedLastDiscussions';
 
 declare module 'ext:flarum/tags/common/models/Tag' {
   export default interface Tag {
-    localisedLastDiscussion(): Record<string, { title: string; id: string; at: number }>;
+    localisedLastDiscussion(): LocalisedLastDiscussions;
     subscriptionLanguage(): string | null;
   }
 }
@@ -16,8 +18,8 @@ declare module 'flarum/common/models/Discussion' {
   }
 }
 
-declare module 'flarum/forum/components/DiscussionComposer' {
-  export default interface DiscussionComposer {
-    chooseLanguage(hide: boolean, callback: (() => void) | null): void;
+declare module 'flarum/common/models/Forum' {
+  export default interface Forum {
+    discussionLanguages(): Language[] | false;
   }
 }

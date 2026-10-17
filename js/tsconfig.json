@@ -15,6 +15,9 @@
       ],
       "ext:flarum/tags/*": [
         "../vendor/flarum/tags/js/dist-typings/*"
+      ],
+      "ext:fof/follow-tags/*": [
+        "../vendor/fof/follow-tags/js/dist-typings/*"
       ]
     }
   }

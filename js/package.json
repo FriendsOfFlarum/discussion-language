@@ -3,8 +3,6 @@
   "private": true,
   "prettier": "@flarum/prettier-config",
   "dependencies": {
-    "countries-list": "^2.6.1",
-    "twemoji": "^14.0.2",
     "twemoji-basename": "^1.0.0"
   },
   "scripts": {
@@ -18,7 +16,8 @@
     "check-typings": "tsc --noEmit --emitDeclarationOnly false",
     "check-typings-coverage": "typescript-coverage-report",
     "build:iso": "npx --yes csvtojson \"../resources/wikipedia-iso-639-2-codes.csv\" > \"../assets/iso-639-2.json\"",
-    "build:countries": "cp ./node_modules/countries-list/dist/countries.json ../assets/countries.json"
+    "build:countries": "cp ./node_modules/countries-list/dist/countries.json ../assets/countries.json",
+    "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
   },
   "devDependencies": {
     "@flarum/prettier-config": "^1.0.0",
@@ -27,6 +26,9 @@
     "prettier": "^3.0.2",
     "webpack": "^5.104.1",
     "webpack-cli": "^5.1.4",
-    "typescript-coverage-report": "^0.6.1"
-  }
+    "typescript-coverage-report": "^0.6.1",
+    "@flarum/jest-config": "^2.0.2",
+    "countries-list": "^2.6.1"
+  },
+  "type": "module"
 }

@@ -15,6 +15,9 @@ fof-discussion-language:
     index_language:
       any: Any Language
 
+    language_dropdown:
+      toggle_label: Choose a discussion language
+
     sub_controls:
       subscription_language_label: Discussion language
       subscription_language_help: When you select a language here, you'll only be notified of new activity in that language.
@@ -31,12 +34,21 @@ fof-discussion-language:
       errors:
         missing_assets: We couldn't load the assets needed by this extension. Try running <code>php flarum assets:publish</code> and see if that fixes the issue.
 
+      languages_heading: Languages
+      languages_help: The languages a discussion can be in. The country chooses the flag shown with each.
+      attribution: This extension uses material from the Wikipedia article <article>List of ISO 639-2 codes</article>, which is released under the <license>Creative Commons Attribution-Share-Alike License 3.0</license>.
+
       config:
         language_label: Language
         country_label: Country (for display flag)
+        choose_language: Choose a language…
+        choose_country: Choose a country…
+        add_button: Add language
+        remove_button: Remove {language}
 
     permissions:
       allow_change_language_label: Allow language editing
+      change_language_label: Change discussion language
 
   api:
     discussion:
@@ -45,4 +57,4 @@ fof-discussion-language:
     gambits:
       language:
         key: language
-        hint: language
+        hint: language code or comma-separated list of language codes

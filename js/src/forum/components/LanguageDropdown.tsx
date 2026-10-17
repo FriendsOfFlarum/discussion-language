@@ -1,108 +1,67 @@
 import app from 'flarum/forum/app';
 import Button from 'flarum/common/components/Button';
-import Dropdown, { IDropdownAttrs } from 'flarum/common/components/Dropdown';
-import type Mithril from 'mithril';
-import Icon from 'flarum/common/components/Icon';
+import SelectDropdown, { type ISelectDropdownAttrs } from 'flarum/common/components/SelectDropdown';
 import classList from 'flarum/common/utils/classList';
-import generateLanguageOptions from '../utils/generateLanguageOptions';
-import Stream from 'flarum/common/utils/Stream';
+import extractText from 'flarum/common/utils/extractText';
+import type Mithril from 'mithril';
 
-export interface LanguageDropdownAttrs extends IDropdownAttrs {
+import type Language from '../../common/models/Language';
+import generateLanguageOptions from '../utils/generateLanguageOptions';
+import { defaultLanguage } from '../utils/languageFilter';
+
+export interface LanguageDropdownAttrs extends Partial<ISelectDropdownAttrs> {
   className?: string;
+  /** The code of the language chosen, or `any`. */
   selected?: string;
-  onclick?: (langId: string) => void;
-  extra?: Record<string, Mithril.Children>;
+  onselect?: (code: string) => void;
 }
 
-export default class LanguageDropdown extends Dropdown<LanguageDropdownAttrs> {
-  selected!: Stream<string>;
-  options!: Record<string, Mithril.Children>;
-  loaded: boolean = false;
+export default class LanguageDropdown extends SelectDropdown<LanguageDropdownAttrs & ISelectDropdownAttrs> {
+  selected!: string;
 
-  static initAttrs(attrs: LanguageDropdownAttrs): void {
-    attrs.buttonClassName = 'Button';
-    attrs.className = classList(attrs.className, 'Dropdown--select', 'Dropdown--language');
+  static initAttrs(attrs: LanguageDropdownAttrs & ISelectDropdownAttrs) {
+    attrs.className = classList(attrs.className, 'Dropdown--language');
+    attrs.buttonClassName ||= 'Button';
+    // As the sort dropdown beside it on the discussion list.
+    attrs.caretIcon ??= 'fas fa-caret-down';
+    attrs.accessibleToggleLabel ||= extractText(app.translator.trans('fof-discussion-language.forum.language_dropdown.toggle_label'));
+
     super.initAttrs(attrs);
   }
 
-  oninit(vnode: Mithril.Vnode<LanguageDropdownAttrs, this>): void {
+  oninit(vnode: Mithril.Vnode<LanguageDropdownAttrs & ISelectDropdownAttrs, this>) {
     super.oninit(vnode);
 
-    this.loadLanguages();
-    this.selected = Stream(this.initSelectedLanguage());
+    this.selected = this.attrs.selected || defaultLanguage();
   }
 
-  getDefaultLanguage(): string {
-    return (app.forum.attribute('fof-discussion-language.showAnyLangOpt') ? 'any' : app.translator.getLocale()) || '';
-  }
+  view(vnode: Mithril.Vnode<LanguageDropdownAttrs & ISelectDropdownAttrs, this>) {
+    const options = generateLanguageOptions();
 
-  initSelectedLanguage(): string {
-    return this.attrs.selected || this.getDefaultLanguage();
-  }
+    return super.view({
+      ...vnode,
+      children: Object.keys(options).map((code) => {
+        const active = this.selected === code;
 
-  loadLanguages(): void {
-    if (this.loaded === false) {
-      this.options = generateLanguageOptions(this.attrs.extra);
-      this.loaded = true;
-    }
-  }
-
-  buildDropdownContent(): Mithril.ChildArray {
-    return Object.keys(this.options).map((langId) => {
-      const isItemSelected = this.selected() === langId;
-
-      return (
-        <Button
-          key={langId + isItemSelected}
-          active={isItemSelected}
-          icon={isItemSelected ? 'fas fa-check' : true}
-          onclick={() => {
-            this.selected(langId);
-
-            if (this.attrs.onclick) {
-              this.attrs.onclick.call(this, langId);
-            }
-          }}
-          aria-label={langId}
-        >
-          {this.options[langId]}
-        </Button>
-      );
+        return (
+          <Button
+            active={active}
+            icon={active ? 'fas fa-check' : true}
+            // Its content is a component, which the button can't read a name from.
+            aria-label={app.store.getBy<Language>('discussion-languages', 'code', code)?.name()}
+            data-language={code}
+            onclick={() => this.select(code)}
+          >
+            {options[code]}
+          </Button>
+        );
+      }),
     });
   }
 
-  view(vnode: Mithril.Vnode<LanguageDropdownAttrs, this>) {
-    const children = this.buildDropdownContent();
+  select(code: string) {
+    this.selected = code;
 
-    return super.view({ ...vnode.attrs, children });
-  }
-
-  getButton(children: Mithril.ChildArray): Mithril.Vnode<any, any> {
-    return (
-      <button
-        key={this.selected() + 'Button'}
-        className={'Dropdown-toggle ' + this.attrs.buttonClassName}
-        aria-haspopup="menu"
-        aria-label={this.attrs.accessibleToggleLabel}
-        data-toggle="dropdown"
-      >
-        {this.getButtonContent(children)}
-      </button>
-    );
-  }
-
-  getButtonContent(children: Mithril.ChildArray): Mithril.ChildArray {
-    return [
-      <span className="Button-label">{this.options[this.selected()]}</span>,
-      this.attrs.caretIcon ? <Icon name={this.attrs.caretIcon} className="Button-caret" /> : null,
-    ];
-  }
-
-  getMenu(items: Mithril.Vnode<any, any>[]): Mithril.Vnode<any, any> {
-    return (
-      <ul key={this.selected() + 'Menu'} className={'Dropdown-menu dropdown-menu ' + this.attrs.menuClassName}>
-        {items}
-      </ul>
-    );
+    this.attrs.onselect?.(code);
   }
 }
