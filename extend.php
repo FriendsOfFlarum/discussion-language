@@ -14,9 +14,11 @@ namespace FoF\DiscussionLanguage;
 use Flarum\Api\Endpoint;
 use Flarum\Api\Resource\DiscussionResource;
 use Flarum\Api\Resource\ForumResource;
+use Flarum\Approval\Event\PostWasApproved;
 use Flarum\Discussion\Discussion;
 use Flarum\Discussion\Search\DiscussionSearcher;
 use Flarum\Extend;
+use Flarum\Gdpr\Events\Erased;
 use Flarum\Search\Database\DatabaseSearchDriver;
 use Flarum\Tags\Api\Resource\TagResource;
 use Flarum\Tags\Tag;
@@ -92,6 +94,14 @@ return [
         ->register(Provider\LanguageFilterProvider::class),
 
     (new Extend\Conditional())
+        ->whenExtensionEnabled('flarum-approval', fn () => [
+            (new Extend\Event())
+                ->listen(PostWasApproved::class, [Listener\UpdateTagMetadata::class, 'whenPostWasApproved']),
+        ])
+        ->whenExtensionEnabled('flarum-gdpr', fn () => [
+            (new Extend\Event())
+                ->listen(Erased::class, [Listener\UpdateTagMetadata::class, 'whenUserWasErased']),
+        ])
         ->whenExtensionEnabled('fof-follow-tags', fn () => array_filter([
             (new Extend\ApiResource(TagResource::class))
                 ->fields(Api\TagSubscriptionFields::class),

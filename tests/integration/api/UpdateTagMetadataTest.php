@@ -100,9 +100,9 @@ class UpdateTagMetadataTest extends TestCase
 
         $this->prepareDatabase([
             Discussion::class => [
-                ['id' => 1, 'title' => 'Latest English', 'user_id' => 1, 'first_post_id' => 1, 'last_post_id' => 1, 'last_post_number' => 1, 'comment_count' => 1, 'language_id' => 1, 'last_posted_at' => $twoDaysAgo, 'last_posted_user_id' => 1],
-                ['id' => 2, 'title' => 'Latest overall', 'user_id' => 1, 'first_post_id' => 2, 'last_post_id' => 2, 'last_post_number' => 1, 'comment_count' => 1, 'language_id' => 2, 'last_posted_at' => $anHourAgo, 'last_posted_user_id' => 1],
-                ['id' => 3, 'title' => 'Earlier English', 'user_id' => 1, 'first_post_id' => 3, 'last_post_id' => 3, 'last_post_number' => 1, 'comment_count' => 1, 'language_id' => 1, 'last_posted_at' => $threeDaysAgo, 'last_posted_user_id' => 1],
+                ['id' => 1, 'title' => 'Latest English', 'user_id' => 1, 'first_post_id' => 1, 'last_post_id' => 1, 'last_post_number' => 1, 'language_id' => 1, 'last_posted_at' => $twoDaysAgo, 'last_posted_user_id' => 1],
+                ['id' => 2, 'title' => 'Latest overall', 'user_id' => 1, 'first_post_id' => 2, 'last_post_id' => 2, 'last_post_number' => 1, 'language_id' => 2, 'last_posted_at' => $anHourAgo, 'last_posted_user_id' => 1],
+                ['id' => 3, 'title' => 'Earlier English', 'user_id' => 1, 'first_post_id' => 3, 'last_post_id' => 3, 'last_post_number' => 1, 'language_id' => 1, 'last_posted_at' => $threeDaysAgo, 'last_posted_user_id' => 1],
             ],
             Post::class => [
                 ['id' => 1, 'discussion_id' => 1, 'number' => 1, 'user_id' => 1, 'created_at' => $twoDaysAgo],
@@ -162,5 +162,47 @@ class UpdateTagMetadataTest extends TestCase
 
         $this->assertEquals(3, $localised['1']['id']);
         $this->assertEquals(2, $localised['2']['id']);
+    }
+
+    protected function changeLanguage(int $discussionId, string $languageId): void
+    {
+        $response = $this->send(
+            $this->request('PATCH', "/api/discussions/$discussionId", [
+                'authenticatedAs' => 1,
+                'json'            => ['data' => ['type' => 'discussions', 'id' => (string) $discussionId, 'relationships' => [
+                    'language' => ['data' => ['type' => 'discussion-languages', 'id' => $languageId]],
+                ]]],
+            ])
+        );
+
+        $this->assertEquals(200, $response->getStatusCode(), (string) $response->getBody());
+    }
+
+    #[Test]
+    public function changing_a_languages_last_discussion_to_another_brings_back_the_one_before(): void
+    {
+        $this->languagesWithTheirLastDiscussions();
+
+        // English's last becomes German, but German's last is more recent.
+        $this->changeLanguage(1, '2');
+
+        $localised = $this->localisedLastDiscussions(1);
+
+        $this->assertEquals(3, $localised['1']['id']);
+        $this->assertEquals(2, $localised['2']['id']);
+    }
+
+    #[Test]
+    public function changing_a_discussion_to_a_language_makes_it_that_languages_last_if_it_is_the_latest(): void
+    {
+        $this->languagesWithTheirLastDiscussions();
+
+        // German's only discussion, the tag's latest, becomes English.
+        $this->changeLanguage(2, '1');
+
+        $localised = $this->localisedLastDiscussions(1);
+
+        $this->assertEquals(2, $localised['1']['id']);
+        $this->assertArrayNotHasKey('2', $localised);
     }
 }

@@ -16,6 +16,7 @@ use Flarum\Api\Schema;
 use Flarum\Discussion\Discussion;
 use Flarum\Locale\TranslatorInterface;
 use FoF\DiscussionLanguage\DiscussionLanguage;
+use FoF\DiscussionLanguage\Event\LanguageChanged;
 use Illuminate\Support\Arr;
 
 class DiscussionResourceFields
@@ -49,6 +50,10 @@ class DiscussionResourceFields
                     // Whoever may start a discussion chooses its language.
                     if ($discussion->exists) {
                         $context->getActor()->assertCan('changeLanguage', $discussion);
+
+                        if ($discussion->language_id !== $language->id) {
+                            $discussion->raise(new LanguageChanged($discussion, $discussion->language_id, $context->getActor()));
+                        }
                     }
 
                     $discussion->language_id = $language->id;

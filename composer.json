@@ -53,7 +53,9 @@
             "optional-dependencies": [
                 "fof/byobu",
                 "fof/follow-tags",
-                "flarum/sticky"
+                "flarum/sticky",
+                "flarum/approval",
+                "flarum/gdpr"
             ]
         },
         "flagrow": {
@@ -75,7 +77,9 @@
         "fof/follow-tags": "^2.0.0",
         "flarum/testing": "^2.0.0",
         "flarum/phpstan": "^2.0.0",
-        "flarum/sticky": "^2.0.0"
+        "flarum/sticky": "^2.0.0",
+        "flarum/approval": "^2.0.0",
+        "flarum/gdpr": "^2.0.0"
     },
     "autoload-dev": {
         "psr-4": {
