@@ -11,33 +11,27 @@
 
 namespace FoF\DiscussionLanguage\Search;
 
-use Flarum\Filter\FilterInterface;
-use Flarum\Filter\FilterState;
-use Flarum\Search\AbstractRegexGambit;
+use Flarum\Search\Filter\FilterInterface;
 use Flarum\Search\SearchState;
 use FoF\DiscussionLanguage\DiscussionLanguage;
 use Illuminate\Database\Query\Builder;
 
-class LanguageFilterGambit extends AbstractRegexGambit implements FilterInterface
+class LanguageFilter implements FilterInterface
 {
-    public function getGambitPattern(): string
-    {
-        return 'language:(.+)';
-    }
 
     public function getFilterKey(): string
     {
         return 'language';
     }
 
-    public function filter(FilterState $filterState, string $filterValue, bool $negate): void
+    public function filter(SearchState $state, array|string $value, bool $negate): void
     {
-        $codes = explode(',', trim($filterValue, '"'));
+        $codes = explode(',', trim($value, '"'));
 
-        $this->constrain($filterState->getQuery(), $negate, $codes);
+        $this->constrain($state->getQuery(), $negate, $codes);
     }
 
-    protected function constrain(Builder $query, bool $negate, array $codes): void
+    protected function constrain(\Illuminate\Database\Eloquent\Builder $query, bool $negate, array $codes): void
     {
         $codes = array_filter($codes, fn ($c) => $c !== 'any');
 
@@ -60,10 +54,4 @@ class LanguageFilterGambit extends AbstractRegexGambit implements FilterInterfac
     /**
      * {@inheritdoc}
      */
-    protected function conditions(SearchState $search, array $matches, $negate)
-    {
-        $codes = explode(',', trim($matches[1], '"'));
-
-        $this->constrain($search->getQuery(), $negate, $codes);
-    }
 }

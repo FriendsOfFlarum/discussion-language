@@ -67,12 +67,6 @@ return [
         ->listen(TagCreating::class, Listener\TagCreating::class)
         ->subscribe(Listener\UpdateTagMetadata::class),
 
-    (new Extend\SimpleFlarumSearch(DiscussionSearcher::class))
-        ->addGambit(Search\LanguageFilterGambit::class),
-
-    (new Extend\Filter(DiscussionFilterer::class))
-        ->addFilter(Search\LanguageFilterGambit::class),
-
     (new Extend\Policy())
         ->modelPolicy(Discussion::class, Access\DiscussionPolicy::class),
 
@@ -137,4 +131,6 @@ return [
             ];
         }),
     new Extend\ApiResource(Api\Resource\DiscussionLanguageResource::class),
+    (new Extend\SearchDriver(\Flarum\Search\Database\DatabaseSearchDriver::class))
+        ->addFilter(DiscussionSearcher::class, Search\LanguageFilter::class),
 ];

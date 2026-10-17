@@ -11,14 +11,14 @@
 
 namespace FoF\DiscussionLanguage\Sticky;
 
-use Flarum\Filter\FilterState;
-use Flarum\Query\QueryCriteria;
+use Flarum\Search\SearchState;
+use Flarum\Search\SearchCriteria;
 use Flarum\Tags\Query\TagFilterGambit;
-use FoF\DiscussionLanguage\Search\LanguageFilterGambit;
+use FoF\DiscussionLanguage\Search\LanguageFilter;
 
 class PinStickiedDiscussionsToTop
 {
-    public function __invoke(FilterState $filterState, QueryCriteria $criteria): void
+    public function __invoke(SearchState $filterState, SearchCriteria $criteria): void
     {
         if ($criteria->sortIsDefault) {
             $query = $filterState->getQuery();
@@ -48,7 +48,7 @@ class PinStickiedDiscussionsToTop
                 // language", so fall through to the unread-only UNION path below.
                 // Any other unknown filter: don't interfere.
                 $languageFilterGambits = array_filter($filters, function ($filter) {
-                    return $filter instanceof LanguageFilterGambit;
+                    return $filter instanceof LanguageFilter;
                 });
 
                 if (count($languageFilterGambits) !== count($filters)) {

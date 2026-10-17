@@ -41,3 +41,8 @@ fof-discussion-language:
   api:
     discussion:
       validation_error: You must select your discussion's language.
+  lib:
+    gambits:
+      language:
+        key: language
+        hint: language
