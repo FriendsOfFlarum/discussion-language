@@ -76,9 +76,11 @@ return [
     (new Extend\Policy())
         ->modelPolicy(Discussion::class, Access\DiscussionPolicy::class),
 
+    // @TODO: Replace with the new implementation https://docs.flarum.org/2.x/extend/api#extending-api-resources
     (new Extend\ApiSerializer(ForumSerializer::class))
         ->hasMany('discussionLanguages', DiscussionLanguageSerializer::class),
 
+    // @TODO: Replace with the new implementation https://docs.flarum.org/2.x/extend/api#extending-api-resources
     (new Extend\ApiSerializer(DiscussionSerializer::class))
         ->hasOne('language', DiscussionLanguageSerializer::class)
         ->attributes(function (DiscussionSerializer $serializer, Discussion $discussion, array $attributes) {
@@ -87,16 +89,20 @@ return [
             return $attributes;
         }),
 
+    // @TODO: Replace with the new implementation https://docs.flarum.org/2.x/extend/api#extending-api-resources
     (new Extend\ApiController(ShowForumController::class))
         ->addInclude(['discussionLanguages'])
         ->prepareDataForSerialization(LoadForumDiscussionLanguageRelationship::class),
 
+    // @TODO: Replace with the new implementation https://docs.flarum.org/2.x/extend/api#extending-api-resources
     (new Extend\ApiController(ListDiscussionsController::class))
         ->addInclude(['language']),
 
+    // @TODO: Replace with the new implementation https://docs.flarum.org/2.x/extend/api#extending-api-resources
     (new Extend\ApiController(ShowDiscussionController::class))
         ->addInclude(['language']),
 
+    // @TODO: Replace with the new implementation https://docs.flarum.org/2.x/extend/api#extending-api-resources
     (new Extend\ApiController(CreateDiscussionController::class))
         ->addInclude(['language']),
 
@@ -112,12 +118,14 @@ return [
         ->serializeToForum('fof-discussion-language.showAnyLangOpt', 'fof-discussion-language.showAnyLangOpt', 'boolVal')
         ->serializeToForum('fof-discussion-language.useLocaleForTagsPageLastDiscussion', 'fof-discussion-language.useLocaleForTagsPageLastDiscussion', 'boolVal'),
 
+    // @TODO: Replace with the new implementation https://docs.flarum.org/2.x/extend/api#extending-api-resources
     (new Extend\ApiSerializer(TagSerializer::class))
         ->attributes(TagLocalizedLastDiscussionSerializer::class),
 
     (new Extend\Conditional())
         ->whenExtensionEnabled('fof-follow-tags', function () {
             return [
+                // @TODO: Replace with the new implementation https://docs.flarum.org/2.x/extend/api#extending-api-resources
                 (new Extend\ApiSerializer(TagSerializer::class))
                     ->attributes(AddTagSerializerAttributes::class),
 
@@ -128,4 +136,5 @@ return [
                     ->beforeSending(CheckNotificationRecipients::class),
             ];
         }),
+    new Extend\ApiResource(Api\Resource\DiscussionLanguageResource::class),
 ];
