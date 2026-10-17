@@ -9,12 +9,12 @@ jobs:
       enable_bundlewatch: false
       enable_prettier: true
       enable_typescript: true
+      enable_tests: true
 
       frontend_directory: ./js
       backend_directory: .
       js_package_manager: yarn
-      # @TODO: Set main_git_branch to the branch your Flarum 2.x code is on. The built JS is committed to it.
-      main_git_branch: 1.x
+      main_git_branch: 2.x
 
     secrets:
       bundlewatch_github_token: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
