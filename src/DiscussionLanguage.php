@@ -13,6 +13,7 @@ namespace FoF\DiscussionLanguage;
 
 use Flarum\Database\AbstractModel;
 use Flarum\Discussion\Discussion;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @property string $id
@@ -21,6 +22,8 @@ use Flarum\Discussion\Discussion;
  */
 class DiscussionLanguage extends AbstractModel
 {
+    use HasFactory;
+
     public $fillable = ['code', 'country'];
 
     public function discussion(): \Illuminate\Database\Eloquent\Relations\BelongsTo
