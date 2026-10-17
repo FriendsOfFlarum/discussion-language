@@ -14,6 +14,7 @@ namespace FoF\DiscussionLanguage\Tests\integration\api;
 use Carbon\Carbon;
 use Flarum\Discussion\Discussion;
 use Flarum\Post\Post;
+use Flarum\Tags\Tag;
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
 use Flarum\User\User;
@@ -57,6 +58,14 @@ class StickyOrderingTest extends TestCase
                 // Newest, non-sticky discussion — also after the sticky.
                 ['id' => 3, 'title' => 'Another English discussion', 'created_at' => Carbon::now(), 'last_posted_at' => Carbon::now(), 'user_id' => 1, 'first_post_id' => 3, 'comment_count' => 1, 'language_id' => 1, 'is_sticky' => 0],
             ],
+            Tag::class => [
+                ['id' => 1, 'name' => 'General', 'slug' => 'general', 'position' => 0],
+            ],
+            'discussion_tag' => [
+                ['discussion_id' => 1, 'tag_id' => 1],
+                ['discussion_id' => 2, 'tag_id' => 1],
+                ['discussion_id' => 3, 'tag_id' => 1],
+            ],
             Post::class => [
                 ['id' => 1, 'discussion_id' => 1, 'number' => 1, 'type' => 'comment', 'content' => '<t><p>Sticky post</p></t>', 'user_id' => 1, 'created_at' => Carbon::now()->subDays(2)],
                 ['id' => 2, 'discussion_id' => 2, 'number' => 1, 'type' => 'comment', 'content' => '<t><p>Regular post</p></t>', 'user_id' => 1, 'created_at' => Carbon::now()->subDay()],
@@ -92,6 +101,26 @@ class StickyOrderingTest extends TestCase
 
         $this->assertNotEmpty($titles);
         $this->assertEquals('Sticky English discussion', $titles[0], 'Stickied discussion should be pinned to the top of a language-filtered list');
+    }
+
+    #[Test]
+    public function sticky_discussion_is_first_on_a_tag_filtered_by_language(): void
+    {
+        $titles = $this->apiTitles(['filter' => ['tag' => 'general', 'language' => 'en']]);
+
+        $this->assertNotEmpty($titles);
+        $this->assertEquals('Sticky English discussion', $titles[0], 'Stickied discussion should be pinned to the top of a tag filtered by language');
+    }
+
+    #[Test]
+    public function sticky_settings_apply_to_a_list_filtered_by_language(): void
+    {
+        // flarum/sticky decides; the language filter only stops hiding the list from it.
+        $this->setting('flarum-sticky.pin_sticky_on_all_discussions', false);
+
+        $titles = $this->apiTitles(['filter' => ['language' => 'en']]);
+
+        $this->assertEquals('Another English discussion', $titles[0], 'Stickied discussion should keep its place when sticky does not pin on All Discussions');
     }
 
     #[Test]

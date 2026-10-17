@@ -245,4 +245,93 @@ class MiddlewareLanguageFilterTest extends TestCase
             $this->assertEquals($expectedTitle, $title, "For language '$code', expected discussion title '$expectedTitle', got '$title'.");
         }
     }
+
+    /**
+     * @return string[] the titles of the discussions the page lists
+     */
+    protected function listed(string $path, array $query = [], ?string $locale = null): array
+    {
+        $request = $this->request('GET', $path)->withQueryParams($query);
+
+        if ($locale) {
+            $request = $request->withCookieParams(['locale' => $locale]);
+        }
+
+        $response = $this->send($request);
+
+        $this->assertEquals(200, $response->getStatusCode(), "$path?".http_build_query($query).' was not shown');
+
+        $payload = $this->extractJsonPayload($response->getBody()->getContents());
+
+        $titles = array_map(fn (array $discussion) => $discussion['attributes']['title'], $payload['apiDocument']['data']);
+        sort($titles);
+
+        return $titles;
+    }
+
+    #[Test]
+    public function a_list_without_a_language_is_sent_to_the_readers_keeping_its_other_parameters(): void
+    {
+        $this->setting('fof-discussion-language.filter_language_on_http_request', '1');
+        $this->setting('fof-discussion-language.showAnyLangOpt', '1');
+
+        $response = $this->send($this->request('GET', '/all')->withQueryParams(['sort' => 'oldest'])->withCookieParams(['locale' => 'en']));
+
+        $this->assertEquals(303, $response->getStatusCode());
+
+        $location = parse_url($response->getHeaderLine('Location'));
+        parse_str($location['query'] ?? '', $query);
+
+        $this->assertEquals('/all', $location['path']);
+        $this->assertEquals(['sort' => 'oldest', 'filter' => ['language' => 'en']], $query);
+    }
+
+    #[Test]
+    public function a_reader_whose_language_cannot_be_told_sees_every_language(): void
+    {
+        $this->setting('fof-discussion-language.filter_language_on_http_request', '1');
+        $this->setting('fof-discussion-language.showAnyLangOpt', '1');
+
+        $this->assertEquals(['English discussion', 'French discussion', 'German discussion'], $this->listed('/all'));
+    }
+
+    #[Test]
+    public function a_list_sent_to_the_readers_language_is_then_shown(): void
+    {
+        $this->setting('fof-discussion-language.filter_language_on_http_request', '1');
+        $this->setting('fof-discussion-language.showAnyLangOpt', '1');
+
+        $this->assertEquals(['English discussion'], $this->listed('/all', ['filter' => ['language' => 'en']], 'en'));
+    }
+
+    #[Test]
+    public function a_language_chosen_from_the_list_is_kept(): void
+    {
+        $this->setting('fof-discussion-language.filter_language_on_http_request', '1');
+        $this->setting('fof-discussion-language.showAnyLangOpt', '1');
+
+        $this->assertEquals(['German discussion'], $this->listed('/all', ['filter' => ['language' => 'de']], 'en'));
+        $this->assertEquals(['English discussion', 'French discussion', 'German discussion'], $this->listed('/all', ['filter' => ['language' => 'any']], 'en'));
+    }
+
+    #[Test]
+    public function a_language_chosen_is_kept_where_every_language_at_once_is_not_offered(): void
+    {
+        $this->setting('fof-discussion-language.showAnyLangOpt', '0');
+
+        $this->assertEquals(['German discussion'], $this->listed('/all', ['filter' => ['language' => 'de']]));
+        $this->assertEquals(['English discussion'], $this->listed('/all', ['filter' => ['language' => 'any']]));
+        $this->assertEquals(['English discussion'], $this->listed('/all'));
+    }
+
+    #[Test]
+    public function the_tags_page_is_not_a_discussion_list(): void
+    {
+        $this->setting('fof-discussion-language.filter_language_on_http_request', '1');
+        $this->setting('fof-discussion-language.showAnyLangOpt', '1');
+
+        $response = $this->send($this->request('GET', '/tags')->withCookieParams(['locale' => 'en']));
+
+        $this->assertEquals(200, $response->getStatusCode());
+    }
 }
