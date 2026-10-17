@@ -23,20 +23,8 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class AddLanguageFilter implements MiddlewareInterface
 {
-    /**
-     * @var SettingsRepositoryInterface
-     */
-    protected $settings;
-
-    /**
-     * @var LocaleManager
-     */
-    protected $locales;
-
-    public function __construct(SettingsRepositoryInterface $settings, LocaleManager $locales)
+    public function __construct(protected SettingsRepositoryInterface $settings, protected LocaleManager $locales)
     {
-        $this->settings = $settings;
-        $this->locales = $locales;
     }
 
     /**

@@ -18,11 +18,8 @@ use Illuminate\Contracts\Cache\Repository as Cache;
 
 class DeleteLanguageCommandHandler
 {
-    private Cache $cache;
-
-    public function __construct(Cache $cache)
+    public function __construct(private Cache $cache)
     {
-        $this->cache = $cache;
     }
 
     public function handle(DeleteLanguageCommand $command): void

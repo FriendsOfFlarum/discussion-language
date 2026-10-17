@@ -18,14 +18,14 @@ class DiscussionValidator extends AbstractValidator
     /**
      * {@inheritdoc}
      */
-    protected $rules = [
+    protected array $rules = [
         'language' => ['required', 'int', 'exists:discussion_languages,id'],
     ];
 
     /**
      * {@inheritdoc}
      */
-    protected function getMessages()
+    protected function getMessages(): array
     {
         $error = resolve('translator')->trans('fof-discussion-language.api.discussion.validation_error');
 

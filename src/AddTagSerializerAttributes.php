@@ -22,11 +22,8 @@ class AddTagSerializerAttributes
 {
     public const CACHE_KEY = 'fof-discussion-language.languages';
 
-    private Cache $cache;
-
-    public function __construct(Cache $cache)
+    public function __construct(private Cache $cache)
     {
-        $this->cache = $cache;
     }
 
     public function __invoke(TagSerializer $serializer, Tag $tag, array $attributes): array

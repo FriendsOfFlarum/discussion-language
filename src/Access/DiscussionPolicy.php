@@ -21,17 +21,8 @@ class DiscussionPolicy extends AbstractPolicy
 {
     protected string $model = Discussion::class;
 
-    /**
-     * @var SettingsRepositoryInterface
-     */
-    protected $settings;
-
-    /**
-     * @param SettingsRepositoryInterface $settings
-     */
-    public function __construct(SettingsRepositoryInterface $settings)
+    public function __construct(protected SettingsRepositoryInterface $settings)
     {
-        $this->settings = $settings;
     }
 
     public function changeLanguage(User $actor, Discussion $discussion): ?string
@@ -41,7 +32,7 @@ class DiscussionPolicy extends AbstractPolicy
 
             if ($allowEditLanguage === '-1'
                 || ($allowEditLanguage === 'reply' && $discussion->participant_count <= 1)
-                || (is_numeric($allowEditLanguage) && $discussion->created_at->diffInMinutes(new Carbon()) < $allowEditLanguage)
+                || (is_numeric($allowEditLanguage) && $discussion->created_at->diffInMinutes(new Carbon(), true) < $allowEditLanguage)
             ) {
                 return $this->allow();
             }

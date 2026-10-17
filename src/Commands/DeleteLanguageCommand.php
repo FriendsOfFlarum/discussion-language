@@ -15,23 +15,7 @@ use Flarum\User\User;
 
 class DeleteLanguageCommand
 {
-    /**
-     * @var User
-     */
-    public $actor;
-
-    /**
-     * @var string
-     */
-    public $id;
-
-    /**
-     * @param User   $actor
-     * @param string $id
-     */
-    public function __construct(User $actor, $id)
+    public function __construct(public User $actor, public $id)
     {
-        $this->actor = $actor;
-        $this->id = $id;
     }
 }

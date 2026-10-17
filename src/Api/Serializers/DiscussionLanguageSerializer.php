@@ -31,32 +31,8 @@ class DiscussionLanguageSerializer extends AbstractSerializer
     /** @var array<string, array{english: string, native: string}>|null */
     private static ?array $csvIndex = null;
 
-    /**
-     * @var SettingsRepositoryInterface
-     */
-    protected $settings;
-
-    /**
-     * @var ISO639
-     */
-    protected $iso;
-
-    /**
-     * @var Cache
-     */
-    protected $cache;
-
-    /**
-     * @var TranslatorInterface
-     */
-    protected $translator;
-
-    public function __construct(SettingsRepositoryInterface $settings, ISO639 $iso, Cache $cache, TranslatorInterface $translator)
+    public function __construct(protected SettingsRepositoryInterface $settings, protected ISO639 $iso, protected Cache $cache, protected TranslatorInterface $translator)
     {
-        $this->settings = $settings;
-        $this->iso = $iso;
-        $this->cache = $cache;
-        $this->translator = $translator;
     }
 
     /**

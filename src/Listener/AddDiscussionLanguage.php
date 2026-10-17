@@ -17,14 +17,8 @@ use Illuminate\Support\Arr;
 
 class AddDiscussionLanguage
 {
-    /**
-     * @var DiscussionValidator
-     */
-    protected $validator;
-
-    public function __construct(DiscussionValidator $validator)
+    public function __construct(protected DiscussionValidator $validator)
     {
-        $this->validator = $validator;
     }
 
     public function handle(Saving $event): void

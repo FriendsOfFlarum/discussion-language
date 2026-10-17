@@ -15,7 +15,7 @@ use Flarum\Foundation\AbstractValidator;
 
 class DiscussionLanguageValidator extends AbstractValidator
 {
-    protected $rules = [
+    protected array $rules = [
         'code'    => ['required', 'string', 'min:2', 'unique:discussion_languages'],
         'country' => ['required', 'string', 'min:2'],
     ];

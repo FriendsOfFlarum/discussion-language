@@ -20,13 +20,8 @@ use Illuminate\Support\Arr;
 
 class UpdateLanguageCommandHandler
 {
-    private DiscussionLanguageValidator $validator;
-    private Cache $cache;
-
-    public function __construct(DiscussionLanguageValidator $validator, Cache $cache)
+    public function __construct(private DiscussionLanguageValidator $validator, private Cache $cache)
     {
-        $this->validator = $validator;
-        $this->cache = $cache;
     }
 
     public function handle(UpdateLanguageCommand $command): DiscussionLanguage

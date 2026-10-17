@@ -24,14 +24,8 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 class LoadForumDiscussionLanguageRelationship
 {
-    /**
-     * @var SettingsRepositoryInterface
-     */
-    protected $settings;
-
-    public function __construct(SettingsRepositoryInterface $settings)
+    public function __construct(protected SettingsRepositoryInterface $settings)
     {
-        $this->settings = $settings;
     }
 
     /**
