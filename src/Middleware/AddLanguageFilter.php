@@ -12,8 +12,10 @@
 namespace FoF\DiscussionLanguage\Middleware;
 
 use Flarum\Http\RequestUtil;
+use Flarum\Http\UrlGenerator;
 use Flarum\Locale\LocaleManager;
 use Flarum\Settings\SettingsRepositoryInterface;
+use FoF\DiscussionLanguage\DiscussionLanguage;
 use Illuminate\Support\Arr;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -23,20 +25,11 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class AddLanguageFilter implements MiddlewareInterface
 {
-    /**
-     * @var SettingsRepositoryInterface
-     */
-    protected $settings;
-
-    /**
-     * @var LocaleManager
-     */
-    protected $locales;
-
-    public function __construct(SettingsRepositoryInterface $settings, LocaleManager $locales)
-    {
-        $this->settings = $settings;
-        $this->locales = $locales;
+    public function __construct(
+        protected SettingsRepositoryInterface $settings,
+        protected LocaleManager $locales,
+        protected UrlGenerator $url
+    ) {
     }
 
     /**
@@ -50,11 +43,17 @@ class AddLanguageFilter implements MiddlewareInterface
         }
 
         $params = $request->getQueryParams();
+        $showAnyLanguage = (bool) $this->settings->get('fof-discussion-language.showAnyLangOpt');
 
-        // Request has a language parameter, so we handle the request with the language filter applied.
-        // The `is_string` guard ignores malformed input like `?language[]=foo` or `?language[$ne]=10`
-        // (commonly seen from security scanners) instead of letting an array reach the string-typed
-        // `addQueryParams()` and crash with a TypeError.
+        // The language the reader chose, as the forum writes it: `filter[language]`.
+        $chosen = Arr::get(is_array($params['filter'] ?? null) ? $params['filter'] : [], 'language');
+
+        if (is_string($chosen) && $chosen !== '' && ($chosen !== DiscussionLanguage::ANY || $showAnyLanguage)) {
+            return $handler->handle($request);
+        }
+
+        // Or as 1.x's links did: `?language=`. The `is_string` guard ignores malformed
+        // input like `?language[$ne]=10` from security scanners.
         if (($language = Arr::get($params, 'language')) && is_string($language)) {
             $request = $this->addQueryParams($request, $params, $language);
 
@@ -62,7 +61,7 @@ class AddLanguageFilter implements MiddlewareInterface
         }
 
         // Request has no language parameter, if we are set to force a language, determine the best language to apply
-        if ((bool) $this->settings->get('fof-discussion-language.filter_language_on_http_request') || !(bool) $this->settings->get('fof-discussion-language.showAnyLangOpt')) {
+        if ((bool) $this->settings->get('fof-discussion-language.filter_language_on_http_request') || !$showAnyLanguage) {
             /** @var \Flarum\User\User */
             $actor = RequestUtil::getActor($request);
 
@@ -78,18 +77,27 @@ class AddLanguageFilter implements MiddlewareInterface
                 $language = $this->determineLanguageFromBrowserRequest($acceptLangs);
             }
 
-            if ($language) {
-                if ((bool) $this->settings->get('fof-discussion-language.showAnyLangOpt')) {
-                    $uri = $request->getUri();
-                    $uri = $uri->withQuery(http_build_query(['filter' => ['language' => $language]]));
-
-                    return new RedirectResponse($uri, 303);
-                } else {
-                    $request = $this->addQueryParams($request, $params, $language);
-
+            if ($showAnyLanguage) {
+                // Nothing detected, crawlers among them: every language, as before.
+                if (!is_string($language) || $language === '') {
                     return $handler->handle($request);
                 }
+
+                // Into the URL, so the reader sees which language the list is in and may change it.
+                $params['filter'] = [...(is_array($params['filter'] ?? null) ? $params['filter'] : []), 'language' => $language];
+
+                $path = ltrim($request->getAttribute('originalUri')->getPath(), '/');
+
+                return new RedirectResponse($this->url->to('forum')->path($path).'?'.http_build_query($params), 303);
             }
+
+            // Without every language at once, the frontend filters by the forum's own
+            // when nothing else says, so the page it is first given must too.
+            $language = is_string($language) && $language !== '' ? $language : $this->locales->getLocale();
+
+            $request = $this->addQueryParams($request, $params, $language);
+
+            return $handler->handle($request);
         }
 
         // If we get this far, we don't have a language parameter, so we can just continue with the request using the forum default language.
@@ -112,13 +120,10 @@ class AddLanguageFilter implements MiddlewareInterface
             $params['filter'] = [];
         }
 
-        // Set or overwrite the language filter.
+        // Set or overwrite the language filter. It applies to a search too: 2.0
+        // searches `q` as text, so a `language:` gambit appended there would be
+        // searched for rather than filtered by.
         $params['filter']['language'] = $language;
-
-        // If a search query is present, append the language filter to it.
-        if (isset($params['q']) && $params['q'] !== '') {
-            $params['q'] = $params['q'].' language:'.$language;
-        }
 
         return $request->withQueryParams($params);
     }
@@ -140,8 +145,8 @@ class AddLanguageFilter implements MiddlewareInterface
             }
         }
 
-        // Also apply for tag pages.
-        if (substr($path, 0, 2) === '/t') {
+        // Also apply for tag pages, but not the tags page.
+        if (str_starts_with($path, '/t/')) {
             return true;
         }
 

@@ -11,21 +11,31 @@
 
 namespace FoF\DiscussionLanguage\Provider;
 
-use Flarum\Discussion\Filter\DiscussionFilterer;
+use Flarum\Discussion\Search\DiscussionSearcher;
 use Flarum\Foundation\AbstractServiceProvider;
 use Flarum\Sticky\PinStickiedDiscussionsToTop;
-use FoF\DiscussionLanguage\Sticky\PinStickiedDiscussionsToTop as CustomPinStickiedDiscussionsToTop;
+use Flarum\Tags\Search\HideHiddenTagsFromAllDiscussionsPage;
+use FoF\DiscussionLanguage\Sticky\PinStickiedDiscussionsToTop as LanguageAwarePinStickiedDiscussionsToTop;
+use FoF\DiscussionLanguage\Tags\HideHiddenTagsFromAllDiscussionsPage as LanguageAwareHideHiddenTagsFromAllDiscussionsPage;
 
+/**
+ * No extender replaces another extension's search mutator, so these are swapped
+ * for ours, which call them, where the searcher's mutators are kept. flarum/sticky's
+ * is only there when it is enabled.
+ */
 class LanguageFilterProvider extends AbstractServiceProvider
 {
-    public function register()
+    protected const REPLACEMENTS = [
+        PinStickiedDiscussionsToTop::class          => LanguageAwarePinStickiedDiscussionsToTop::class,
+        HideHiddenTagsFromAllDiscussionsPage::class => LanguageAwareHideHiddenTagsFromAllDiscussionsPage::class,
+    ];
+
+    public function register(): void
     {
-        $this->container->extend('flarum.filter.filter_mutators', function ($mutators) {
-            if (isset($mutators[DiscussionFilterer::class]) && is_array($mutators[DiscussionFilterer::class])) {
-                foreach ($mutators[DiscussionFilterer::class] as $key => $mutator) {
-                    if ($mutator === PinStickiedDiscussionsToTop::class) {
-                        $mutators[DiscussionFilterer::class][$key] = CustomPinStickiedDiscussionsToTop::class;
-                    }
+        $this->container->extend('flarum.search.mutators', function (array $mutators) {
+            foreach ($mutators[DiscussionSearcher::class] ?? [] as $key => $mutator) {
+                if (is_string($mutator) && isset(static::REPLACEMENTS[$mutator])) {
+                    $mutators[DiscussionSearcher::class][$key] = static::REPLACEMENTS[$mutator];
                 }
             }
 

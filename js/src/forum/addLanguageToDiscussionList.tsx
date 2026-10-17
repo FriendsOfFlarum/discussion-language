@@ -4,117 +4,93 @@ import IndexPage from 'flarum/forum/components/IndexPage';
 import DiscussionHero from 'flarum/forum/components/DiscussionHero';
 import DiscussionListState from 'flarum/forum/states/DiscussionListState';
 import DiscussionListItem from 'flarum/forum/components/DiscussionListItem';
+import Icon from 'flarum/common/components/Icon';
 import setRouteWithForcedRefresh from 'flarum/common/utils/setRouteWithForcedRefresh';
+import type Discussion from 'flarum/common/models/Discussion';
 import type ItemList from 'flarum/common/utils/ItemList';
 import type { PaginatedListRequestParams } from 'flarum/common/states/PaginatedListState';
 import type Mithril from 'mithril';
 
 import flag from '../common/utils/flag';
 import LanguageDropdown from './components/LanguageDropdown';
-import type Language from '../common/models/Language';
+import { defaultLanguage, languageToFilterBy, selectedLanguage } from './utils/languageFilter';
+import { ANY } from '../common/utils/any';
 
-const addLanguage = function (this: any, items: ItemList<Mithril.Children>) {
-  // Ignore PDs from Byobu
-  // Must be conditional call in case byobu not installed
-  if (this.attrs.discussion.isPrivateDiscussion?.()) return;
+function addLanguage(discussion: Discussion, items: ItemList<Mithril.Children>) {
+  // fof/byobu's private discussions have no language.
+  if ((discussion as Discussion & { isPrivateDiscussion?: () => boolean }).isPrivateDiscussion?.()) return;
 
-  const language: Language | false | null = this.attrs.discussion.language?.();
+  const language = discussion.language?.();
 
   if (!language) return;
 
   items.add(
     'discussion-language',
     <span>
-      {flag(language) || <i className="fas fa-globe" />}
+      {flag(language) || <Icon name="fas fa-globe" />}
       <code>{language.name()}</code>
     </span>,
     5
   );
-};
-
-/**
- * Read the currently selected language from the URL's filter param.
- * Falls back to the legacy top-level ?language param for backwards compat
- * with URLs produced by the PHP middleware redirect.
- */
-function currentLanguage(): string | undefined {
-  const filter = m.route.param('filter') as Record<string, string> | undefined;
-  return filter?.language ?? m.route.param('language');
 }
 
 export default () => {
-  extend(DiscussionListItem.prototype, 'infoItems', addLanguage);
-  extend(DiscussionHero.prototype, 'items', addLanguage);
+  extend(DiscussionListItem.prototype, 'infoItems', function (items) {
+    addLanguage(this.attrs.discussion, items);
+  });
+  extend(DiscussionHero.prototype, 'items', function (items) {
+    addLanguage(this.attrs.discussion, items);
+  });
 
-  extend(DiscussionListState.prototype, 'requestParams', function (params: PaginatedListRequestParams) {
-    const filter = (params.filter ?? {}) as Record<string, string>;
-    const routeName = (app.current as any).data.routeName as string;
+  extend(DiscussionListState.prototype, 'requestParams', function (this: DiscussionListState, params: PaginatedListRequestParams) {
+    const routeName = app.current.get('routeName');
 
-    if (routeName === 'byobuPrivate') return;
-    if (routeName === 'byobuUserPrivate') return;
+    // fof/byobu's private discussions have no language.
+    if (routeName === 'byobuPrivate' || routeName === 'byobuUserPrivate') return;
 
-    (params.include as string[]).push('language');
+    // A request naming its includes gets none of the API's defaults.
+    params.include = [...[params.include ?? []].flat(), 'language'];
 
-    // Do not filter user discussions page as there is no dropdown
-    if (routeName === 'user.discussions') return;
+    // Only the list the language dropdown is for. Others, such as a user's
+    // discussions or a flarum/deck column, keep the filters they were given.
+    if (this !== app.discussions) return;
 
-    // Required until https://github.com/flarum/framework/pull/3376 is released.
-    if (routeName === 'following' && filter.q) {
-      filter.q += ` is:${filter.subscription || 'following'}`;
-      delete filter.subscription;
-    }
+    const filter = params.filter as Record<string, string>;
+    const language = languageToFilterBy(
+      selectedLanguage(),
+      !!app.forum.attribute<boolean>('fof-discussion-language.showAnyLangOpt'),
+      app.translator.getLocale()
+    );
 
-    const selectedLang = currentLanguage();
-    const showAnyOpt = app.forum.attribute('fof-discussion-language.showAnyLangOpt');
-
-    // 'any' means no filter — show all languages.
-    if (selectedLang === 'any') {
-      params.filter = filter;
-      return;
-    }
-
-    const locale = selectedLang ?? app.translator.getLocale();
-
-    if (filter.q) {
-      if (showAnyOpt) {
-        if (selectedLang) {
-          filter.q += ' language:' + selectedLang;
-        }
-      } else {
-        filter.q += ' language:' + locale;
-      }
+    if (language) {
+      filter.language = language;
     } else {
-      if (!showAnyOpt || selectedLang) {
-        filter.language = locale ?? app.translator.getLocale() ?? '';
-      }
+      delete filter.language;
     }
-
-    params.filter = filter;
   });
 
   extend(IndexPage.prototype, 'viewItems', function (items: ItemList<Mithril.Children>) {
-    // Don't add language controls to /private (fof/byobu)
-    if ((app.current as any).data.routeName === 'byobuPrivate') return;
+    if (app.current.get('routeName') === 'byobuPrivate') return;
 
-    const defaultSelected = app.forum.attribute('fof-discussion-language.showAnyLangOpt') ? 'any' : app.translator.getLocale();
+    const defaultSelected = defaultLanguage();
 
     items.add(
       'language',
       <LanguageDropdown
-        selected={currentLanguage() ?? defaultSelected}
-        onclick={(key: string) => {
-          const params = app.search.params();
-          const filter = (params.filter as unknown as Record<string, string>) ?? {};
+        selected={selectedLanguage() ?? defaultSelected}
+        onselect={(key: string) => {
+          const params = app.search.state.params() as Record<string, unknown>;
+          const filter = { ...(params.filter as Record<string, string> | undefined) };
 
-          if (key === defaultSelected) {
+          // "Any language" stays in the URL too: the forum may be set to send a
+          // list without a language to the reader's.
+          if (key === defaultSelected && key !== ANY) {
             delete filter.language;
           } else {
             filter.language = key;
           }
 
-          params.filter = filter as unknown as string;
-
-          setRouteWithForcedRefresh(app.route(app.current.get('routeName'), params));
+          setRouteWithForcedRefresh(app.route(app.current.get('routeName'), { ...params, filter }));
         }}
       />
     );

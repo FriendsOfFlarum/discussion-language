@@ -1,53 +1,35 @@
 import app from 'flarum/forum/app';
-
-import Tag from 'flarum/tags/common/models/Tag';
-
+import { override } from 'flarum/common/extend';
 import Discussion from 'flarum/common/models/Discussion';
-import Model from 'flarum/common/Model';
+import Tag from 'ext:flarum/tags/common/models/Tag';
+
+import { ANY } from '../common/utils/any';
+import { localisedLastDiscussion } from './utils/localisedLastDiscussion';
 
 export default function useLocalisedLastDiscussionOnTagsPage() {
-  if (!('flarum-tags' in flarum.extensions)) return;
-
-  Tag.prototype.lastPostedDiscussion = function (this: Tag) {
-    const original = Model.hasOne('lastPostedDiscussion').bind(this) as () => false | Discussion | null;
-
-    if (!app.forum.attribute('fof-discussion-language.useLocaleForTagsPageLastDiscussion')) {
+  override(Tag.prototype, 'lastPostedDiscussion', function (this: Tag, original: () => Discussion | false | null | undefined) {
+    if (!app.forum.attribute<boolean>('fof-discussion-language.useLocaleForTagsPageLastDiscussion')) {
       return original();
     }
 
-    const data = this.localisedLastDiscussion();
+    const languages = (app.forum.discussionLanguages() || []).filter((language) => language.code() !== ANY);
 
-    /**
-     * Priorities:
-     *
-     * 1. User's selected forum locale
-     * 2. Detected locale
-     * 3. First disucssion language available
-     */
-    const desiredLanguageCode =
-      app.session.user?.preferences?.()?.locale || (app.translator as any).formatter.locale || (app.forum as any).discussionLanguages()[0].code();
+    // The reader's chosen locale, or else the forum's, or else its first language.
+    const discussion = localisedLastDiscussion(this.localisedLastDiscussion(), languages, [
+      app.session.user?.preferences()?.locale as string | undefined,
+      app.translator.getLocale(),
+      languages[0]?.code(),
+    ]);
 
-    const desiredLanguageId = (app.forum as any)
-      .discussionLanguages()
-      .find((lang: any) => lang.code() === desiredLanguageCode)
-      ?.id();
-
-    // If forum locale not available as a discussion lang, default to any language
-    if (!desiredLanguageId) {
-      return original();
-    }
-
-    const discussion = data[desiredLanguageId];
-
-    // fall back to original attribute
     if (!discussion) return original();
 
+    // Enough of the discussion for the tags page to show and link to it.
     return new Discussion({
       attributes: {
         title: discussion.title,
-        slug: discussion.id, // navigating using only ID works fine
+        slug: String(discussion.id),
         lastPostedAt: new Date(discussion.at * 1000).toISOString(),
       },
     });
-  };
+  });
 }

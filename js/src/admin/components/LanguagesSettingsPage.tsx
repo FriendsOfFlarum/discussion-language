@@ -1,18 +1,19 @@
 import app from 'flarum/admin/app';
-import ExtensionPage from 'flarum/admin/components/ExtensionPage';
+import ExtensionPage, { type ExtensionPageAttrs } from 'flarum/admin/components/ExtensionPage';
 import Button from 'flarum/common/components/Button';
 import Select from 'flarum/common/components/Select';
+import Form from 'flarum/common/components/Form';
 import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
-import icon from 'flarum/common/helpers/icon';
 import Stream from 'flarum/common/utils/Stream';
 import Alert from 'flarum/common/components/Alert';
+import type ItemList from 'flarum/common/utils/ItemList';
 import getLocales, * as locales from '../utils/locales';
 import getCountries, * as countries from '../utils/countries';
 import Language from '../../common/models/Language';
 
 import type Mithril from 'mithril';
 
-export default class LanguagesSettingsPage extends ExtensionPage<never> {
+export default class LanguagesSettingsPage extends ExtensionPage {
   recordsUpdating: Record<string, boolean> = {};
   recordsDeleting: Record<string, boolean> = {};
 
@@ -26,7 +27,7 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
 
   isAddingNewRecord: boolean = false;
 
-  oncreate(vnode: Mithril.Vnode<never, this>) {
+  oncreate(vnode: Mithril.VnodeDOM<ExtensionPageAttrs, this>) {
     super.oncreate(vnode);
 
     this.loadData();
@@ -56,78 +57,47 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
     }
   }
 
-  content(vnode: Mithril.VnodeDOM<never, this>) {
+  sections(vnode: Mithril.VnodeDOM<ExtensionPageAttrs, this>): ItemList<unknown> {
+    const items = super.sections(vnode);
+
+    // Between the settings and the permissions.
+    items.setPriority('content', 20);
+    items.add('languages', this.languagesSection(), 10);
+
+    return items;
+  }
+
+  languagesSection() {
     return (
-      <div className="container">
-        <div className="FofDiscussionLanguagesSettingsPage">
-          <div className="Form-group">
-            {this.buildSettingComponent({
-              type: 'bool',
-              label: app.translator.trans('fof-discussion-language.admin.settings.native_label'),
-              setting: 'fof-discussion-language.native',
+      <div className="ExtensionPage-settings FofDiscussionLanguages">
+        <div className="container">
+          <Form
+            label={app.translator.trans('fof-discussion-language.admin.settings.languages_heading', {}, true)}
+            description={app.translator.trans('fof-discussion-language.admin.settings.languages_help', {}, true)}
+          >
+            {this.languageList()}
+          </Form>
+
+          <p className="helpText FofDiscussionLanguages-attribution">
+            {app.translator.trans('fof-discussion-language.admin.settings.attribution', {
+              article: ({ children }: { children: Mithril.Children }) => (
+                <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes" target="_blank" rel="noreferrer nofollow noopener">
+                  {children}
+                </a>
+              ),
+              license: ({ children }: { children: Mithril.Children }) => (
+                <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noreferrer nofollow noopener">
+                  {children}
+                </a>
+              ),
             })}
-          </div>
-
-          <div className="Form-group">
-            {this.buildSettingComponent({
-              type: 'bool',
-              label: app.translator.trans('fof-discussion-language.admin.settings.show_flag_label'),
-              setting: 'fof-discussion-language.showFlags',
-            })}
-          </div>
-
-          <div className="Form-group">
-            {this.buildSettingComponent({
-              type: 'bool',
-              label: app.translator.trans('fof-discussion-language.admin.settings.composer_default_label'),
-              setting: 'fof-discussion-language.composerLocaleDefault',
-            })}
-          </div>
-
-          <div className="Form-group">
-            {this.buildSettingComponent({
-              type: 'bool',
-              label: app.translator.trans('fof-discussion-language.admin.settings.locale_sort_label'),
-              setting: 'fof-discussion-language.filter_language_on_http_request',
-            })}
-          </div>
-
-          <div className="Form-group">
-            {this.buildSettingComponent({
-              type: 'bool',
-              label: app.translator.trans('fof-discussion-language.admin.settings.show_any_lang_opt_label'),
-              setting: 'fof-discussion-language.showAnyLangOpt',
-            })}
-          </div>
-
-          <div className="Form-group">
-            {this.buildSettingComponent({
-              type: 'bool',
-              label: app.translator.trans('fof-discussion-language.admin.settings.tags_page_discussion_locale_label'),
-              setting: 'fof-discussion-language.useLocaleForTagsPageLastDiscussion',
-            })}
-          </div>
-
-          {this.submitButton()}
-
-          <hr />
-
-          {this.localeSettings()}
-
-          <p className="helpText">
-            This extension uses material from the Wikipedia article{' '}
-            <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes" target="_blank" rel="noreferrer nofollow noopener">
-              List of ISO 639-2 Codes
-            </a>
-            , which is released under the{' '}
-            <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-Share-Alike License 3.0</a>.
           </p>
         </div>
       </div>
     );
   }
 
-  localeSettings() {
+  languageList() {
     if (this.loadingData) return <LoadingIndicator />;
 
     if (this.loadingDataError) {
@@ -135,118 +105,102 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
         <Alert dismissible={false} type="error">
           {app.translator.trans('fof-discussion-language.admin.settings.errors.missing_assets')}
           <br />
-          <b>Error:</b> <code>{this.errorDetails?.message}</code>
+          <code>{this.errorDetails?.message}</code>
         </Alert>
       );
     }
 
     const nativeNames = !!Number(this.setting('fof-discussion-language.native')());
 
-    const locales = getLocales(nativeNames);
-    const countryData = getCountries(nativeNames);
+    const localeOptions = getLocales(nativeNames);
+    const countryOptions = getCountries(nativeNames);
+
+    const languageLabel = app.translator.trans('fof-discussion-language.admin.settings.config.language_label', {}, true);
+    const countryLabel = app.translator.trans('fof-discussion-language.admin.settings.config.country_label', {}, true);
+
+    // A disabled first option, shown while nothing is chosen.
+    const chooseLanguage = {
+      '': { label: app.translator.trans('fof-discussion-language.admin.settings.config.choose_language', {}, true), disabled: true },
+    };
+    const chooseCountry = {
+      '': { label: app.translator.trans('fof-discussion-language.admin.settings.config.choose_country', {}, true), disabled: true },
+    };
+
+    const languages = app.store.all<Language>('discussion-languages').filter((language) => language.id() !== 'any');
 
     return (
-      <>
-        <div className="Form-group flex" style={{ 'margin-bottom': 0, 'font-weight': 'bold' }}>
-          <span>{app.translator.trans('fof-discussion-language.admin.settings.config.language_label')}</span>
-          <span>{app.translator.trans('fof-discussion-language.admin.settings.config.country_label')}</span>
-          <span></span>
-          <span></span>
-        </div>
-        <div className="Form-group flex">
-          {Select.component({
-            onchange: this.newLocaleValue,
-            value: this.newLocaleValue(),
-            options: locales,
-          })}
-
-          {Select.component({
-            onchange: this.newCountryValue,
-            value: this.newCountryValue(),
-            options: countryData,
-          })}
-
-          {Button.component(
-            {
-              className: 'Button Button--primary',
-              onclick: this.add.bind(this),
-              disabled: !this.newLocaleValue() || !this.newCountryValue() || this.isAddingNewRecord,
-            },
-            icon(this.isAddingNewRecord ? 'fas fa-spinner fa-spin' : 'fas fa-plus')
-          )}
+      <div className="FofDiscussionLanguages-table">
+        <div className="FofDiscussionLanguages-row FofDiscussionLanguages-header" aria-hidden="true">
+          <span>{languageLabel}</span>
+          <span>{countryLabel}</span>
         </div>
 
-        <div className="Form-group">
-          {app.store
-            .all<Language>('discussion-languages')
-            .filter((l) => l.id() !== 'any')
-            .map((language) => {
-              const id = language.id()!;
+        <div className="FofDiscussionLanguages-row">
+          <Select
+            aria-label={languageLabel}
+            options={{ ...chooseLanguage, ...localeOptions }}
+            value={this.newLocaleValue()}
+            onchange={this.newLocaleValue}
+            disabled={this.isAddingNewRecord}
+          />
+          <Select
+            aria-label={countryLabel}
+            options={{ ...chooseCountry, ...countryOptions }}
+            value={this.newCountryValue()}
+            onchange={this.newCountryValue}
+            disabled={this.isAddingNewRecord}
+          />
+          <Button
+            className="Button Button--primary Button--icon"
+            icon="fas fa-plus"
+            aria-label={app.translator.trans('fof-discussion-language.admin.settings.config.add_button', {}, true)}
+            loading={this.isAddingNewRecord}
+            disabled={!this.newLocaleValue() || !this.newCountryValue()}
+            onclick={this.add.bind(this)}
+          />
+        </div>
 
-              const updating = this.recordsUpdating[id];
-              const deleting = this.recordsDeleting[id];
+        <div className="FofDiscussionLanguages-list">
+          {languages.map((language) => {
+            const id = language.id()!;
+            const code = language.code();
+            const busy = this.recordsUpdating[id] || this.recordsDeleting[id];
 
-              const country = language.country();
-
-              return (
-                <div className="flex">
-                  {Select.component({
-                    onchange: (val: string) => {
-                      this.recordsUpdating[id] = true;
-
-                      language
-                        .save({
-                          code: val,
-                        })
-                        .then(() => {
-                          this.recordsUpdating[id] = false;
-                          m.redraw();
-                        });
-                    },
-                    value: language.code(),
-                    options: locales,
-                    disabled: updating || deleting,
-                  })}
-
-                  {Select.component({
-                    onchange: (val: string) => {
-                      this.recordsUpdating[id] = true;
-
-                      language
-                        .save({
-                          country: val,
-                        })
-                        .then(() => {
-                          this.recordsUpdating[id] = false;
-                          m.redraw();
-                        });
-                    },
-                    value: country,
-                    options: countryData,
-                    disabled: updating || deleting,
-                  })}
-
-                  {Button.component(
-                    {
-                      className: `Button Button--danger`,
-                      disabled: deleting,
-                      onclick: this.remove.bind(this, language),
-                    },
-                    icon(deleting ? 'fas fa-spinner fa-spin' : 'fas fa-times')
+            return (
+              <div className="FofDiscussionLanguages-row" key={id}>
+                <Select
+                  aria-label={languageLabel}
+                  // A code outside the list is still shown as itself.
+                  options={{ ...chooseLanguage, ...(code in localeOptions ? {} : { [code]: code }), ...localeOptions }}
+                  value={code}
+                  onchange={(value: string) => this.update(language, { code: value })}
+                  disabled={busy}
+                />
+                <Select
+                  aria-label={countryLabel}
+                  options={{ ...chooseCountry, ...countryOptions }}
+                  value={language.country() ?? ''}
+                  onchange={(value: string) => this.update(language, { country: value })}
+                  disabled={busy}
+                />
+                <Button
+                  className="Button Button--danger Button--icon"
+                  icon="fas fa-times"
+                  aria-label={app.translator.trans(
+                    'fof-discussion-language.admin.settings.config.remove_button',
+                    { language: localeOptions[code] ?? code },
+                    true
                   )}
-                </div>
-              );
-            })}
+                  loading={this.recordsDeleting[id]}
+                  disabled={busy}
+                  onclick={this.remove.bind(this, language)}
+                />
+              </div>
+            );
+          })}
         </div>
-      </>
+      </div>
     );
-  }
-
-  onkeydown(e: KeyboardEvent) {
-    if (e.key === 'Enter') {
-      this.add();
-      e.preventDefault();
-    }
   }
 
   add() {
@@ -256,7 +210,7 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
 
     const code = this.newLocaleValue();
     const country = this.newCountryValue();
-    const language = app.store.createRecord('discussion-languages');
+    const language = app.store.createRecord<Language>('discussion-languages');
 
     language
       .save({ code, country })
@@ -264,9 +218,24 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
         this.newLocaleValue('');
         this.newCountryValue('');
       })
+      // The API's error is shown as an alert.
       .catch(() => {})
       .finally(() => {
         this.isAddingNewRecord = false;
+        m.redraw();
+      });
+  }
+
+  update(language: Language, attributes: { code?: string; country?: string }) {
+    const id = language.id()!;
+    this.recordsUpdating[id] = true;
+
+    language
+      .save(attributes)
+      // The API's error is shown as an alert; the row comes back either way.
+      .catch(() => {})
+      .finally(() => {
+        delete this.recordsUpdating[id];
         m.redraw();
       });
   }
@@ -277,11 +246,8 @@ export default class LanguagesSettingsPage extends ExtensionPage<never> {
 
     language
       .delete()
-      .then(
-        () => {},
-        () => {}
-      )
-      .then(() => {
+      .catch(() => {})
+      .finally(() => {
         delete this.recordsDeleting[id];
         m.redraw();
       });

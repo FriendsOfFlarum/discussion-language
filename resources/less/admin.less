@@ -1,21 +1,30 @@
-.FofDiscussionLanguagesSettingsPage {
-  margin-top: 25px;
-  .Form-group.flex,
-  .Form-group > .flex {
+.FofDiscussionLanguages {
+  &-table,
+  &-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  &-row {
     display: grid;
-    grid-template-columns: 1fr 1fr 36px;
-    gap: 4px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 36px;
+    gap: 5px;
+    align-items: center;
 
-    .Select .Select-input {
+    .Select,
+    .Select-input {
       width: 100%;
-    }
-
-    &:not(:first-of-type) {
-      margin-top: 4px;
     }
   }
 
-  .Button--primary {
-    padding: 8px 13px;
+  &-header {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--muted-color);
+  }
+
+  &-attribution {
+    margin-top: 20px;
   }
 }
