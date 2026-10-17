@@ -3,8 +3,6 @@ import Icon from 'flarum/common/components/Icon';
 import type Language from '../models/Language';
 import type Mithril from 'mithril';
 
-// Named: flarum-webpack-config 3.0.6 registers a one-parameter arrow default
-// export under its parameter's name, which is undefined at runtime.
 export default function flag(language: Language | string): Mithril.Children {
   if (!language) return;
 

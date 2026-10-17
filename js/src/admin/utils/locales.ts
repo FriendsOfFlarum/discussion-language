@@ -44,8 +44,6 @@ export function localeOptions(entries: ISO6392Entry[], native: boolean): Record<
     );
 }
 
-// Named: flarum-webpack-config 3.0.6 registers a one-parameter arrow default
-// export under its parameter's name, which is undefined at runtime.
 export default function getLocales(native: boolean): Record<string, string | undefined> {
   return localeOptions(ISO6392 || [], native);
 }

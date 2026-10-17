@@ -20,15 +20,15 @@
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
   },
   "devDependencies": {
-    "@flarum/prettier-config": "^1.0.0",
-    "flarum-webpack-config": "^3.0.6",
-    "flarum-tsconfig": "^2.0.0",
-    "prettier": "^3.0.2",
-    "webpack": "^5.104.1",
-    "webpack-cli": "^5.1.4",
-    "typescript-coverage-report": "^0.6.1",
     "@flarum/jest-config": "^2.0.2",
-    "countries-list": "^2.6.1"
+    "@flarum/prettier-config": "^1.0.0",
+    "countries-list": "^2.6.1",
+    "flarum-tsconfig": "^2.0.0",
+    "flarum-webpack-config": "^3.0.7",
+    "prettier": "^3.0.2",
+    "typescript-coverage-report": "^0.6.1",
+    "webpack": "^5.104.1",
+    "webpack-cli": "^5.1.4"
   },
   "type": "module"
 }
