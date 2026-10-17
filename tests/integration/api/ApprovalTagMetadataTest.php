@@ -52,7 +52,7 @@ class ApprovalTagMetadataTest extends TestCase
                 ['id' => 4, 'discussion_id' => 1, 'number' => 2, 'user_id' => 1, 'created_at' => $anHourAgo, 'is_approved' => false, 'is_private' => true],
             ],
             Tag::class => [
-                ['id' => 1, 'name' => 'General', 'slug' => 'general', 'position' => 0,
+                ['id'                           => 1, 'name' => 'General', 'slug' => 'general', 'position' => 0,
                     'localised_last_discussion' => json_encode(['1' => ['id' => 3, 'at' => $yesterday->timestamp, 'user_id' => 1]])],
             ],
             'discussion_tag' => [

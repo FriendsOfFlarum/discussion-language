@@ -62,7 +62,7 @@ class ErasureTagMetadataTest extends TestCase
                 ['id' => 3, 'discussion_id' => 2, 'number' => 1, 'user_id' => 1, 'created_at' => $twoDaysAgo],
             ],
             Tag::class => [
-                ['id' => 1, 'name' => 'General', 'slug' => 'general', 'position' => 0,
+                ['id'                           => 1, 'name' => 'General', 'slug' => 'general', 'position' => 0,
                     'localised_last_discussion' => json_encode(['1' => ['id' => 1, 'at' => $anHourAgo->timestamp, 'user_id' => 2]])],
             ],
             'discussion_tag' => [
