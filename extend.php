@@ -19,6 +19,7 @@ use Flarum\Discussion\Discussion;
 use Flarum\Discussion\Search\DiscussionSearcher;
 use Flarum\Extend;
 use Flarum\Gdpr\Events\Erased;
+use Flarum\Gdpr\Extend\UserData;
 use Flarum\Search\Database\DatabaseSearchDriver;
 use Flarum\Tags\Api\Resource\TagResource;
 use Flarum\Tags\Tag;
@@ -101,6 +102,9 @@ return [
         ->whenExtensionEnabled('flarum-gdpr', fn () => [
             (new Extend\Event())
                 ->listen(Erased::class, [Listener\UpdateTagMetadata::class, 'whenUserWasErased']),
+
+            (new UserData())
+                ->addType(Data\SubscriptionLanguages::class),
         ])
         ->whenExtensionEnabled('fof-follow-tags', fn () => array_filter([
             (new Extend\ApiResource(TagResource::class))
