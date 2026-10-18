@@ -1,24 +1,15 @@
-import Dropdown, { IDropdownAttrs } from 'flarum/common/components/Dropdown';
+import SelectDropdown, { type ISelectDropdownAttrs } from 'flarum/common/components/SelectDropdown';
 import type Mithril from 'mithril';
-import Stream from 'flarum/common/utils/Stream';
-export interface LanguageDropdownAttrs extends IDropdownAttrs {
+export interface LanguageDropdownAttrs extends Partial<ISelectDropdownAttrs> {
     className?: string;
+    /** The code of the language chosen, or `any`. */
     selected?: string;
-    onclick?: (langId: string) => void;
-    extra?: Record<string, Mithril.Children>;
+    onselect?: (code: string) => void;
 }
-export default class LanguageDropdown extends Dropdown<LanguageDropdownAttrs> {
-    selected: Stream<string>;
-    options: Record<string, Mithril.Children>;
-    loaded: boolean;
-    static initAttrs(attrs: LanguageDropdownAttrs): void;
-    oninit(vnode: Mithril.Vnode<LanguageDropdownAttrs, this>): void;
-    getDefaultLanguage(): string;
-    initSelectedLanguage(): string;
-    loadLanguages(): void;
-    buildDropdownContent(): Mithril.ChildArray;
-    view(vnode: Mithril.Vnode<LanguageDropdownAttrs, this>): JSX.Element;
-    getButton(children: Mithril.ChildArray): Mithril.Vnode<any, any>;
-    getButtonContent(children: Mithril.ChildArray): Mithril.ChildArray;
-    getMenu(items: Mithril.Vnode<any, any>[]): Mithril.Vnode<any, any>;
+export default class LanguageDropdown extends SelectDropdown<LanguageDropdownAttrs & ISelectDropdownAttrs> {
+    selected: string;
+    static initAttrs(attrs: LanguageDropdownAttrs & ISelectDropdownAttrs): void;
+    oninit(vnode: Mithril.Vnode<LanguageDropdownAttrs & ISelectDropdownAttrs, this>): void;
+    view(vnode: Mithril.Vnode<LanguageDropdownAttrs & ISelectDropdownAttrs, this>): JSX.Element;
+    select(code: string): void;
 }
