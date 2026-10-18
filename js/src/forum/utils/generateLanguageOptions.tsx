@@ -1,17 +1,18 @@
-import Language from '../../common/models/Language';
-import LanguageDisplay from '../components/LanguageDisplay';
 import app from 'flarum/forum/app';
 import type Mithril from 'mithril';
 
-export default function generateLanguageOptions(extraOptions?: Record<string, Mithril.Children>): Record<string, Mithril.Children> {
-  const options: Record<string, Mithril.Children> = {};
-  const languages = app.store.all<Language>('discussion-languages');
+import type Language from '../../common/models/Language';
+import LanguageDisplay from '../components/LanguageDisplay';
 
-  // Populate the options with the languages
-  languages.forEach((lang) => {
-    options[lang.code()] = <LanguageDisplay language={lang} />;
+/**
+ * The forum's languages, by code, with `any` among them when it is offered.
+ */
+export default function generateLanguageOptions(): Record<string, Mithril.Children> {
+  const options: Record<string, Mithril.Children> = {};
+
+  app.store.all<Language>('discussion-languages').forEach((language) => {
+    options[language.code()] = <LanguageDisplay language={language} />;
   });
 
-  // Merge extra options, if provided
-  return { ...options, ...extraOptions };
+  return options;
 }

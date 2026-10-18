@@ -6,18 +6,14 @@ export default class Language extends Model {
   }
 
   country() {
-    return Model.attribute<string>('country').call(this);
+    return Model.attribute<string | null>('country').call(this);
   }
 
   name() {
-    return Model.attribute<string>('name').call(this);
+    return Model.attribute<string | null>('name').call(this);
   }
 
   emoji() {
-    return Model.attribute<string>('emoji').call(this);
-  }
-
-  apiEndpoint() {
-    return `/fof/discussion-language${this.exists ? `/${this.id()}` : ''}`;
+    return Model.attribute<string | null>('emoji').call(this);
   }
 }

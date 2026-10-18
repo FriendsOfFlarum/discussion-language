@@ -8,19 +8,27 @@ export const load = async () => {
   return countries;
 };
 
-export default function getCountries(useNativeName: boolean) {
-  if (!countries) return {};
-
+/**
+ * The countries to choose from, by code, in the order of their names.
+ */
+export function countryOptions(entries: Record<string, Record<string, unknown>>, useNativeName: boolean): Record<string, string> {
   const key = useNativeName ? 'native' : 'name';
 
-  return Object.entries(countries).reduce(
-    (acc, [code, info]) => {
-      acc[code] = info[key] as string;
+  return Object.entries(entries)
+    .map(([code, info]) => [code, info[key] as string] as const)
+    .sort(([, a], [, b]) => a.localeCompare(b))
+    .reduce(
+      (options, [code, name]) => {
+        options[code] = name;
 
-      return acc;
-    },
-    {} as Record<string, string>
-  );
+        return options;
+      },
+      {} as Record<string, string>
+    );
+}
+
+export default function getCountries(useNativeName: boolean): Record<string, string> {
+  return countryOptions(countries || {}, useNativeName);
 }
 
 export const getEmoji = (code: string) => countries?.[code]?.emoji;

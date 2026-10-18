@@ -6,9 +6,7 @@ export default async function loadAsset<T>(name: string): Promise<T> {
   const response = await fetch(URL);
 
   if (!response.ok) {
-    if (response.status === 404) {
-      throw new Error(`Missing asset (\`${name}\`): ${URL}`);
-    }
+    throw new Error(response.status === 404 ? `Missing asset (\`${name}\`): ${URL}` : `Couldn't load asset (\`${name}\`): ${response.status} ${URL}`);
   }
 
   return await response.json();

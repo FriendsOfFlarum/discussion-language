@@ -19,12 +19,10 @@
         }
     ],
     "require": {
-        "flarum/core": "^1.8.3",
-        "rinvex/countries": "^6.1.2 || ^7.0.1 || ^8.1.0",
-        "league/csv": "^9.7",
+        "flarum/core": "^2.0.0",
+        "rinvex/countries": "^9.0",
         "ianm/iso-639": "^1.0",
-        "flarum/tags": "*",
-        "php": "^8.1"
+        "flarum/tags": "^2.0.0"
     },
     "authors": [
         {
@@ -55,7 +53,9 @@
             "optional-dependencies": [
                 "fof/byobu",
                 "fof/follow-tags",
-                "flarum/sticky"
+                "flarum/sticky",
+                "flarum/approval",
+                "flarum/gdpr"
             ]
         },
         "flagrow": {
@@ -64,16 +64,22 @@
         "flarum-cli": {
             "modules": {
                 "githubActions": true,
-                "backendTesting": true
+                "backendTesting": true,
+                "frontendTesting": true
             }
+        },
+        "branch-alias": {
+            "dev-2.x": "2.x-dev"
         }
     },
     "require-dev": {
-        "fof/byobu": "*",
-        "fof/follow-tags": "*",
-        "flarum/testing": "^1.0.0",
-        "flarum/phpstan": "*",
-        "flarum/sticky": "*"
+        "fof/byobu": "^2.0.0-rc.1",
+        "fof/follow-tags": "^2.0.0",
+        "flarum/testing": "^2.0.0",
+        "flarum/phpstan": "^2.0.0",
+        "flarum/sticky": "^2.0.0",
+        "flarum/approval": "^2.0.0",
+        "flarum/gdpr": "^2.0.0"
     },
     "autoload-dev": {
         "psr-4": {
@@ -97,5 +103,7 @@
         "test:integration": "Runs all integration tests.",
         "test:setup": "Sets up a database for use with integration tests. Execute this only once.",
         "analyse:phpstan": "Run static analysis"
-    }
+    },
+    "minimum-stability": "beta",
+    "prefer-stable": true
 }

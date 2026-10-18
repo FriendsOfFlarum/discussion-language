@@ -11,94 +11,71 @@
 
 namespace FoF\DiscussionLanguage;
 
-use Flarum\Api\Controller\CreateDiscussionController;
-use Flarum\Api\Controller\ListDiscussionsController;
-use Flarum\Api\Controller\ShowDiscussionController;
-use Flarum\Api\Controller\ShowForumController;
-use Flarum\Api\Serializer\DiscussionSerializer;
-use Flarum\Api\Serializer\ForumSerializer;
+use Flarum\Api\Endpoint;
+use Flarum\Api\Resource\DiscussionResource;
+use Flarum\Api\Resource\ForumResource;
+use Flarum\Approval\Event\PostWasApproved;
 use Flarum\Discussion\Discussion;
-use Flarum\Discussion\Event\Saving;
-use Flarum\Discussion\Filter\DiscussionFilterer;
 use Flarum\Discussion\Search\DiscussionSearcher;
 use Flarum\Extend;
-use Flarum\Tags\Api\Serializer\TagSerializer;
-use Flarum\Tags\Event\Creating as TagCreating;
+use Flarum\Gdpr\Events\Erased;
+use Flarum\Search\Database\DatabaseSearchDriver;
+use Flarum\Tags\Api\Resource\TagResource;
 use Flarum\Tags\Tag;
 use Flarum\Tags\TagState;
-use FoF\DiscussionLanguage\Api\Serializers\DiscussionLanguageSerializer;
-use FoF\DiscussionLanguage\Api\Serializers\TagLocalizedLastDiscussionSerializer;
-use FoF\FollowTags\Event\SubscriptionChanging;
+use FoF\FollowTags\Extend\Subscription;
 
 return [
     (new Extend\Frontend('forum'))
         ->js(__DIR__.'/js/dist/forum.js')
+        ->jsDirectory(__DIR__.'/js/dist/forum')
         ->css(__DIR__.'/resources/less/forum.less'),
 
+    // No jsDirectory(): the admin frontend has no chunks to publish.
     (new Extend\Frontend('admin'))
         ->js(__DIR__.'/js/dist/admin.js')
         ->css(__DIR__.'/resources/less/admin.less'),
 
     new Extend\Locales(__DIR__.'/resources/locale'),
 
-    (new Extend\Routes('api'))
-        ->post('/fof/discussion-language', 'fof.discussion-language.create', Api\Controllers\CreateLanguageController::class)
-        ->patch('/fof/discussion-language/{id}', 'fof.discussion-language.update', Api\Controllers\UpdateLanguageController::class)
-        ->delete('/fof/discussion-language/{id}', 'fof.discussion-language.delete', Api\Controllers\DeleteLanguageController::class),
+    new Extend\ApiResource(Api\Resource\DiscussionLanguageResource::class),
 
-    (new Extend\ServiceProvider())
-        ->register(Provider\LanguageFilterProvider::class),
+    (new Extend\ApiResource(ForumResource::class))
+        ->fields(Api\ForumResourceFields::class)
+        ->endpoint(Endpoint\Show::class, fn (Endpoint\Show $endpoint) => $endpoint->addDefaultInclude(['discussionLanguages'])),
+
+    (new Extend\ApiResource(DiscussionResource::class))
+        ->fields(Api\DiscussionResourceFields::class)
+        ->endpoint(
+            [Endpoint\Index::class, Endpoint\Show::class, Endpoint\Create::class],
+            fn (Endpoint\Index|Endpoint\Show|Endpoint\Create $endpoint) => $endpoint->addDefaultInclude(['language'])
+        ),
+
+    (new Extend\ApiResource(TagResource::class))
+        ->fields(Api\TagResourceFields::class),
 
     (new Extend\Middleware('forum'))
         ->add(Middleware\AddLanguageFilter::class),
 
     (new Extend\Model(Discussion::class))
         ->cast('language_id', 'int')
-        ->hasOne('language', DiscussionLanguage::class, 'id', 'language_id'),
+        ->belongsTo('language', DiscussionLanguage::class, 'language_id'),
 
     (new Extend\Model(Tag::class))
-        ->cast('localised_last_discussion', 'string'),
+        ->cast('localised_last_discussion', 'string')
+        ->default('localised_last_discussion', '{}'),
 
     (new Extend\Model(TagState::class))
         ->cast('dl_language_id', 'int'),
 
     (new Extend\Event())
-        ->listen(Saving::class, Listener\AddDiscussionLanguage::class)
-        ->listen(TagCreating::class, Listener\TagCreating::class)
         ->subscribe(Listener\UpdateTagMetadata::class),
-
-    (new Extend\SimpleFlarumSearch(DiscussionSearcher::class))
-        ->addGambit(Search\LanguageFilterGambit::class),
-
-    (new Extend\Filter(DiscussionFilterer::class))
-        ->addFilter(Search\LanguageFilterGambit::class),
 
     (new Extend\Policy())
         ->modelPolicy(Discussion::class, Access\DiscussionPolicy::class),
 
-    (new Extend\ApiSerializer(ForumSerializer::class))
-        ->hasMany('discussionLanguages', DiscussionLanguageSerializer::class),
-
-    (new Extend\ApiSerializer(DiscussionSerializer::class))
-        ->hasOne('language', DiscussionLanguageSerializer::class)
-        ->attributes(function (DiscussionSerializer $serializer, Discussion $discussion, array $attributes) {
-            $attributes['canChangeLanguage'] = $serializer->getActor()->can('changeLanguage', $discussion);
-
-            return $attributes;
-        }),
-
-    (new Extend\ApiController(ShowForumController::class))
-        ->addInclude(['discussionLanguages'])
-        ->prepareDataForSerialization(LoadForumDiscussionLanguageRelationship::class),
-
-    (new Extend\ApiController(ListDiscussionsController::class))
-        ->addInclude(['language']),
-
-    (new Extend\ApiController(ShowDiscussionController::class))
-        ->addInclude(['language']),
-
-    (new Extend\ApiController(CreateDiscussionController::class))
-        ->addInclude(['language']),
+    (new Extend\SearchDriver(DatabaseSearchDriver::class))
+        ->addFilter(DiscussionSearcher::class, Search\LanguageFilter::class),
 
     (new Extend\Settings())
         ->default('fof-discussion-language.showFlags', true)
@@ -112,20 +89,30 @@ return [
         ->serializeToForum('fof-discussion-language.showAnyLangOpt', 'fof-discussion-language.showAnyLangOpt', 'boolVal')
         ->serializeToForum('fof-discussion-language.useLocaleForTagsPageLastDiscussion', 'fof-discussion-language.useLocaleForTagsPageLastDiscussion', 'boolVal'),
 
-    (new Extend\ApiSerializer(TagSerializer::class))
-        ->attributes(TagLocalizedLastDiscussionSerializer::class),
+    // flarum/tags' and flarum/sticky's search mutators, seeing a list filtered by language as the list it is.
+    (new Extend\ServiceProvider())
+        ->register(Provider\LanguageFilterProvider::class),
 
     (new Extend\Conditional())
-        ->whenExtensionEnabled('fof-follow-tags', function () {
-            return [
-                (new Extend\ApiSerializer(TagSerializer::class))
-                    ->attributes(AddTagSerializerAttributes::class),
+        ->whenExtensionEnabled('flarum-approval', fn () => [
+            (new Extend\Event())
+                ->listen(PostWasApproved::class, [Listener\UpdateTagMetadata::class, 'whenPostWasApproved']),
+        ])
+        ->whenExtensionEnabled('flarum-gdpr', fn () => [
+            (new Extend\Event())
+                ->listen(Erased::class, [Listener\UpdateTagMetadata::class, 'whenUserWasErased']),
+        ])
+        ->whenExtensionEnabled('fof-follow-tags', fn () => array_filter([
+            (new Extend\ApiResource(TagResource::class))
+                ->fields(Api\TagSubscriptionFields::class),
 
-                (new Extend\Event())
-                    ->listen(SubscriptionChanging::class, Listener\SaveLanguageOnSubscription::class),
+            (new Extend\Notification())
+                ->beforeSending(CheckNotificationRecipients::class),
 
-                (new Extend\Notification())
-                    ->beforeSending(CheckNotificationRecipients::class),
-            ];
-        }),
+            // From fof/follow-tags 2.0.0, a subscriber may save the language with
+            // their subscription. Before it, the language chosen in 1.x still applies.
+            class_exists(Subscription::class)
+                ? (new Subscription())->attribute('subscriptionLanguage')
+                : null,
+        ])),
 ];

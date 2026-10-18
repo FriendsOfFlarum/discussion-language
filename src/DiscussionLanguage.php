@@ -12,19 +12,34 @@
 namespace FoF\DiscussionLanguage;
 
 use Flarum\Database\AbstractModel;
-use Flarum\Discussion\Discussion;
+use Flarum\Database\ScopeVisibilityTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * @property string $id
- * @property string $code
- * @property string $country
+ * @property int|null    $id
+ * @property string      $code
+ * @property string|null $country
  */
 class DiscussionLanguage extends AbstractModel
 {
+    use HasFactory;
+    use ScopeVisibilityTrait;
+
+    /**
+     * The code of the language that stands for every language. It is never
+     * stored: the forum's list of languages leads with it when the setting to
+     * offer it is on.
+     */
+    public const ANY = 'any';
+
     public $fillable = ['code', 'country'];
 
-    public function discussion(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    protected $casts = [
+        'id' => 'integer',
+    ];
+
+    public static function any(): self
     {
-        return $this->belongsTo(Discussion::class, 'language_id');
+        return new self(['code' => self::ANY]);
     }
 }
