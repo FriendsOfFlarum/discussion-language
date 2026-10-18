@@ -58,3 +58,10 @@ fof-discussion-language:
       language:
         key: language
         hint: language code or comma-separated list of language codes
+
+flarum-gdpr:
+  lib:
+    data:
+      subscriptionlanguages:
+        export_description: Exported with each tag subscription, as fof/follow-tags exports them.
+        anonymize_description: Removes the discussion language the user chose for each tag they follow.
