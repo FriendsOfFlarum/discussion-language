@@ -110,7 +110,7 @@ return [
                 ->extendTool('search_discussions', schema: LanguageArguments::searchSchema(...), handler: LanguageArguments::searchHandler(...))
                 ->extendTool('start_discussion', schema: LanguageArguments::startSchema(...), handler: LanguageArguments::startHandler(...))
                 ->instructions(new LanguageInstructions())
-                ->ability('discussion.changeLanguageModerate', 'Change any discussion\'s language'),
+                ->ability('discussion.changeLanguageModerate', 'Change others\' discussions\' language'),
         ])
         ->whenExtensionEnabled('fof-follow-tags', fn () => array_filter([
             (new Extend\ApiResource(TagResource::class))

@@ -18,10 +18,18 @@ class LanguageInstructions
 {
     public function __invoke(McpContext $context): string
     {
-        $uses = $context->actor->isGuest()
-            ? 'search_discussions takes a language code in `language` (or several, comma-separated).'
-            : 'start_discussion needs the code of the discussion\'s language in `language`; search_discussions takes one there too (or several, comma-separated).';
+        $languages = resolve(Languages::class);
 
-        return $uses.' '.LanguageArguments::choices(resolve(Languages::class));
+        if ($context->actor->isGuest()) {
+            return 'search_discussions takes a language code in `language` (or several, comma-separated). '.LanguageArguments::choices($languages);
+        }
+
+        $ids = $languages->codes();
+        ksort($ids);
+
+        return 'start_discussion needs the code of the discussion\'s language in `language`; search_discussions takes one there too (or several, comma-separated). '
+            .LanguageArguments::choices($languages, $ids)
+            .($ids ? ' Change a discussion\'s language, where its canChangeLanguage allows: update_resource on discussions with relationships {"language": {"type": "discussion-languages", "id": <ID>}}, by ID: '
+                .implode(', ', array_map(fn (int $id, string $code) => "$code=$id", array_keys($ids), $ids)).'.' : '');
     }
 }

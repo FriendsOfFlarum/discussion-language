@@ -38,16 +38,27 @@ class LanguageArguments
      */
     public static function searchHandler(array $arguments, array $query, McpContext $context): array
     {
-        $codes = array_filter(array_map('trim', explode(',', (string) ($arguments['language'] ?? ''))), fn (string $code) => $code !== '');
+        $argument = trim((string) ($arguments['language'] ?? ''));
 
-        if ($codes) {
-            $languages = resolve(Languages::class);
-
-            $query['filter']['language'] = implode(',', array_map(
-                fn (string $code) => $languages->codes()[self::find($languages, $code)],
-                $codes
-            ));
+        if ($argument === '') {
+            return $query;
         }
+
+        $languages = resolve(Languages::class);
+        $map = $languages->codes();
+
+        // Forum languages are few; a longer list would only cost memory to split.
+        if (strlen($argument) > 1000) {
+            throw new ToolError('Too many languages. '.self::choices($languages, $map));
+        }
+
+        $codes = array_unique(array_filter(array_map('trim', explode(',', $argument)), fn (string $code) => $code !== ''));
+
+        if (!$codes) {
+            throw new ToolError('No language given. '.self::choices($languages, $map));
+        }
+
+        $query['filter']['language'] = implode(',', array_map(fn (string $code) => $map[self::find($languages, $map, $code)], $codes));
 
         return $query;
     }
@@ -74,16 +85,20 @@ class LanguageArguments
      */
     public static function startHandler(array $arguments, array $body, McpContext $context): array
     {
-        $id = self::find(resolve(Languages::class), trim((string) ($arguments['language'] ?? '')));
+        $languages = resolve(Languages::class);
+        $id = self::find($languages, $languages->codes(), trim((string) ($arguments['language'] ?? '')));
 
         $body['relationships']['language'] = ['data' => ['type' => 'discussion-languages', 'id' => (string) $id]];
 
         return $body;
     }
 
-    public static function choices(Languages $languages): string
+    /**
+     * @param array<int, string>|null $codes
+     */
+    public static function choices(Languages $languages, ?array $codes = null): string
     {
-        $codes = $languages->codes();
+        $codes ??= $languages->codes();
         ksort($codes);
 
         if (!$codes) {
@@ -97,15 +112,13 @@ class LanguageArguments
     }
 
     /**
-     * The ID of the language with this code, or else the only one whose code
-     * differs from it in case alone.
+     * Codes stored apart only by case are ambiguous, so neither is guessed.
      *
+     * @param array<int, string> $codes
      * @throws ToolError
      */
-    protected static function find(Languages $languages, string $code): int
+    protected static function find(Languages $languages, array $codes, string $code): int
     {
-        $codes = $languages->codes();
-
         if (($id = array_search($code, $codes, true)) !== false) {
             return $id;
         }
@@ -117,7 +130,7 @@ class LanguageArguments
         }
 
         throw new ToolError(
-            ($code === '' ? 'A discussion needs a language.' : "Unknown language: $code.").' '.self::choices($languages)
+            ($code === '' ? 'A discussion needs a language.' : "Unknown language: $code.").' '.self::choices($languages, $codes)
         );
     }
 }

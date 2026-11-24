@@ -112,6 +112,12 @@ class McpTest extends McpTestCase
         $error = $this->toolOutput($this->callTool('search_discussions', ['language' => 'en,xx'], $auth), expectError: true);
         $this->assertStringContainsString('Unknown language: xx.', $error['error']);
         $this->assertStringContainsString('en (English), de (German), fr (French)', $error['error']);
+
+        $error = $this->toolOutput($this->callTool('search_discussions', ['language' => ' , '], $auth), expectError: true);
+        $this->assertStringContainsString('No language given.', $error['error']);
+
+        $error = $this->toolOutput($this->callTool('search_discussions', ['language' => str_repeat('en,', 400)], $auth), expectError: true);
+        $this->assertStringContainsString('Too many languages.', $error['error']);
     }
 
     #[Test]
@@ -120,11 +126,13 @@ class McpTest extends McpTestCase
         $instructions = array_column($this->overview($this->bearer($this->developerToken(2)))['extensions'], 'instructions', 'id')['fof-discussion-language'];
 
         $this->assertStringContainsString('start_discussion', $instructions);
+        $this->assertStringContainsString('by ID: en=1, de=2, fr=3.', $instructions);
         $this->assertStringContainsString('en (English), de (German), fr (French)', $instructions);
 
         $guest = array_column($this->overview()['extensions'], 'instructions', 'id')['fof-discussion-language'];
 
         $this->assertStringNotContainsString('start_discussion', $guest);
+        $this->assertStringNotContainsString('update_resource', $guest);
         $this->assertStringContainsString('en (English), de (German), fr (French)', $guest);
     }
 
@@ -139,7 +147,7 @@ class McpTest extends McpTestCase
 
         $can = fn (int $userId) => array_column($this->overview($this->bearer($this->developerToken($userId)))['you']['can'], 'label', 'ability');
 
-        $this->assertSame('Change any discussion\'s language', $can(3)['discussion.changeLanguageModerate'] ?? null);
+        $this->assertSame('Change others\' discussions\' language', $can(3)['discussion.changeLanguageModerate'] ?? null);
         $this->assertArrayNotHasKey('discussion.changeLanguageModerate', $can(2));
     }
 
