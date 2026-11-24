@@ -22,7 +22,7 @@
         "flarum/core": "2.x-dev",
         "rinvex/countries": "^9.0",
         "ianm/iso-639": "^1.0",
-        "flarum/tags": "2.x-dev"
+        "flarum/tags": "^2.1.0-beta.1"
     },
     "authors": [
         {
@@ -74,13 +74,13 @@
     "require-dev": {
         "fof/byobu": "^2.0.0-rc.1",
         "fof/follow-tags": "^2.0.0",
-        "flarum/testing": "2.x-dev",
-        "flarum/phpstan": "2.x-dev",
-        "flarum/sticky": "2.x-dev",
-        "flarum/approval": "2.x-dev",
-        "flarum/gdpr": "2.x-dev",
-        "flarum/subscriptions": "2.x-dev",
-        "flarum/mcp": "2.x-dev"
+        "flarum/testing": "^2.1.0-beta.1",
+        "flarum/phpstan": "^2.1.0-beta.1",
+        "flarum/sticky": "^2.1.0-beta.1",
+        "flarum/approval": "^2.1.0-beta.1",
+        "flarum/gdpr": "^2.1.0-beta.1",
+        "flarum/subscriptions": "^2.1.0-beta.1",
+        "flarum/mcp": "^2.1.0-beta.1"
     },
     "autoload-dev": {
         "psr-4": {
