@@ -1,7 +1,5 @@
 import app from 'flarum/common/app';
-import { KeyValueGambit } from 'flarum/common/query/IGambit';
-import type { GambitValueOption } from 'flarum/common/query/IGambit';
-import type Language from '../models/Language';
+import { KeyValueGambit, type GambitValueOption } from 'flarum/common/query/IGambit';
 import { ANY } from '../utils/any';
 
 /**
@@ -9,6 +7,9 @@ import { ANY } from '../utils/any';
  * `language` filter.
  */
 export default class LanguageGambit extends KeyValueGambit {
+  // The filter takes several codes: this keeps the others when a suggestion is picked.
+  predicates = true;
+
   key() {
     return app.translator.trans('fof-discussion-language.lib.gambits.language.key', {}, true);
   }
@@ -26,9 +27,7 @@ export default class LanguageGambit extends KeyValueGambit {
   }
 
   values(): GambitValueOption[] {
-    const languages: Language[] = (app.forum?.discussionLanguages() || []) as Language[];
-
-    return languages
+    return (app.forum?.discussionLanguages() || [])
       .filter((language) => language.code() !== ANY)
       .map((language) => ({ value: language.code(), label: language.name() || language.code() }));
   }

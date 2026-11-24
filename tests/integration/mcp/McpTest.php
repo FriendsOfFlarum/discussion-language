@@ -29,9 +29,11 @@ class McpTest extends McpTestCase
 
         $this->prepareDatabase([
             User::class => [$this->normalUser()],
+            'group_permission' => [['group_id' => 2, 'permission' => 'mcp.use']],
             DiscussionLanguage::class => [
                 ['id' => 1, 'code' => 'en', 'country' => 'GB'],
                 ['id' => 2, 'code' => 'de', 'country' => 'DE'],
+                ['id' => 3, 'code' => 'fr', 'country' => 'FR'],
             ],
             Tag::class => [
                 ['id' => 1, 'name' => 'General', 'slug' => 'general', 'position' => 0, 'is_primary' => true],
@@ -39,14 +41,17 @@ class McpTest extends McpTestCase
             Discussion::class => [
                 ['id' => 1, 'title' => 'In English', 'user_id' => 1, 'first_post_id' => 1, 'comment_count' => 1, 'last_post_number' => 1, 'language_id' => 1],
                 ['id' => 2, 'title' => 'Auf Deutsch', 'user_id' => 1, 'first_post_id' => 2, 'comment_count' => 1, 'last_post_number' => 1, 'language_id' => 2],
+                ['id' => 3, 'title' => 'En français', 'user_id' => 1, 'first_post_id' => 3, 'comment_count' => 1, 'last_post_number' => 1, 'language_id' => 3],
             ],
             Post::class => [
                 ['id' => 1, 'discussion_id' => 1, 'number' => 1, 'user_id' => 1, 'type' => 'comment', 'content' => '<t><p>Hello</p></t>'],
                 ['id' => 2, 'discussion_id' => 2, 'number' => 1, 'user_id' => 1, 'type' => 'comment', 'content' => '<t><p>Hallo</p></t>'],
+                ['id' => 3, 'discussion_id' => 3, 'number' => 1, 'user_id' => 1, 'type' => 'comment', 'content' => '<t><p>Bonjour</p></t>'],
             ],
             'discussion_tag' => [
                 ['discussion_id' => 1, 'tag_id' => 1],
                 ['discussion_id' => 2, 'tag_id' => 1],
+                ['discussion_id' => 3, 'tag_id' => 1],
             ],
         ]);
     }
@@ -64,18 +69,18 @@ class McpTest extends McpTestCase
             'title' => 'Started over MCP',
             'content' => 'Hallo',
             'tags' => ['general'],
-            'language' => 'de',
+            'language' => 'DE',
         ], $auth));
 
         $this->assertSame(2, Discussion::query()->findOrFail($created['id'])->language_id);
     }
 
     #[Test]
-    public function start_discussion_lists_the_codes_for_an_unknown_or_missing_language(): void
+    public function start_discussion_lists_the_codes_for_an_unknown_or_empty_language(): void
     {
         $auth = $this->bearer($this->developerToken(2));
 
-        foreach ([['language' => 'fr'], ['language' => 'any'], ['language' => ' ']] as $language) {
+        foreach ([['language' => 'xx'], ['language' => 'any'], ['language' => ' ']] as $language) {
             $error = $this->toolOutput($this->callTool('start_discussion', [
                 'title' => 'Started over MCP',
                 'content' => 'Bonjour',
@@ -86,7 +91,7 @@ class McpTest extends McpTestCase
             $this->assertStringContainsString('en (English), de (German)', $error['error']);
         }
 
-        $this->assertSame(2, Discussion::query()->count());
+        $this->assertSame(3, Discussion::query()->count());
     }
 
     #[Test]
@@ -100,23 +105,51 @@ class McpTest extends McpTestCase
         $ids = fn (array $arguments) => array_column($this->toolOutput($this->callTool('search_discussions', $arguments, $auth))['data'], 'id');
 
         $this->assertSame(['2'], $ids(['language' => 'de']));
-        $this->assertEqualsCanonicalizing(['1', '2'], $ids(['language' => 'en,de']));
-        $this->assertEqualsCanonicalizing(['1', '2'], $ids([]));
+        $this->assertSame(['2'], $ids(['language' => 'DE']));
+        $this->assertEqualsCanonicalizing(['1', '2'], $ids(['language' => 'en, de']));
+        $this->assertEqualsCanonicalizing(['1', '2', '3'], $ids([]));
+
+        $error = $this->toolOutput($this->callTool('search_discussions', ['language' => 'en,xx'], $auth), expectError: true);
+        $this->assertStringContainsString('Unknown language: xx.', $error['error']);
+        $this->assertStringContainsString('en (English), de (German), fr (French)', $error['error']);
     }
 
     #[Test]
     public function the_overview_lists_the_forums_languages(): void
     {
-        $overview = json_decode($this->rpcResult($this->modern(
-            'resources/read',
-            ['uri' => 'flarum://forum'],
-            $this->bearer($this->developerToken(2)),
-            'flarum://forum'
-        ))['contents'][0]['text'], true);
+        $instructions = array_column($this->overview($this->bearer($this->developerToken(2)))['extensions'], 'instructions', 'id')['fof-discussion-language'];
 
-        $instructions = array_column($overview['extensions'], 'instructions', 'id')['fof-discussion-language'];
+        $this->assertStringContainsString('start_discussion', $instructions);
+        $this->assertStringContainsString('en (English), de (German), fr (French)', $instructions);
 
-        $this->assertStringContainsString('en (English), de (German)', $instructions);
+        $guest = array_column($this->overview()['extensions'], 'instructions', 'id')['fof-discussion-language'];
+
+        $this->assertStringNotContainsString('start_discussion', $guest);
+        $this->assertStringContainsString('en (English), de (German), fr (French)', $guest);
+    }
+
+    #[Test]
+    public function the_overview_says_who_may_change_any_discussions_language(): void
+    {
+        $this->prepareDatabase([
+            User::class => [['id' => 3, 'username' => 'moderator', 'email' => 'mod@machine.local', 'is_email_confirmed' => 1]],
+            'group_user' => [['user_id' => 3, 'group_id' => 4]],
+            'group_permission' => [['group_id' => 4, 'permission' => 'discussion.changeLanguageModerate']],
+        ]);
+
+        $can = fn (int $userId) => array_column($this->overview($this->bearer($this->developerToken($userId)))['you']['can'], 'label', 'ability');
+
+        $this->assertSame('Change any discussion\'s language', $can(3)['discussion.changeLanguageModerate'] ?? null);
+        $this->assertArrayNotHasKey('discussion.changeLanguageModerate', $can(2));
+    }
+
+    /**
+     * @param array<string, string> $auth
+     * @return array<string, mixed>
+     */
+    protected function overview(array $auth = []): array
+    {
+        return json_decode($this->rpcResult($this->modern('resources/read', ['uri' => 'flarum://forum'], $auth, 'flarum://forum'))['contents'][0]['text'], true);
     }
 
     #[Test]

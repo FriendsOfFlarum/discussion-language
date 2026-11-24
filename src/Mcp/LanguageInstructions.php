@@ -18,7 +18,10 @@ class LanguageInstructions
 {
     public function __invoke(McpContext $context): string
     {
-        return 'Every discussion has a language: start_discussion needs its code in `language`, and search_discussions takes `language` to search one or several. '
-            .LanguageArguments::choices(resolve(Languages::class));
+        $uses = $context->actor->isGuest()
+            ? 'search_discussions takes a language code in `language` (or several, comma-separated).'
+            : 'start_discussion needs the code of the discussion\'s language in `language`; search_discussions takes one there too (or several, comma-separated).';
+
+        return $uses.' '.LanguageArguments::choices(resolve(Languages::class));
     }
 }
