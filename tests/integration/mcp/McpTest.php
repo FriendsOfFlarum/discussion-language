@@ -28,8 +28,8 @@ class McpTest extends McpTestCase
         $this->extension('flarum-tags', 'fof-discussion-language');
 
         $this->prepareDatabase([
-            User::class => [$this->normalUser()],
-            'group_permission' => [['group_id' => 2, 'permission' => 'mcp.use']],
+            User::class               => [$this->normalUser()],
+            'group_permission'        => [['group_id' => 2, 'permission' => 'mcp.use']],
             DiscussionLanguage::class => [
                 ['id' => 1, 'code' => 'en', 'country' => 'GB'],
                 ['id' => 2, 'code' => 'de', 'country' => 'DE'],
@@ -66,9 +66,9 @@ class McpTest extends McpTestCase
         $this->assertContains('language', $schema['required']);
 
         $created = $this->toolOutput($this->callTool('start_discussion', [
-            'title' => 'Started over MCP',
-            'content' => 'Hallo',
-            'tags' => ['general'],
+            'title'    => 'Started over MCP',
+            'content'  => 'Hallo',
+            'tags'     => ['general'],
             'language' => 'DE',
         ], $auth));
 
@@ -82,9 +82,9 @@ class McpTest extends McpTestCase
 
         foreach ([['language' => 'xx'], ['language' => 'any'], ['language' => ' ']] as $language) {
             $error = $this->toolOutput($this->callTool('start_discussion', [
-                'title' => 'Started over MCP',
+                'title'   => 'Started over MCP',
                 'content' => 'Bonjour',
-                'tags' => ['general'],
+                'tags'    => ['general'],
                 ...$language,
             ], $auth), expectError: true);
 
@@ -140,8 +140,8 @@ class McpTest extends McpTestCase
     public function the_overview_says_who_may_change_any_discussions_language(): void
     {
         $this->prepareDatabase([
-            User::class => [['id' => 3, 'username' => 'moderator', 'email' => 'mod@machine.local', 'is_email_confirmed' => 1]],
-            'group_user' => [['user_id' => 3, 'group_id' => 4]],
+            User::class        => [['id' => 3, 'username' => 'moderator', 'email' => 'mod@machine.local', 'is_email_confirmed' => 1]],
+            'group_user'       => [['user_id' => 3, 'group_id' => 4]],
             'group_permission' => [['group_id' => 4, 'permission' => 'discussion.changeLanguageModerate']],
         ]);
 
@@ -153,6 +153,7 @@ class McpTest extends McpTestCase
 
     /**
      * @param array<string, string> $auth
+     *
      * @return array<string, mixed>
      */
     protected function overview(array $auth = []): array

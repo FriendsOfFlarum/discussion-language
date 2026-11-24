@@ -19,6 +19,7 @@ class LanguageArguments
 {
     /**
      * @param array<string, mixed> $schema
+     *
      * @return array<string, mixed>
      */
     public static function searchSchema(array $schema): array
@@ -33,7 +34,8 @@ class LanguageArguments
 
     /**
      * @param array<string, mixed> $arguments
-     * @param array<string, mixed> $query the discussions index query
+     * @param array<string, mixed> $query     the discussions index query
+     *
      * @return array<string, mixed>
      */
     public static function searchHandler(array $arguments, array $query, McpContext $context): array
@@ -65,6 +67,7 @@ class LanguageArguments
 
     /**
      * @param array<string, mixed> $schema
+     *
      * @return array<string, mixed>
      */
     public static function startSchema(array $schema): array
@@ -79,8 +82,9 @@ class LanguageArguments
     }
 
     /**
-     * @param array<string, mixed> $arguments
+     * @param array<string, mixed>                                                           $arguments
      * @param array{attributes?: array<string, mixed>, relationships?: array<string, mixed>} $body
+     *
      * @return array<string, mixed>
      */
     public static function startHandler(array $arguments, array $body, McpContext $context): array
@@ -115,6 +119,7 @@ class LanguageArguments
      * Codes stored apart only by case are ambiguous, so neither is guessed.
      *
      * @param array<int, string> $codes
+     *
      * @throws ToolError
      */
     protected static function find(Languages $languages, array $codes, string $code): int
