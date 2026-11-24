@@ -19,10 +19,10 @@
         }
     ],
     "require": {
-        "flarum/core": "^2.0.0",
+        "flarum/core": "2.x-dev",
         "rinvex/countries": "^9.0",
         "ianm/iso-639": "^1.0",
-        "flarum/tags": "^2.0.0"
+        "flarum/tags": "2.x-dev"
     },
     "authors": [
         {
@@ -55,11 +55,10 @@
                 "fof/follow-tags",
                 "flarum/sticky",
                 "flarum/approval",
-                "flarum/gdpr"
+                "flarum/gdpr",
+                "flarum/subscriptions",
+                "flarum/mcp"
             ]
-        },
-        "flagrow": {
-            "discuss": "https://discuss.flarum.org/d/23702"
         },
         "flarum-cli": {
             "modules": {
@@ -75,11 +74,13 @@
     "require-dev": {
         "fof/byobu": "^2.0.0-rc.1",
         "fof/follow-tags": "^2.0.0",
-        "flarum/testing": "^2.0.0",
-        "flarum/phpstan": "^2.0.0",
-        "flarum/sticky": "^2.0.0",
-        "flarum/approval": "^2.0.0",
-        "flarum/gdpr": "^2.0.0"
+        "flarum/testing": "2.x-dev",
+        "flarum/phpstan": "2.x-dev",
+        "flarum/sticky": "2.x-dev",
+        "flarum/approval": "2.x-dev",
+        "flarum/gdpr": "2.x-dev",
+        "flarum/subscriptions": "2.x-dev",
+        "flarum/mcp": "2.x-dev"
     },
     "autoload-dev": {
         "psr-4": {
@@ -104,6 +105,6 @@
         "test:setup": "Sets up a database for use with integration tests. Execute this only once.",
         "analyse:phpstan": "Run static analysis"
     },
-    "minimum-stability": "beta",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }
