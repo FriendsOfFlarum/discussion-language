@@ -9,15 +9,12 @@
  * file that was distributed with this source code.
  */
 
-use Flarum\Tags\Tag;
 use Illuminate\Database\Schema\Builder;
 
 return [
     'up' => function (Builder $schema) {
-        Tag::all()->each(function (Tag $tag) {
-            $tag->localised_last_discussion = '{}';
-            $tag->save();
-        });
+        // Not through Eloquent: `flarum install` runs migrations before models have a connection.
+        $schema->getConnection()->table('tags')->update(['localised_last_discussion' => '{}']);
     },
     'down' => function (Builder $schema) {
         // Do nothing
