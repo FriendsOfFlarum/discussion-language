@@ -12,16 +12,19 @@
 namespace FoF\DiscussionLanguage\Search;
 
 use Flarum\Search\Database\DatabaseSearchState;
-use Flarum\Search\Filter\FilterInterface;
+use Flarum\Search\Filter\RefineFilterInterface;
 use Flarum\Search\SearchState;
 use Flarum\Search\ValidateFilterTrait;
 use FoF\DiscussionLanguage\DiscussionLanguage;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * @implements FilterInterface<DatabaseSearchState>
+ * Narrows the list it is on: All Discussions in a language is still All
+ * Discussions, with its sticky pinning, hidden tags and ignored discussions.
+ *
+ * @implements RefineFilterInterface<DatabaseSearchState>
  */
-class LanguageFilter implements FilterInterface
+class LanguageFilter implements RefineFilterInterface
 {
     use ValidateFilterTrait;
 
