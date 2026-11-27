@@ -20,10 +20,13 @@ use Flarum\Discussion\Search\DiscussionSearcher;
 use Flarum\Extend;
 use Flarum\Gdpr\Events\Erased;
 use Flarum\Gdpr\Extend\UserData;
+use Flarum\Mcp\Extend\Mcp;
 use Flarum\Search\Database\DatabaseSearchDriver;
 use Flarum\Tags\Api\Resource\TagResource;
 use Flarum\Tags\Tag;
 use Flarum\Tags\TagState;
+use FoF\DiscussionLanguage\Mcp\LanguageArguments;
+use FoF\DiscussionLanguage\Mcp\LanguageInstructions;
 use FoF\FollowTags\Extend\Subscription;
 
 return [
@@ -90,10 +93,6 @@ return [
         ->serializeToForum('fof-discussion-language.showAnyLangOpt', 'fof-discussion-language.showAnyLangOpt', 'boolVal')
         ->serializeToForum('fof-discussion-language.useLocaleForTagsPageLastDiscussion', 'fof-discussion-language.useLocaleForTagsPageLastDiscussion', 'boolVal'),
 
-    // flarum/tags' and flarum/sticky's search mutators, seeing a list filtered by language as the list it is.
-    (new Extend\ServiceProvider())
-        ->register(Provider\LanguageFilterProvider::class),
-
     (new Extend\Conditional())
         ->whenExtensionEnabled('flarum-approval', fn () => [
             (new Extend\Event())
@@ -105,6 +104,13 @@ return [
 
             (new UserData())
                 ->addType(Data\SubscriptionLanguages::class),
+        ])
+        ->whenExtensionEnabled('flarum-mcp', fn () => [
+            (new Mcp())
+                ->extendTool('search_discussions', schema: LanguageArguments::searchSchema(...), handler: LanguageArguments::searchHandler(...))
+                ->extendTool('start_discussion', schema: LanguageArguments::startSchema(...), handler: LanguageArguments::startHandler(...))
+                ->instructions(new LanguageInstructions())
+                ->ability('discussion.changeLanguageModerate', 'Change others\' discussions\' language'),
         ])
         ->whenExtensionEnabled('fof-follow-tags', fn () => array_filter([
             (new Extend\ApiResource(TagResource::class))

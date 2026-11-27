@@ -30,6 +30,7 @@ class TagSubscriptionFields
     {
         return [
             Schema\Str::make('subscriptionLanguage')
+                ->description('The code of the language you are notified of new discussions in when following this tag. Null when read, or `any` when written, means every language; writing null keeps the language you had.')
                 ->nullable()
                 ->get(function (Tag $tag, Context $context) {
                     $actor = $context->getActor();

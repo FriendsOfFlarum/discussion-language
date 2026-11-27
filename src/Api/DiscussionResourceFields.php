@@ -30,10 +30,12 @@ class DiscussionResourceFields
     {
         return [
             Schema\Boolean::make('canChangeLanguage')
+                ->description('Whether you may change the discussion\'s language.')
                 ->get(fn (Discussion $discussion, Context $context) => $context->getActor()->can('changeLanguage', $discussion)),
 
             Schema\Relationship\ToOne::make('language')
                 ->type('discussion-languages')
+                ->description('The language the discussion is written in. Required when starting a discussion, except a private one.')
                 ->includable()
                 ->writable()
                 ->required(fn (Context $context) => $context->creating() && !$this->isPrivate($context))

@@ -24,7 +24,7 @@
     "@flarum/prettier-config": "^1.0.0",
     "countries-list": "^2.6.1",
     "flarum-tsconfig": "^2.0.0",
-    "flarum-webpack-config": "^3.1.0",
+    "flarum-webpack-config": "^3.1.1",
     "prettier": "^3.0.2",
     "typescript": "^5.9.3",
     "typescript-coverage-report": "^0.6.1",

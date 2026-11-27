@@ -23,6 +23,29 @@ describe('the language gambit', () => {
   it('is suggested with a hint', () => {
     const gambit = app.search.gambits.for('discussions').find((gambit) => gambit.filterKey() === 'language')!;
 
-    expect(gambit.suggestion()).toEqual({ key: 'language', hint: 'language code or comma-separated list of language codes' });
+    expect(gambit.suggestion()).toMatchObject({ key: 'language', hint: 'language code or comma-separated list of language codes' });
+  });
+
+  it("suggests the forum's languages, without any language", () => {
+    const gambit = app.search.gambits.for('discussions').find((gambit) => gambit.filterKey() === 'language')!;
+
+    expect(gambit.values!()).toEqual([
+      { value: 'en', label: 'English' },
+      { value: 'de', label: 'German' },
+    ]);
+  });
+
+  it('takes `language:` in English when the keyword is translated', () => {
+    const key = 'fof-discussion-language.lib.gambits.language.key';
+    const english = app.translator.translations[key];
+
+    app.translator.addTranslations({ [key]: 'sprache' });
+
+    try {
+      expect(app.search.gambits.apply('discussions', { q: 'sprache:de' })).toEqual({ q: '', language: 'de' });
+      expect(app.search.gambits.apply('discussions', { q: 'language:de' })).toEqual({ q: '', language: 'de' });
+    } finally {
+      app.translator.addTranslations({ [key]: english });
+    }
   });
 });

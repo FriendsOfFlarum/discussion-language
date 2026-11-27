@@ -19,10 +19,10 @@
         }
     ],
     "require": {
-        "flarum/core": "^2.0.0",
+        "flarum/core": "^2.1.0-beta.1",
         "rinvex/countries": "^9.0",
         "ianm/iso-639": "^1.0",
-        "flarum/tags": "^2.0.0"
+        "flarum/tags": "^2.1.0-beta.1"
     },
     "authors": [
         {
@@ -55,11 +55,10 @@
                 "fof/follow-tags",
                 "flarum/sticky",
                 "flarum/approval",
-                "flarum/gdpr"
+                "flarum/gdpr",
+                "flarum/subscriptions",
+                "flarum/mcp"
             ]
-        },
-        "flagrow": {
-            "discuss": "https://discuss.flarum.org/d/23702"
         },
         "flarum-cli": {
             "modules": {
@@ -75,11 +74,13 @@
     "require-dev": {
         "fof/byobu": "^2.0.0-rc.1",
         "fof/follow-tags": "^2.0.0",
-        "flarum/testing": "^2.0.0",
-        "flarum/phpstan": "^2.0.0",
-        "flarum/sticky": "^2.0.0",
-        "flarum/approval": "^2.0.0",
-        "flarum/gdpr": "^2.0.0"
+        "flarum/testing": "^2.1.0-beta.1",
+        "flarum/phpstan": "^2.1.0-beta.1",
+        "flarum/sticky": "^2.1.0-beta.1",
+        "flarum/approval": "^2.1.0-beta.1",
+        "flarum/gdpr": "^2.1.0-beta.1",
+        "flarum/subscriptions": "^2.1.0-beta.1",
+        "flarum/mcp": "^2.1.0-beta.1"
     },
     "autoload-dev": {
         "psr-4": {
