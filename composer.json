@@ -19,7 +19,7 @@
         }
     ],
     "require": {
-        "flarum/core": "2.x-dev",
+        "flarum/core": "^2.1.0-beta.1",
         "rinvex/countries": "^9.0",
         "ianm/iso-639": "^1.0",
         "flarum/tags": "^2.1.0-beta.1"
@@ -105,6 +105,6 @@
         "test:setup": "Sets up a database for use with integration tests. Execute this only once.",
         "analyse:phpstan": "Run static analysis"
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "beta",
     "prefer-stable": true
 }
